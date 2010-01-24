@@ -6,3 +6,4 @@
 *.vim/swap*
 *.viminfo*
 *.zsh_hist*
+*.vimrc.old
