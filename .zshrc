@@ -350,6 +350,28 @@ profile(){
 profile-init(){
 	zmodload zsh/zprof
 }
+extract(){
+    emulate -L zsh
+    if [[ -f $1 ]] ; then
+        case $1 in
+            *.tar.bz2)  bzip2 -v -d $1      ;;
+            *.tar.gz)   tar -xvzf $1        ;;
+            *.rar)      unrar $1            ;;
+            *.deb)      ar -x $1            ;;
+            *.bz2)      bzip2 -d $1         ;;
+            *.lzh)      lha x $1            ;;
+            *.gz)       gunzip -d $1        ;;
+            *.tar)      tar -xvf $1         ;;
+            *.tgz)      gunzip -d $1        ;;
+            *.tbz2)     tar -jxvf $1        ;;
+            *.zip)      unzip $1            ;;
+            *.Z)        uncompress $1       ;;
+            *)          echo "'$1' Error. Please go away" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
 
 # File extension aliases, for autolaunch based on the given path
 alias -s php=vim
