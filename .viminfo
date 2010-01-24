@@ -138,18 +138,19 @@ $
 	pick 
 
 # File marks:
-'0  1  6  /tmp/a/.git/COMMIT_EDITMSG
-'1  1  16  /storage/projects/insight/.git/COMMIT_EDITMSG
-'2  5  3  /storage/projects/insight/.git/rebase-merge/git-rebase-todo
-'3  1  3  /storage/projects/insight/.git/rebase-merge/git-rebase-todo
-'4  2  10  /tmp/crontab.EILkQl/crontab
-'5  1  4  /av/graphics/s/.git/COMMIT_EDITMSG
-'6  15  61  /storage/projects/servee/application/admin/actions/uploadFile.php
-'7  9  0  /etc/hosts
-'8  345  0  ~/.zshrc
-'9  97  2  ~/.zshrc
+'0  1  13  ~/.git/COMMIT_EDITMSG
+'1  1  6  /tmp/a/.git/COMMIT_EDITMSG
+'2  1  16  /storage/projects/insight/.git/COMMIT_EDITMSG
+'3  5  3  /storage/projects/insight/.git/rebase-merge/git-rebase-todo
+'4  1  3  /storage/projects/insight/.git/rebase-merge/git-rebase-todo
+'5  2  10  /tmp/crontab.EILkQl/crontab
+'6  1  4  /av/graphics/s/.git/COMMIT_EDITMSG
+'7  15  61  /storage/projects/servee/application/admin/actions/uploadFile.php
+'8  9  0  /etc/hosts
+'9  345  0  ~/.zshrc
 
 # Jumplist (newest first):
+-'  1  13  ~/.git/COMMIT_EDITMSG
 -'  1  6  /tmp/a/.git/COMMIT_EDITMSG
 -'  1  16  /storage/projects/insight/.git/COMMIT_EDITMSG
 -'  5  3  /storage/projects/insight/.git/rebase-merge/git-rebase-todo
@@ -248,9 +249,14 @@ $
 -'  1  0  ~/.config/openbox/rc.xml
 -'  490  42  ~/.config/openbox/rc.xml
 -'  1  0  ~/.config/openbox/rc.xml
--'  490  42  ~/.config/openbox/rc.xml
 
 # History of marks within files (newest to oldest):
+
+> ~/.git/COMMIT_EDITMSG
+	"	1	13
+	^	1	14
+	.	1	13
+	+	1	13
 
 > /tmp/a/.git/COMMIT_EDITMSG
 	"	1	6
