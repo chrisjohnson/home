@@ -10,6 +10,7 @@ SAVEHIST=1000
 ###########################################
 setopt appendhistory autocd
 setopt menucomplete
+setopt completeinword # Enable in-word completion
 
 bindkey -e
 bindkey ' ' magic-space    # also do history expansion on space
