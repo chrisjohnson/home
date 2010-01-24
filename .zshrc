@@ -59,7 +59,7 @@ zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
 
 # Enable the menu for easier navigation
-zstyle ':completion:*' menu select=0 _complete _ignored _approximate # select=0 indicates that the menu should be shown when at least 0 choices exist
+zstyle ':completion:*' menu select=6 _complete _ignored _approximate # select=4 indicates that the menu should be shown when at least 4 choices exist
 zstyle ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
 
 # Group the results of the menu
