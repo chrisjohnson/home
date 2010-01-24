@@ -63,4 +63,4 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 
 hi MatchParen cterm=none ctermbg=none ctermfg=white
 
-au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $VIM/syntax/zsh.vim
+au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $VIM/vim72/syntax/zsh.vim

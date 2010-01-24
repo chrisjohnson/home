@@ -365,11 +365,13 @@ get-zsh-git-prompt(){
 			eval PR_$color='%{$fg[${(L)color}]%}'
 		done
 		PR_NO_COLOR="%{$terminfo[sgr0]%}"
+		# Get the current branch
 		echo $GIT_CURRENT_STATUS | head -1 | grep 'On branch' | sed 's/^# On branch //' | read GIT_BRANCH
 		if [[ "$GIT_BRANCH" == "" ]]; then
 			# No branch but we're in a git-tracked directory, so perhaps we're in a rebase
 			DOT_GIT_DIR=`git rev-parse --git-dir`
 			if [[ -d $DOT_GIT_DIR/rebase-merge ]]; then
+				# Read the topic branch from the rebase file
 				cat $DOT_GIT_DIR/rebase-merge/head-name | sed 's/refs\/heads\///' | read GIT_BRANCH
 				GIT_BRANCH="${GIT_BRANCH} rebasing"
 			fi
@@ -393,7 +395,7 @@ get-zsh-git-prompt(){
 			# See if they have changes not yet staged
 			git diff --quiet || eval GIT_STATUS_COLOR='${PR_CYAN}'
 			# See if they have files not yet tracked
-			git status | grep 'Untracked files' 1>/dev/null && eval GIT_TRACK_STATUS="*"
+			echo $GIT_CURRENT_STATUS | grep 'Untracked files' 1>/dev/null && eval GIT_TRACK_STATUS="*"
 
 			GIT_PROMPT="[${GIT_STATUS_COLOR}${GIT_TRACK_STATUS}${GIT_BRANCH}${GIT_COMMIT_STATUS}${GIT_PUSH_STATUS}${PR_NO_COLOR}]"
 			echo $GIT_PROMPT
