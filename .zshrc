@@ -70,11 +70,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
 
 # App specific completions
-#zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
-#zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid'
-#zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*'   force-list always
-#zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*'   force-list always
 
 # SSH Completion
