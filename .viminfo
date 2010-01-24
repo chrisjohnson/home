@@ -8,21 +8,26 @@
 # hlsearch on (H) or off (h):
 ~h
 # Last Search Pattern:
-~MSle0/mcryp
+~MSle0/green
 
 # Last Substitute Search Pattern:
-~MSle0~&\r
+~MSle0~&GIT_
 
 # Last Substitute String:
-$
+$GIT__
 
 # Command Line History (newest to oldest):
+:edit .zshrc
+:q!
+:echo $VIM
+:source ~/.vimrc
+:'<,'>s/GIT_/GIT__/
+:'<,'>s/GIT_/__GIT_/
 :edit application/admin/actions/uploadFile.php
 :edit application/admin/actions/doajaxfileupload.php
 :edit application/admin/includes/javascripts/sendFile.js
 :edit application/admin/filemanagerPages/uploader.php
 :cd /storage/projects/servee
-:q!
 :edit image_tools.lib.php
 :edit system/libs/View/View.lib.php
 :edit system/libs/Insight/Insight_Router.lib.php
@@ -62,12 +67,11 @@ $
 :map <leader>r "_dwP
 :reg
 :edit application/admin/includes/ImageEditor/PageInfo.js
-:edit system/libs/Insight/Insight_DB.lib.php
-:edit system/
-:set directory=~/.vim/swap,.
-:edit ~/bin/clean-vim-swap
 
 # Search String History (newest to oldest):
+? GIT_
+?/green
+?/prompt_sub
 ? \r
 ? \\r
 ? \<bin\>
@@ -84,77 +88,64 @@ $
 # Input Line History (newest to oldest):
 
 # Registers:
-"0	CHAR	0
-	<?php
-	// e.g. url:"page.php?upload=true" as handler property
-	if(isset($_GET['upload']) && $_GET['upload'] === 'true'){
-	    $headers = getallheaders();
-	    if(
-	        // basic checks
-	        isset(
-	            $headers['Content-Type'],
-	            $headers['Content-Length'],
-	            $headers['X-File-Size'],
-	            $headers['X-File-Name']
-	        ) &&
-	        $headers['Content-Type'] === 'multipart/form-data' &&
-	        $headers['Content-Length'] === $headers['X-File-Size']
-	    ){
-	        // create the object and assign property
-	        $file = new stdClass;
-	        $file->name = basename($headers['X-File-Name']);
-	        $file->size = $headers['X-File-Size'];
-	        $file->content = file_get_contents("php://input");
-	        
-	        // if everything is ok, save the file somewhere
-	        if(file_put_contents('files/'.$file->name, $file->content))
-	            exit('OK');
-	    }
-	    
-	    // if there is an error this will be the output instead of "OK"
-	    exit('Error');
-	}
-	?>
-	
+"0	LINE	0
+					eval GIT_STATUS_COLOR='{PR_ORANGE}'
 "1	LINE	0
-	
+	#chpwd_functions+='zsh-git-prompt'
 "2	LINE	0
-	               alert(input.files[0]); 
+	#preexec_functions+='zsh-git-prompt'
 "3	LINE	0
-							alert("Server Response: " + xhr.responseText);
+	
 "4	LINE	0
-	192.168.1.100	dmsuperman.com
+	#	if [[ $lastcmd = git* ]]; then
 "5	LINE	0
-	192.168.1.100	dmsuperman.com
+	#	lastcmd=`history | tail -n1 | awk '{for(i=2;i<=NF;i++) {printf "%s ", $i}}'`
 "6	LINE	0
-	127.0.0.1	research.dmsuperman.com
+	# Get the last run command, if it was git then get the current branch and show it on the right
 "7	LINE	0
-	127.0.0.1	intranet.dmsuperman.com
+				echo "$1"
 "8	LINE	0
-	127.0.0.1	mail.dmsuperman.com
+	RPS1='$(get-zsh-git-prompt)'
 "9	LINE	0
-	127.0.0.1	www.dmsuperman.com
+					GIT_COMMIT_STATUS=""
 ""-	CHAR	0
-	pick 
+	#
 
 # File marks:
-'0  1  13  ~/.git/COMMIT_EDITMSG
-'1  1  6  /tmp/a/.git/COMMIT_EDITMSG
-'2  1  16  /storage/projects/insight/.git/COMMIT_EDITMSG
-'3  5  3  /storage/projects/insight/.git/rebase-merge/git-rebase-todo
-'4  1  3  /storage/projects/insight/.git/rebase-merge/git-rebase-todo
-'5  2  10  /tmp/crontab.EILkQl/crontab
-'6  1  4  /av/graphics/s/.git/COMMIT_EDITMSG
-'7  15  61  /storage/projects/servee/application/admin/actions/uploadFile.php
-'8  9  0  /etc/hosts
-'9  345  0  ~/.zshrc
+'0  1  17  ~/.git/COMMIT_EDITMSG
+'1  399  0  ~/.zshrc
+'2  1  0  ~/.zshrc
+'3  391  79  ~/.zshrc
+'4  2  10  /tmp/crontab.EILkQl/crontab
+'5  1  4  /av/graphics/s/.git/COMMIT_EDITMSG
+'6  15  61  /storage/projects/servee/application/admin/actions/uploadFile.php
+'7  9  0  /etc/hosts
+'8  359  0  ~/.zshrc
+'9  98  2  ~/.zshrc
 
 # Jumplist (newest first):
--'  1  13  ~/.git/COMMIT_EDITMSG
--'  1  6  /tmp/a/.git/COMMIT_EDITMSG
--'  1  16  /storage/projects/insight/.git/COMMIT_EDITMSG
--'  5  3  /storage/projects/insight/.git/rebase-merge/git-rebase-todo
--'  1  0  /storage/projects/insight/.git/rebase-merge/git-rebase-todo
+-'  1  17  ~/.git/COMMIT_EDITMSG
+-'  399  0  ~/.zshrc
+-'  286  0  ~/.zshrc
+-'  1  0  ~/.zshrc
+-'  391  79  ~/.zshrc
+-'  93  44  ~/.zshrc
+-'  77  38  ~/.zshrc
+-'  362  35  ~/.zshrc
+-'  379  36  ~/.zshrc
+-'  369  66  ~/.zshrc
+-'  400  22  ~/.zshrc
+-'  361  5  ~/.zshrc
+-'  360  0  ~/.zshrc
+-'  388  27  ~/.zshrc
+-'  81  20  ~/.zshrc
+-'  129  20  ~/.zshrc
+-'  422  0  ~/.zshrc
+-'  335  20  ~/.zshrc
+-'  153  26  ~/.zshrc
+-'  171  4  ~/.zshrc
+-'  161  3  ~/.zshrc
+-'  157  42  ~/.zshrc
 -'  2  10  /tmp/crontab.EILkQl/crontab
 -'  1  0  /tmp/crontab.EILkQl/crontab
 -'  1  4  /av/graphics/s/.git/COMMIT_EDITMSG
@@ -167,15 +158,13 @@ $
 -'  1  0  /storage/projects/servee/application/admin/filemanagerPages/uploader.php
 -'  9  0  /etc/hosts
 -'  1  0  /etc/hosts
--'  345  0  ~/.zshrc
--'  114  14  ~/.zshrc
--'  105  1  ~/.zshrc
--'  245  0  ~/.zshrc
--'  313  1  ~/.zshrc
--'  1  0  ~/.zshrc
--'  97  2  ~/.zshrc
--'  110  13  ~/.zshrc
--'  344  2  ~/.zshrc
+-'  359  0  ~/.zshrc
+-'  109  14  ~/.zshrc
+-'  106  1  ~/.zshrc
+-'  250  0  ~/.zshrc
+-'  318  1  ~/.zshrc
+-'  98  2  ~/.zshrc
+-'  349  2  ~/.zshrc
 -'  1  10  /storage/projects/servee/.git/COMMIT_EDITMSG
 -'  38  6  /storage/projects/servee/application/admin/includes/ImageEditor/processImage.php
 -'  1  0  /storage/projects/servee/application/admin/includes/ImageEditor/processImage.php
@@ -220,43 +209,140 @@ $
 -'  490  42  ~/.config/openbox/rc.xml
 -'  1  0  ~/.config/openbox/rc.xml
 -'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  2  0  /etc/network/interfaces
--'  1  0  /etc/network/interfaces
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  2  0  /etc/network/interfaces
--'  1  0  /etc/network/interfaces
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  2  0  /etc/network/interfaces
--'  1  0  /etc/network/interfaces
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
--'  490  42  ~/.config/openbox/rc.xml
--'  1  0  ~/.config/openbox/rc.xml
+-'  389  79  ~/.zshrc
+-'  377  36  ~/.zshrc
+-'  368  66  ~/.zshrc
+-'  398  22  ~/.zshrc
+-'  386  27  ~/.zshrc
+-'  420  0  ~/.zshrc
+-'  399  0  ~/.zshrc
+-'  286  0  ~/.zshrc
+-'  1  0  ~/.zshrc
+-'  391  79  ~/.zshrc
+-'  93  44  ~/.zshrc
+-'  77  38  ~/.zshrc
+-'  362  35  ~/.zshrc
 
 # History of marks within files (newest to oldest):
 
 > ~/.git/COMMIT_EDITMSG
-	"	1	13
-	^	1	14
-	.	1	13
-	+	1	13
+	"	1	17
+	^	1	18
+	.	1	17
+	+	1	17
+
+> ~/.zshrc
+	"	399	0
+	^	399	0
+	.	374	47
+	+	361	22
+	+	361	60
+	+	361	1
+	+	361	1
+	+	361	1
+	+	361	1
+	+	361	1
+	+	361	39
+	+	361	0
+	+	361	0
+	+	362	7
+	+	379	8
+	+	369	66
+	+	379	112
+	+	400	77
+	+	379	117
+	+	361	11
+	+	369	18
+	+	379	18
+	+	386	32
+	+	391	32
+	+	413	24
+	+	414	13
+	+	7	0
+	+	4	0
+	+	421	16
+	+	174	37
+	+	175	35
+	+	178	0
+	+	177	1
+	+	173	73
+	+	417	34
+	+	418	1
+	+	413	0
+	+	414	0
+	+	362	20
+	+	396	0
+	+	364	37
+	+	392	36
+	+	369	57
+	+	77	0
+	+	77	7
+	+	78	1
+	+	77	38
+	+	379	119
+	+	379	0
+	+	370	36
+	+	378	3
+	+	371	6
+	+	370	8
+	+	371	3
+	+	370	26
+	+	375	7
+	+	372	39
+	+	375	22
+	+	375	87
+	+	376	39
+	+	377	4
+	+	381	0
+	+	387	11
+	+	392	11
+	+	396	46
+	+	392	0
+	+	387	0
+	+	77	0
+	+	78	0
+	+	392	36
+	+	364	54
+	+	392	27
+	+	387	27
+	+	364	55
+	+	387	38
+	+	381	35
+	+	387	32
+	+	392	35
+	+	396	54
+	+	392	36
+	+	387	34
+	+	379	36
+	+	380	100
+	+	398	64
+	+	384	22
+	+	389	0
+	+	394	0
+	+	398	66
+	+	400	53
+	+	398	49
+	+	406	17
+	+	407	53
+	+	408	0
+	+	409	0
+	+	405	0
+	+	165	0
+	+	420	68
+	+	420	0
+	+	419	0
+	+	398	27
+	+	1	0
+	+	368	25
+	+	374	47
+
+> /tmp/crontab.YhheTQ/crontab
+	"	3	0
+	^	3	0
+	.	2	70
+	+	2	30
+	+	4	0
+	+	2	70
 
 > /tmp/a/.git/COMMIT_EDITMSG
 	"	1	6
@@ -416,88 +502,6 @@ $
 
 > /usr/share/doc/git-core/contrib/workdir/git-new-workdir
 	"	58	17
-
-> ~/.zshrc
-	"	255	6
-	^	355	95
-	.	269	39
-	+	351	0
-	+	345	62
-	+	345	17
-	+	345	0
-	+	73	16
-	+	74	0
-	+	75	0
-	+	76	0
-	+	77	0
-	+	78	0
-	+	80	0
-	+	81	0
-	+	110	14
-	+	87	2
-	+	99	39
-	+	97	32
-	+	97	2
-	+	97	23
-	+	99	31
-	+	97	6
-	+	345	0
-	+	339	61
-	+	340	14
-	+	97	8
-	+	340	9
-	+	98	0
-	+	101	1
-	+	102	17
-	+	103	0
-	+	109	0
-	+	111	14
-	+	104	13
-	+	106	13
-	+	108	21
-	+	108	0
-	+	108	34
-	+	108	25
-	+	104	31
-	+	108	22
-	+	104	27
-	+	340	0
-	+	104	17
-	+	350	0
-	+	349	47
-	+	361	0
-	+	360	2
-	+	359	7
-	+	357	6
-	+	354	3
-	+	357	0
-	+	359	0
-	+	358	13
-	+	347	73
-	+	354	9
-	+	357	7
-	+	358	7
-	+	357	14
-	+	356	45
-	+	358	0
-	+	354	0
-	+	361	1
-	+	356	0
-	+	344	1
-	+	345	0
-	+	361	1
-	+	362	99
-	+	345	0
-	+	345	0
-	+	344	1
-	+	339	18
-	+	342	31
-	+	347	0
-	+	345	8
-	+	346	41
-	+	355	94
-	+	268	31
-	+	269	39
 
 > /tmp/tmp.parK2QjCrF/vim.recovery.dmsuperman.fn
 	"	1	0
