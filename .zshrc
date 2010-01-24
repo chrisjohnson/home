@@ -344,6 +344,12 @@ pslist(){
 
 	ps -e hx -o pid,%cpu,rss,cmd --sort=$sort | awk '{text = ""; for(i=4; i <= NF; i++){ text = text OFS $i }; printf "%5.0f\t%2.2f%s\t%4.2fM\t %s\n", $1, $2, "%", ($3 / 1024), text}'
 }
+profile(){
+	ZSH_PROFILE_RC=1 zsh "$@"
+}
+profile-init(){
+	zmodload zsh/zprof
+}
 
 # File extension aliases, for autolaunch based on the given path
 alias -s php=vim
@@ -359,6 +365,53 @@ alias host="ssh -C -p 33445 dmsuperman@cjohnson.me"
 alias data="ssh -C dmsuperman@data.cjohnson.me"
 alias seedbox="ssh -C dmsuperman@hollywood-cerise.feralhosting.com"
 
+# Edit aliases inline
+edalias(){
+    [[ -z "$1" ]] && { echo "Usage: edalias <alias_to_edit>" ; return 1 } || vared aliases'[$1]' ;
+}
+compdef _aliases edalias
+
+# Provides useful information on globbing
+H-Glob() {
+    echo -e "
+    /      directories
+    .      plain files
+    @      symbolic links
+    =      sockets
+    p      named pipes (FIFOs)
+    *      executable plain files (0100)
+    %      device files (character or block special)
+    %b     block special files
+    %c     character special files
+    r      owner-readable files (0400)
+    w      owner-writable files (0200)
+    x      owner-executable files (0100)
+    A      group-readable files (0040)
+    I      group-writable files (0020)
+    E      group-executable files (0010)
+    R      world-readable files (0004)
+    W      world-writable files (0002)
+    X      world-executable files (0001)
+    s      setuid files (04000)
+    S      setgid files (02000)
+    t      files with the sticky bit (01000)
+
+  print *(m-1)          # Files modified up to a day ago
+  print *(a1)           # Files accessed a day ago
+  print *(@)            # Just symlinks
+  print *(Lk+50)        # Files bigger than 50 kilobytes
+  print *(Lk-50)        # Files smaller than 50 kilobytes
+  print **/*.c          # All *.c files recursively starting in \$PWD
+  print **/*.c~file.c   # Same as above, but excluding 'file.c'
+  print (foo|bar).*     # Files starting with 'foo' or 'bar'
+  print *~*.*           # All Files that do not contain a dot
+  chmod 644 *(.^x)      # make all plain non-executable files publically readable
+  print -l *(.c|.h)     # Lists *.c and *.h
+  print **/*(g:users:)  # Recursively match all files that are owned by group 'users'
+  echo /proc/*/cwd(:h:t:s/self//) # Analogous to >ps ax | awk '{print $1}'<"
+}
+alias help-zshglob=H-Glob
+
 ###########################################
 # Various ZSH hooks
 ###########################################
@@ -367,7 +420,7 @@ zshexit(){
 	archive-history
 }
 
-# Restore Ubuntu's command not found handler, it tends to tell me which package provides the command
+# {{{ Restore Ubuntu's command not found handler, it tends to tell me which package provides the command }}}
 command_not_found_handler(){
 	/usr/lib/command-not-found $1 2>&1 | head -n -0
 }
@@ -375,6 +428,14 @@ command_not_found_handler(){
 ###########################################
 # ZSH / Git stuff
 ###########################################
+alias gc="git commit"
+alias ga="git add"
+alias gd="git diff"
+alias gck="git checkout"
+alias gb="git checkout -b"
+alias gp="git push"
+alias push="git push"
+alias pull="git pull"
 get-zsh-git-prompt(){
 	# Get the status and parse it
 	GIT_CURRENT_STATUS=`git status 2>/dev/null`
