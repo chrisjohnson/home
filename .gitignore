@@ -4,5 +4,5 @@
 !.vim*
 *.gitignore*
 *.vim/swap*
-*.viminfo
+*.viminfo*
 *.zsh_hist*
