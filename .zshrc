@@ -33,22 +33,37 @@ zstyle ':completion:complete-files:*' completer _files
 bindkey '^x\t' complete-files
 
 ###########################################
-# Completions...some of this I don't even understand XD
+# Auto completion
 ###########################################
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'm:{a-z}={A-Z}'
+# Enable it
 zstyle :compinstall filename '/home/dmsuperman/.zshrc'
 autoload -Uz compinit
 compinit -C
+
+# Case insensitive matching
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'm:{a-z}={A-Z}'
+
+# Cache all the completions
 zstyle ':completion::complete:*' use-cache on
 zstyle ':completion::complete:*' cache-path ~/.zsh/cache
 
-# Color it and make it a menu
+# Set up the formatting
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
-zstyle ':completion:*' menu select=1 _complete _ignored _approximate
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion:*' format '%B---- %d%b'
+zstyle ':completion:*:messages' format '%B%U---- %d%u%b'
+zstyle ':completion:*:warnings' format "%B$fg[red]%}---- no match for: $fg[white]%d%b"
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:options' auto-description '%d'
+
+# Enable the menu for easier navigation
+zstyle ':completion:*' menu select=1 _complete _ignored _approximate
+zstyle ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
+
+# Group the results of the menu
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*' group-name ''
 
 # App specific completions
 zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
