@@ -66,12 +66,15 @@ zstyle ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*' group-name ''
 
+# Provide more processes in completion of programs like killall:
+zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
+
 # App specific completions
-zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid'
-zstyle ':completion:*:*:kill:*' menu yes select
+#zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+#zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid'
+#zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*'   force-list always
-zstyle ':completion:*:*:killall:*' menu yes select
+#zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*'   force-list always
 
 # SSH Completion
@@ -120,7 +123,7 @@ refresh-prompt(){
 
 	# set the prompt
 	PS1=$'[${PR_USER}${PR_HOST}:%~]'
-	PS2=$'%_>'
+	PS2=$'%_ > '
 }
 refresh-prompt
 
@@ -413,12 +416,12 @@ get-zsh-git-prompt(){
 			# See if they have files not yet tracked
 			echo $GIT_CURRENT_STATUS | grep 'Untracked files' 1>/dev/null && eval GIT_TRACK_STATUS="*"
 
-			GIT_PROMPT="[${GIT_STATUS_COLOR}${GIT_TRACK_STATUS}${GIT_BRANCH}${GIT_COMMIT_STATUS}${GIT_PUSH_STATUS}${PR_NO_COLOR}]"
+			GIT_PROMPT=" [${GIT_STATUS_COLOR}${GIT_TRACK_STATUS}${GIT_BRANCH}${GIT_COMMIT_STATUS}${GIT_PUSH_STATUS}${PR_NO_COLOR}]"
 			echo $GIT_PROMPT
 		fi
 	fi
 }
-RPS1='$(get-zsh-git-prompt)'
+RPS1='[%!]$(get-zsh-git-prompt)'
 git-scoreboard(){
 	git log | grep '^Author' | sort | uniq -ci | sort -r
 }
