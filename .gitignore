@@ -1,0 +1,5 @@
+*
+!.zsh*
+.zsh/cache*
+!.vim*
+*.gitignore*
