@@ -3,3 +3,4 @@
 .zsh/cache*
 !.vim*
 *.gitignore*
+*.vim/swap*
