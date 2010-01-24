@@ -1,10 +1,7 @@
 *
-!.zsh*
+!.zshrc
 !.vim*
-*.zsh/cache*
 *.gitignore*
 *.vim/swap*
 *.viminfo*
-*.zsh_hist*
 *.vimrc.old
-*.zshrc.old
