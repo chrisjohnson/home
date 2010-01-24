@@ -1,0 +1,16 @@
+# Utilities
+alias burn-dir-as-dvd="mkisofs --dvd-video . | growisofs -speed=8 -dvd-compat -Z /dev/scd0=/dev/stdin"
+
+# SSH
+alias n800="ssh root@192.168.3.150"
+alias laptop="ssh dmsuperman@192.168.3.10"
+alias laptop-wired="ssh dmsuperman@192.168.3.11"
+alias work="ssh -p 2233 dmsuperman@localhost"
+alias hostfs="sshfs -p 33445 dmsuperman@cjohnson.me:/storage/www/vhosts /media/cjohnson.me/"
+alias datafs="sshfs -o allow_other dmsuperman@data.cjohnson.me:/home/dmsuperman /media/data.cjohnson.me"
+alias chromium-browser="/usr/bin/chromium-browser --enable-sync --enable-extensions --enable-user-scripts"
+
+# Mounts
+#alias ipod="sudo mount UUID=C0DA-1122 -o umask=0000 /media/ipod"
+alias ipod="sudo mount UUID=1352-F9FE -o umask=0000 /media/ipod"
+alias camera='sudo mount `sudo fdisk -l | grep 262144000 | cut -c 6-13`1 /media/camera'

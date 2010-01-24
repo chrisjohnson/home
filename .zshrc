@@ -1,0 +1,419 @@
+###########################################
+# Set up the history
+###########################################
+HISTFILE=~/.zsh_hist
+HISTSIZE=1000
+SAVEHIST=1000
+
+###########################################
+# Auto CD, completion, history search
+###########################################
+setopt appendhistory autocd
+setopt menucomplete
+
+bindkey -e
+bindkey ' ' magic-space    # also do history expansion on space
+# Make them work on some funky systems
+bindkey '\e[1~'   beginning-of-line  # Linux console
+bindkey '\e[H'    beginning-of-line  # xterm
+bindkey '\eOH'    beginning-of-line  # gnome-terminal
+bindkey '\e[2~'   overwrite-mode     # Linux console, xterm, gnome-terminal
+bindkey '\e[3~'   delete-char        # Linux console, xterm, gnome-terminal
+bindkey '\e[4~'   end-of-line        # Linux console
+bindkey '\e[F'    end-of-line        # xterm
+bindkey '\eOF'    end-of-line        # gnome-terminal
+bindkey '^[[1;5D'    backward-word
+bindkey '^[[1;5C'    forward-word
+# not working http://zsh.sourceforge.net/FAQ/zshfaq04.html
+#bindkey "^xc" expand-or-complete-prefix
+
+# C-x <tab> to force file-completion only (no magic completions)
+zle -C complete-files complete-word _generic
+zstyle ':completion:complete-files:*' completer _files
+bindkey '^x\t' complete-files
+
+###########################################
+# Completions...some of this I don't even understand XD
+###########################################
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'm:{a-z}={A-Z}'
+zstyle :compinstall filename '/home/dmsuperman/.zshrc'
+autoload -Uz compinit
+compinit -C
+zstyle ':completion::complete:*' use-cache on
+zstyle ':completion::complete:*' cache-path ~/.zsh/cache
+
+# Color it and make it a menu
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' menu select=1 _complete _ignored _approximate
+zstyle -e ':completion:*:approximate:*' max-errors \
+    'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+
+# App specific completions
+zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid'
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*'   force-list always
+zstyle ':completion:*:*:killall:*' menu yes select
+zstyle ':completion:*:killall:*'   force-list always
+
+# SSH Completion
+zstyle ':completion:*:scp:*' tag-order \
+   files users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
+zstyle ':completion:*:scp:*' group-order \
+   files all-files users hosts-domain hosts-host hosts-ipaddr
+zstyle ':completion:*:ssh:*' tag-order \
+   users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
+zstyle ':completion:*:ssh:*' group-order \
+   hosts-domain hosts-host users hosts-ipaddr
+
+###########################################
+# Prompt style
+###########################################
+autoload -U promptinit
+promptinit
+autoload -U colors zsh/terminfo
+colors
+# Expansion in prompt
+setopt prompt_subst
+refresh-prompt(){
+	# Prepare the colors
+	for color in RED GREEN; do
+		eval PR_$color='%{$fg[${(L)color}]%}'
+	done
+	PR_NO_COLOR="%{$terminfo[sgr0]%}"
+
+	# Check the UID, make it red if we're root
+	if [[ $UID -ge 500 ]]; then # normal user
+		eval PR_USER='%n'
+		eval PR_USER_OP='%#'
+	elif [[ $UID -eq 0 ]]; then # root
+		eval PR_USER='${PR_RED}%n${PR_NO_COLOR}'
+		eval PR_USER_OP='${PR_RED}%#${PR_NO_COLOR}'
+	fi
+
+	# Check if we're SSHed in. Show the host if we are
+	if [[ -z "$SSH_CLIENT" && -z "$SSH2_CLIENT" ]]; then
+	#	eval PR_HOST='%M' # no SSH
+		eval PR_HOST='' # localhost, why show the host?
+	else
+		eval PR_HOST='@${PR_GREEN}%M${PR_NO_COLOR}' #SSH
+	fi
+
+
+	# set the prompt
+	PS1=$'[${PR_USER}${PR_HOST}:%~]'
+	PS2=$'%_>'
+}
+refresh-prompt
+
+###########################################
+# Extended glob
+###########################################
+setopt extendedglob
+
+###########################################
+# Load the command-not-found if it exists
+###########################################
+if [ -x /etc/zsh_command_not_found ]; then
+	. /etc/zsh_command_not_found
+fi
+
+###########################################
+# Load local settings specific to each machine
+###########################################
+if [ -x ~/.zshrc_local ]; then
+	. ~/.zshrc_local
+else
+	touch ~/.zshrc_local
+	chmod 755 ~/.zshrc_local
+fi
+
+###########################################
+# Set some defaults
+###########################################
+# Set the path
+export PATH="$HOME/bin:${PATH}"
+
+# Applications
+export PAGER='less'
+export EDITOR='vim'
+export BROWSER='chromium-browser'
+
+# Language
+export LC_ALL='en_US.UTF-8'
+export LANG='en_US.UTF-8'
+
+###########################################
+# Setup some event handlers
+###########################################
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+typeset -ga chpwd_functions
+
+###########################################
+# Set the title
+###########################################
+refresh-title(){
+	case $TERM in
+		xterm*)
+			print -Pn "\e]0;%n@%m: %~\a"
+			;;
+		screen)
+			print -Pn "\e]83;title \"$1\"\a"
+			if [[ "$1" == "" ]]; then
+				print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a"
+			else
+				print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a"
+			fi
+		;;
+	esac
+}
+# Only add the event handler if we haven't already sourced the config file
+if [[ "$ZSH_FIRST_RUN" != "0" ]]; then
+	preexec_functions+='refresh-title'
+	precmd_functions+='refresh-title'
+fi
+
+###########################################
+# Syncing commands
+###########################################
+updatezshrc(){
+	ZSHRC="dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.zshrc"
+	echo "Updating ~/.zshrc from $ZSHRC..."
+	echo "Press Ctrl+C within 5 seconds to abort..."
+	sleep 5
+	cp ~/.zshrc ~/.zshrc.old
+	scp -P33445 $ZSHRC ~/.zshrc
+	echo "Done; existing ~/.zshrc saved as ~/.zshrc.old; Differences:"
+	diff -Nu ~/.zshrc.old ~/.zshrc
+}
+commitzshrc(){
+	DEST="dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.zshrc"
+	echo "Copying ~/.zshrc to $DEST"
+	scp -P33445 ~/.zshrc $DEST
+	echo "Done"
+}
+updatevim(){
+	echo "Updating your vim profile"
+	echo "Press C-c within 5 seconds to abort..."
+	sleep 5
+	cp ~/.vimrc ~/.vimrc.old
+	rsync -czvru --progress -e "ssh -p33445" --exclude="swap/*" dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.vim/ ~/.vim/
+	scp -P33445 dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.vimrc ~/.vimrc
+	echo "Done; existing ~/.vimrc saved as ~/.vimrc.old; Differences:"
+	diff -Nu ~/.vimrc.old ~/.vimrc
+}
+commitvim(){
+	VIMRC="dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.vimrc"
+	echo "Copying ~/.vimrc to $VIMRC"
+	scp -P33445 ~/.vimrc $VIMRC
+	echo "Done"
+	echo "Committing the ~/.vim folder"
+	rsync -czvru --progress -e "ssh -p33445" --exclude="swap/*" ~/.vim/ dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.vim/
+	echo "Done"
+}
+
+###########################################
+# Standard aliases
+###########################################
+alias install="sudo apt-get install"
+alias remove="sudo apt-get remove"
+alias ls="ls -ABhp --color=always"
+alias ls.real="/bin/ls"
+alias files="ls -ABlhp --color=always"
+alias f="files | less -r"
+alias lsa="ls -a"
+alias -g l="| less"
+alias -g g="| grep"
+alias grep="grep --color=auto"
+alias gz="tar xvzf"
+alias bz="tar xvjf"
+alias scr="screen -URAad"
+alias rtch="screen -rxU"
+alias nano="nano -w"
+alias source="source ~/.zshrc"
+alias source.real="source"
+alias rsync.exact="rsync -rtpogxv --progress -l -H"
+alias rsync.to-host="rsync -urltPv --delete --bwlimit=30"
+alias rsync.loose="rsync -zvru"
+
+mid(){
+	if test $# -lt 2; then
+		echo "$0: Insufficient arguments"
+		echo "Usage: $0 <start> <number> <file>"
+	else
+		tail -n +$1 $3 | head -n $2
+	fi
+}
+c(){
+   if [ $# = 0 ]; then
+      cd && files
+   else
+      cd "$*" && files
+   fi
+}
+mc(){
+	mkdir -p "$*" && cd "$*" && pwd
+}
+fork(){
+	sh -c "$* &" &
+	disown 2> /dev/null
+}
+archive-history(){
+	if [ ! -e ~/.zsh_hist ]; then
+		touch ~/.zsh_hist
+	fi
+	if [ ! -e ~/.zsh_hist.archive ]; then
+		touch ~/.zsh_hist.archive
+	fi
+
+	# Get each command in order
+	cat ~/.zsh_hist | sort | uniq > /tmp/.zsh_hist_left
+	cat ~/.zsh_hist.archive | sort | uniq > /tmp/.zsh_hist_right
+
+	diff --ignore-all-space --suppress-common-lines -N /tmp/.zsh_hist_left /tmp/.zsh_hist_right | # Diff the files
+		uniq -u | # Don't duplicate
+		grep "^<" | # Only get the new commnands
+		sed "s/^< //" | # Remove space from the front
+		grep -v "^$" >> ~/.zsh_hist.archive
+
+	# Clean up
+	rm /tmp/.zsh_hist_left
+	rm /tmp/.zsh_hist_right
+}
+flac-to-mp3(){
+	QUALITY="$1"
+	TOTALTRACKS="`ls *flac | wc -l`"
+	echo "Found $TOTALTRACKS files to convert"
+	for f in *.flac; do
+		OUT=$(echo "$f" | sed s/\.flac$/.mp3/g)
+		ARTIST=$(metaflac "$f" --show-tag=ARTIST | sed "s/.*=//g")
+		TITLE=$(metaflac "$f" --show-tag=TITLE | sed "s/.*=//g")
+		ALBUM=$(metaflac "$f" --show-tag=ALBUM | sed "s/.*=//g")
+		GENRE=$(metaflac "$f" --show-tag=GENRE | sed "s/.*=//g")
+		TRACK=$(metaflac "$f" --show-tag=TRACKNUMBER | sed "s/.*=//g")
+		DATE=$(metaflac "$f" --show-tag=DATE | sed "s/.*=//g")
+		echo "Converting $f to $OUT"
+		flac -c -d "$f" | lame -mj -q0 -s44.1 $QUALITY - "$OUT"
+		echo "Tagging $OUT with id3v1 and then id3v2"
+		id3 -t "$TITLE" -T "$TRACK" -A "$ALBUM" -y "$DATE" -g "$GENRE" "$OUT"
+		id3v2 -t "$TITLE" -T "${TRACK:-0}" -a "$ARTIST" -A "$ALBUM" -y "$DATE" -g "${GENRE:-12}" "$OUT"
+		echo "Updating the tags for $OUT with a more modern track and genre (id3v2.4)"
+		mid3v2 -T "${TRACK:-0}/$TOTALTRACKS" -g "$GENRE" "$OUT" # Add the genre and track in a more modern fashion
+	done
+}
+flac-to-v0(){
+	flac-to-mp3 "-V0"
+}
+flac-to-v2(){
+	flac-to-mp3 "-V2"
+}
+pslist(){
+	case $1 in
+		cpu | CPU | %cpu) sort="-%cpu";;
+		mem | memory) sort="-rss";;
+		pid | PID | process) sort="pid";;
+		cmd | command | name) sort="cmd";;
+		rcpu | RCPU | r%cpu) sort="%cpu";;
+		rmem | rmemory) sort="rss";;
+		rpid | RPID | rprocess) sort="-pid";;
+		rcmd | rcommand | rname) sort="-cmd";;
+		*) sort="-%cpu";;
+	esac
+
+	ps -e hx -o pid,%cpu,rss,cmd --sort=$sort | awk '{text = ""; for(i=4; i <= NF; i++){ text = text OFS $i }; printf "%5.0f\t%2.2f%s\t%4.2fM\t %s\n", $1, $2, "%", ($3 / 1024), text}'
+}
+
+# File extension aliases, for autolaunch based on the given path
+alias -s php=vim
+alias -s js=vim
+alias -s sql=vim
+alias -s com=$BROWSER
+alias -s org=$BROWSER
+alias -s net=$BROWSER
+
+# SSH aliases
+alias home="ssh -XC dmsuperman@dmsuperman.com"
+alias host="ssh -C -p 33445 dmsuperman@cjohnson.me"
+alias data="ssh -C dmsuperman@data.cjohnson.me"
+alias seedbox="ssh -C dmsuperman@hollywood-cerise.feralhosting.com"
+
+###########################################
+# Various ZSH hooks
+###########################################
+zshexit(){
+	# Tell it to archive my history
+	archive-history
+}
+
+# Restore Ubuntu's command not found handler, it tends to tell me which package provides the command
+command_not_found_handler(){
+	/usr/lib/command-not-found $1 2>&1 | head -n -0
+}
+
+###########################################
+# ZSH / Git stuff
+###########################################
+get-zsh-git-prompt(){
+	# Get the status and parse it
+	GIT_CURRENT_STATUS=`git status 2>/dev/null`
+	if [[ "$GIT_CURRENT_STATUS" != "" ]]; then
+		# Prepare the colors
+		for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+			eval PR_$color='%{$fg[${(L)color}]%}'
+		done
+		PR_NO_COLOR="%{$terminfo[sgr0]%}"
+		echo $GIT_CURRENT_STATUS | head -1 | grep 'On branch' | sed 's/^# On branch //' | read GIT_BRANCH
+		if [[ "$GIT_BRANCH" == "" ]]; then
+			# No branch but we're in a git-tracked directory, so perhaps we're in a rebase
+			DOT_GIT_DIR=`git rev-parse --git-dir`
+			if [[ -d $DOT_GIT_DIR/rebase-merge ]]; then
+				cat $DOT_GIT_DIR/rebase-merge/head-name | sed 's/refs\/heads\///' | read GIT_BRANCH
+				GIT_BRANCH="${GIT_BRANCH} rebasing"
+			fi
+		fi
+		if [[ "$GIT_BRANCH" != "" ]]; then
+			# These statements are in a specific order. The color is overwritten if the next statement is true
+			eval GIT_STATUS_COLOR='${PR_WHITE}'
+			GIT_TRACK_STATUS=""
+			GIT_PUSH_STATUS=""
+			GIT_COMMIT_STATUS=""
+			# See if they have changes not yet pushed (but committed)
+			if GARBAGE=$(echo $GIT_CURRENT_STATUS | grep 'Your branch is ahead'); then
+				eval GIT_STATUS_COLOR='${PR_RED}'
+				GIT_PUSH_STATUS=" ↑"
+			fi
+			# See if they have changes not yet committed (but staged)
+			if GARBAGE=$(echo $GIT_CURRENT_STATUS | grep 'Changes to be committed'); then
+				eval GIT_STATUS_COLOR='${PR_GREEN}'
+				GIT_COMMIT_STATUS=" →"
+			fi
+			# See if they have changes not yet staged
+			git diff --quiet || eval GIT_STATUS_COLOR='${PR_CYAN}'
+			# See if they have files not yet tracked
+			git status | grep 'Untracked files' 1>/dev/null && eval GIT_TRACK_STATUS="*"
+
+			GIT_PROMPT="[${GIT_STATUS_COLOR}${GIT_TRACK_STATUS}${GIT_BRANCH}${GIT_COMMIT_STATUS}${GIT_PUSH_STATUS}${PR_NO_COLOR}]"
+			echo $GIT_PROMPT
+		fi
+	fi
+}
+RPS1='$(get-zsh-git-prompt)'
+git-scoreboard(){
+	git log | grep '^Author' | sort | uniq -ci | sort -r
+}
+
+zsh-git-status(){
+	# If the directory we just moved into is tracked by git, show the status to refresh my memory
+	if [ -d .git ]; then
+		git status
+	fi
+}
+if [[ "$ZSH_FIRST_RUN" != "0" ]]; then
+	chpwd_functions+='zsh-git-status'
+fi
+
+# Set it to 0, telling any one-time-per-session code not to run again
+ZSH_FIRST_RUN="0"
