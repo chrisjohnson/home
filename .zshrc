@@ -381,7 +381,6 @@ alias -s net=$BROWSER
 alias home="ssh -XC dmsuperman@dmsuperman.com"
 alias host="ssh -C -p 33445 dmsuperman@cjohnson.me"
 alias data="ssh -C dmsuperman@data.cjohnson.me"
-alias seedbox="ssh -C dmsuperman@hollywood-cerise.feralhosting.com"
 
 # Edit aliases inline
 edalias(){
