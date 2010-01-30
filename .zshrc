@@ -376,6 +376,8 @@ alias -s sql=vim
 alias -s com=$BROWSER
 alias -s org=$BROWSER
 alias -s net=$BROWSER
+alias -s html=$BROWSER
+alias -s htm=$BROWSER
 
 # SSH aliases
 alias home="ssh -XC dmsuperman@dmsuperman.com"
