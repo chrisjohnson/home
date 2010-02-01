@@ -10,7 +10,7 @@ set mouse=a
 set background=dark
 set pastetoggle=<F12>
 " Set the dir to store all the swap files
-set directory=~/.vim/swap,.
+set directory=$HOME/.vim/swap,.
 " Show line numbers
 set number
 " Always show tabs
@@ -41,8 +41,10 @@ map ;u viwUW
 map ;y :%y<space>+<cr>
 map ;q :quitall<cr>
 map ;wq :w<cr>:q<cr><cr>
+" Run the current file in a perl window
+map ;p :!perl "%"
 " Build the current file as a PDF and open it with evince
-map ;p :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
+map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
 
 set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Position:\ (%4l,\ %3v)\ %p%%]\ [Lines:\ %L]\ [Git\ branch:\ %{GitBranchInfoTokens()[0]}]
 set laststatus=2
