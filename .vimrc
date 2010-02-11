@@ -17,6 +17,8 @@ set number
 set showtabline=2
 " Set << and >> to move 4 spaces (1 tab)
 set shiftwidth=4
+" Set up the font for gvim
+set guifont=Liberation\ Mono\ 9
 
 " Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
