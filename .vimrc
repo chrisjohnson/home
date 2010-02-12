@@ -1,24 +1,45 @@
 syntax on
 set tabstop=4
-set autoindent
-set showcmd
-set incsearch
-set hlsearch
-set nospell
-set nofoldenable
-set mouse=a
 set background=dark
+set autoindent
+" Show the changed line count for commands
+set report=0
+" Show the command as you type it
+set showcmd
+" Confirm closing unsaved files
+set confirm
+" Begin searching immediately
+set incsearch
+" Hilight the search results
+set hlsearch
+" Don't do spell-checking by default
+set nospell
+" Unfold everything
+set nofoldenable
+" Enable mouse support
+set mouse=a
+" Case insensitive search by default, but switch to case sensitive when searching with uppercase
+set ignorecase
+set smartcase
+" Paste-mode where there is no autoindentation
 set pastetoggle=<F12>
+" Give 5 lines of space between the cursor and the top/bottom when scrolling
+set scrolloff=5
 " Set the dir to store all the swap files
 set directory=$HOME/.vim/swap,.
 " Show line numbers
 set number
+set numberwidth=1 " But keep it narrow
 " Always show tabs
 set showtabline=2
 " Set << and >> to move 4 spaces (1 tab)
 set shiftwidth=4
 " Set up the font for gvim
 set guifont=Liberation\ Mono\ 9
+" Set the statusline
+set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Position:\ (%4l,\ %3v)\ %p%%]\ [Lines:\ %L]\ [Git\ branch:\ %{GitBranchInfoTokens()[0]}]
+" Always show it
+set laststatus=2
 
 " Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
@@ -47,9 +68,6 @@ map ;wq :w<cr>:q<cr><cr>
 map ;p :!perl "%"
 " Build the current file as a PDF and open it with evince
 map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
-
-set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Position:\ (%4l,\ %3v)\ %p%%]\ [Lines:\ %L]\ [Git\ branch:\ %{GitBranchInfoTokens()[0]}]
-set laststatus=2
 
 colorscheme wombat
 
