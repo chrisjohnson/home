@@ -83,6 +83,9 @@ zstyle ':completion:*:ssh:*' tag-order \
 zstyle ':completion:*:ssh:*' group-order \
    hosts-domain hosts-host users hosts-ipaddr
 
+# Add completion for "fork", lazily
+compdef _sudo fork
+
 ###########################################
 # Prompt style
 ###########################################
