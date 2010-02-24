@@ -1,5 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/storage/projects/insight/system'
 let g:netrw_dirhist_2='/storage/projects/insight/system/libs'
 let g:netrw_dirhist_3='/storage/projects/insight/system/libs/Insight'
+let g:netrw_dirhist_4='/home/cjohnson/projects/comsite5-svn/PageTemplating/Templates/manta'
+let g:netrw_dirhist_5='/home/cjohnson/projects/comsite5-svn/PageTemplating/Templates/manta/static_includes'
+let g:netrw_dirhist_6='/home/cjohnson/projects/comsite5-svn/PageTemplating/Templates/manta/static_includes/company_claim'
+let g:netrw_dirhist_7='/home/cjohnson/projects/comsite5-svn/web/manta/includes'
+let g:netrw_dirhist_8='/home/cjohnson/bin/jsmin'

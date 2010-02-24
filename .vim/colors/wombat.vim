@@ -48,4 +48,8 @@ hi PreProc 		guifg=#e5786d gui=none
 hi Number		guifg=#e5786d gui=none
 hi Special		guifg=#e7f6da gui=none
 
-
+" Diffing
+hi DiffDelete	guifg=#95e454 guibg=#242424 gui=none
+hi DiffAdd		guifg=#e5786d guibg=#474747 gui=bold
+hi DiffChange	guifg=#8ac6f2 guibg=#242424 gui=italic
+hi DiffText		guifg=#cae682 guibg=#575757 gui=none
