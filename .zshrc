@@ -463,48 +463,52 @@ if which git 2>&1 >/dev/null; then
 	alias push="git push"
 	alias pull="git pull"
 	get-zsh-git-prompt(){
-		# Get the status and parse it
-		GIT_CURRENT_STATUS=`git status 2>/dev/null`
-		if [[ "$GIT_CURRENT_STATUS" != "" ]]; then
-			# Prepare the colors
-			for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-				eval PR_$color='%{$fg[${(L)color}]%}'
-			done
-			PR_NO_COLOR="%{$terminfo[sgr0]%}"
-			# Get the current branch
-			echo $GIT_CURRENT_STATUS | head -1 | grep 'On branch' | sed 's/^# On branch //' | read GIT_BRANCH
-			if [[ "$GIT_BRANCH" == "" ]]; then
-				# No branch but we're in a git-tracked directory, so perhaps we're in a rebase
-				DOT_GIT_DIR=`git rev-parse --git-dir`
-				if [[ -d $DOT_GIT_DIR/rebase-merge ]]; then
-					# Read the topic branch from the rebase file
-					cat $DOT_GIT_DIR/rebase-merge/head-name | sed 's/refs\/heads\///' | read GIT_BRANCH
-					GIT_BRANCH="${GIT_BRANCH} rebasing"
+		# Make sure the prompt has been enabled for this session,
+		# otherwise it'll probably consume tons of time for each command I execute
+		if [[ "$GIT_PROMPT_ENABLE" != "" ]]; then
+			# Get the status and parse it
+			GIT_CURRENT_STATUS=`git status 2>/dev/null`
+			if [[ "$GIT_CURRENT_STATUS" != "" ]]; then
+				# Prepare the colors
+				for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+					eval PR_$color='%{$fg[${(L)color}]%}'
+				done
+				PR_NO_COLOR="%{$terminfo[sgr0]%}"
+				# Get the current branch
+				echo $GIT_CURRENT_STATUS | head -1 | grep 'On branch' | sed 's/^# On branch //' | read GIT_BRANCH
+				if [[ "$GIT_BRANCH" == "" ]]; then
+					# No branch but we're in a git-tracked directory, so perhaps we're in a rebase
+					DOT_GIT_DIR=`git rev-parse --git-dir`
+					if [[ -d $DOT_GIT_DIR/rebase-merge ]]; then
+						# Read the topic branch from the rebase file
+						cat $DOT_GIT_DIR/rebase-merge/head-name | sed 's/refs\/heads\///' | read GIT_BRANCH
+						GIT_BRANCH="${GIT_BRANCH} rebasing"
+					fi
 				fi
-			fi
-			if [[ "$GIT_BRANCH" != "" ]]; then
-				# These statements are in a specific order. The color is overwritten if the next statement is true
-				eval GIT_STATUS_COLOR='${PR_WHITE}'
-				GIT_TRACK_STATUS=""
-				GIT_PUSH_STATUS=""
-				GIT_COMMIT_STATUS=""
-				# See if they have changes not yet pushed (but committed)
-				if GARBAGE=$(echo $GIT_CURRENT_STATUS | grep 'Your branch is ahead'); then
-					eval GIT_STATUS_COLOR='${PR_RED}'
-					GIT_PUSH_STATUS=" ↑"
-				fi
-				# See if they have changes not yet committed (but staged)
-				if GARBAGE=$(echo $GIT_CURRENT_STATUS | grep 'Changes to be committed'); then
-					eval GIT_STATUS_COLOR='${PR_GREEN}'
-					GIT_COMMIT_STATUS=" →"
-				fi
-				# See if they have changes not yet staged
-				git diff --quiet || eval GIT_STATUS_COLOR='${PR_CYAN}'
-				# See if they have files not yet tracked
-				echo $GIT_CURRENT_STATUS | grep 'Untracked files' 1>/dev/null && eval GIT_TRACK_STATUS="*"
+				if [[ "$GIT_BRANCH" != "" ]]; then
+					# These statements are in a specific order. The color is overwritten if the next statement is true
+					eval GIT_STATUS_COLOR='${PR_WHITE}'
+					GIT_TRACK_STATUS=""
+					GIT_PUSH_STATUS=""
+					GIT_COMMIT_STATUS=""
+					# See if they have changes not yet pushed (but committed)
+					if GARBAGE=$(echo $GIT_CURRENT_STATUS | grep 'Your branch is ahead'); then
+						eval GIT_STATUS_COLOR='${PR_RED}'
+						GIT_PUSH_STATUS=" ↑"
+					fi
+					# See if they have changes not yet committed (but staged)
+					if GARBAGE=$(echo $GIT_CURRENT_STATUS | grep 'Changes to be committed'); then
+						eval GIT_STATUS_COLOR='${PR_GREEN}'
+						GIT_COMMIT_STATUS=" →"
+					fi
+					# See if they have changes not yet staged
+					git diff --quiet || eval GIT_STATUS_COLOR='${PR_CYAN}'
+					# See if they have files not yet tracked
+					echo $GIT_CURRENT_STATUS | grep 'Untracked files' 1>/dev/null && eval GIT_TRACK_STATUS="*"
 
-				GIT_PROMPT=" [${GIT_STATUS_COLOR}${GIT_TRACK_STATUS}${GIT_BRANCH}${GIT_COMMIT_STATUS}${GIT_PUSH_STATUS}${PR_NO_COLOR}]"
-				echo $GIT_PROMPT
+					GIT_PROMPT=" [${GIT_STATUS_COLOR}${GIT_TRACK_STATUS}${GIT_BRANCH}${GIT_COMMIT_STATUS}${GIT_PUSH_STATUS}${PR_NO_COLOR}]"
+					echo $GIT_PROMPT
+				fi
 			fi
 		fi
 	}
@@ -512,6 +516,7 @@ if which git 2>&1 >/dev/null; then
 	git-scoreboard(){
 		git log | grep '^Author' | sort | uniq -ci | sort -r
 	}
+	alias git-prompt-enable="export GIT_PROMPT_ENABLE=1"
 
 	zsh-git-status(){
 		# If the directory we just moved into is tracked by git, show the status to refresh my memory
