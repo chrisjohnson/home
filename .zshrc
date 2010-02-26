@@ -437,6 +437,27 @@ help-zshglob() {
   echo /proc/*/cwd(:h:t:s/self//) # Analogous to >ps ax | awk '{print $1}'<"
 }
 
+help-zshhistory(){
+	echo -e "
+  !!      Immediately preceeding line (all of it)
+  !{!}    Same, but protected
+  !       Line just referred to (default !!)
+  !13     Line numbered 13
+  !-2     Line two before current
+  !cmd    Last command beginning with cmd
+  !?str   Last command containing str
+  !$      Current command line so far
+  !#:2    Second argument of current command line so far
+  !!:0    First word of the last line (the command)
+  !!:1    Second word of the last line (first argument)
+  !!:^    Second word of the last line (first argument)
+  !!:$    Last word of last line (last argument)
+  !!:2-4  Words 2 to 4 inclusive of last line
+  !!:-4   Words 0 to 4 inclusive of last line
+  !!:*    Words 1 to $ inclusive of last line
+  !!:2*   Words 2 to $ inclusive of last line"
+}
+
 ###########################################
 # Various ZSH hooks
 ###########################################
