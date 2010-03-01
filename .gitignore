@@ -1,6 +1,7 @@
 *
 !.zshrc
 !.vim*
+!.config/openbox/*
 *.gitignore*
 *.vim/swap*
 *.viminfo*
