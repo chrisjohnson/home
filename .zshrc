@@ -236,6 +236,7 @@ commitvim(){
 ###########################################
 # Standard aliases
 ###########################################
+alias sudo="sudo " # Parse sudo as an alias, thus forcing the subcommand to be parsed
 alias install="sudo apt-get install"
 alias remove="sudo apt-get remove"
 alias ls="ls -ABhp --color=always"
