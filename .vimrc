@@ -37,9 +37,23 @@ set shiftwidth=4
 " Set up the font for gvim
 set guifont=Liberation\ Mono\ 9
 " Set the statusline
-set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Position:\ (%4l,\ %3v)\ %p%%]\ [Lines:\ %L]\ [Git\ branch:\ %{GitBranchInfoTokens()[0]}]
+set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Position:\ (%4l,\ %3v)\ %p%%]\ [Lines:\ %L]%=[Git\ branch:\ %{GitBranchInfoTokens()[0]}]
 " Always show it
 set laststatus=2
+" Command-line menu for completion
+set wildmenu
+" Match the longest first and tab through the remaining choices
+set wildmode=longest:full,full
+" Suffixes that get lower priority when doing tab completion for filenames
+" These are files we are not likely to want to edit or read
+set suffixes=.bak,~,.swp,.swo,.swn,.swm,.o,.d,.info,.aux,.dvi,.pdf,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll,.bin,.exe
+" Wrap searching around the EOF and BOF
+set wrapscan
+" New windows to below or right
+set splitbelow
+set splitright
+" Highlight the current line
+set cursorline
 
 " Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
@@ -54,16 +68,35 @@ map <leader>e :edit
 map <leader>q :q<cr>
 map <leader>p "+gp
 map <leader>P "+gP
+" Copy to X clipboard with ,y
 map <leader>y "+y
+" ,x to de-highlight from the search
 map <leader>x :nohlsearch<cr>
+" ,a to add the current file to version control
 map <leader>a :VCSAdd<cr>
-map <c-enter> <leader>cc<cr>
+" Control+Enter to commit
+map <C-Enter> <leader>cc<cr>
+" ;c to commit without a commit log
 map ;c <leader>cc<leader>cc
 map ;l viwuW
 map ;u viwUW
+" ;y to yank the whole buffer to the X clipboard
 map ;y :%y<space>+<cr>
+" ;q to close all tabs and quit entirely
 map ;q :quitall<cr>
+" ;wq to write and quit
 map ;wq :w<cr>:q<cr><cr>
+" Command-line navigation
+cnoremap <C-x> <Right>
+cnoremap <C-z> <Left>
+" Alt+Left/Right to switch tabs
+nnoremap <A-Left> gT
+nnoremap <A-Right> gt
+" Control+Tab (+Shift, for reverse direction) to switch through tabs
+nnoremap <C-Tab> gt
+nnoremap <C-S-Tab> gT
+" Control+t for new tab
+nnoremap <C-t> :tabnew<CR>
 " Run the current file in a perl window
 map ;p :!perl "%"
 " Build the current file as a PDF and open it with evince
