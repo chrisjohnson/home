@@ -1,6 +1,7 @@
 syntax on
 set tabstop=4
 set background=dark
+set nobackup
 set autoindent
 " Show the changed line count for commands
 set report=0
@@ -52,8 +53,10 @@ set wrapscan
 " New windows to below or right
 set splitbelow
 set splitright
-" Highlight the current line
-set cursorline
+" Highlight the current line (but only in gvim, it looks terrible in normal vim)
+if has('gui_running')
+	set cursorline
+endif
 
 " Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
