@@ -390,8 +390,8 @@ alias -s htm=$BROWSER
 # SSH aliases
 alias home="ssh -XC dmsuperman@dmsuperman.com"
 alias host="ssh -C -p 33445 dmsuperman@cjohnson.me"
-alias host-attach-im="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -radAp im\""
-alias host-attach-irc="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -rxp irc\""
+alias host-attach-im="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -radA -p im\""
+alias host-attach-irc="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -rx -p irc\""
 alias data="ssh -C dmsuperman@data.cjohnson.me"
 
 # Edit aliases inline
