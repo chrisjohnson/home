@@ -201,11 +201,13 @@ sudo(){
 	local -a cmd
 	if [[ -n ${aliases[$1]} ]]; then
 		cmd=( ${(z)${aliases[$1]}} )
+		shift
+		command sudo $cmd "$@"
 	else
 		cmd=( $1 )
+		shift
+		command sudo $cmd "$@"
 	fi
-	shift
-	command sudo $cmd "$@";
 }
 alias s="sudo"
 alias install="sudo apt-get install"
