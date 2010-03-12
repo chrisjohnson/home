@@ -258,6 +258,7 @@
     <keybind key="W-m">
       <action name="ToggleMaximizeFull"/>
     </keybind>
+	<!--
     <keybind key="C-W-f">
       <action name="Execute">
         <execute>wmctrl -r :SELECT: -e 0,1281,27,1320,1000</execute>
@@ -278,6 +279,12 @@
         <execute>wmctrl -r :SELECT: -e 0,1281,24,1680,1000</execute>
       </action>
     </keybind>
+	-->
+	<keybind key="C-W-g">
+		<action name="Execute">
+			<execute>gvim</execute>
+		</action>
+	</keybind>
     <keybind key="C-W-c">
       <action name="Execute">
         <execute>terminator --geometry=1100x600</execute>

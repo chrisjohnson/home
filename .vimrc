@@ -56,6 +56,8 @@ set splitright
 " Highlight the current line (but only in gvim, it looks terrible in normal vim)
 if has('gui_running')
 	set cursorline
+	set lines=40
+	set columns=120
 endif
 
 " Hotkeys
