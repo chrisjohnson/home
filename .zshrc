@@ -195,48 +195,21 @@ if [[ "$ZSH_FIRST_RUN" != "0" ]]; then
 fi
 
 ###########################################
-# Syncing commands
-###########################################
-updatezshrc(){
-	ZSHRC="dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.zshrc"
-	echo "Updating ~/.zshrc from $ZSHRC..."
-	echo "Press Ctrl+C within 5 seconds to abort..."
-	sleep 5
-	cp ~/.zshrc ~/.zshrc.old
-	scp -P33445 $ZSHRC ~/.zshrc
-	echo "Done; existing ~/.zshrc saved as ~/.zshrc.old; Differences:"
-	diff -Nu ~/.zshrc.old ~/.zshrc
-}
-commitzshrc(){
-	DEST="dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.zshrc"
-	echo "Copying ~/.zshrc to $DEST"
-	scp -P33445 ~/.zshrc $DEST
-	echo "Done"
-}
-updatevim(){
-	echo "Updating your vim profile"
-	echo "Press C-c within 5 seconds to abort..."
-	sleep 5
-	cp ~/.vimrc ~/.vimrc.old
-	rsync -czvru --progress -e "ssh -p33445" --exclude="swap/*" dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.vim/ ~/.vim/
-	scp -P33445 dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.vimrc ~/.vimrc
-	echo "Done; existing ~/.vimrc saved as ~/.vimrc.old; Differences:"
-	diff -Nu ~/.vimrc.old ~/.vimrc
-}
-commitvim(){
-	VIMRC="dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.vimrc"
-	echo "Copying ~/.vimrc to $VIMRC"
-	scp -P33445 ~/.vimrc $VIMRC
-	echo "Done"
-	echo "Committing the ~/.vim folder"
-	rsync -czvru --progress -e "ssh -p33445" --exclude="swap/*" ~/.vim/ dmsuperman@cjohnson.me:/storage/www/vhosts/cjohnson.me/profile/.vim/
-	echo "Done"
-}
-
-###########################################
 # Standard aliases
 ###########################################
-alias sudo="sudo " # Parse sudo as an alias, thus forcing the subcommand to be parsed
+sudo(){
+	local -a cmd
+	if [[ -n ${aliases[$1]} ]]; then
+		cmd=( ${(z)${aliases[$1]}} )
+		shift
+		command sudo $cmd "$@"
+	else
+		cmd=( $1 )
+		shift
+		command sudo $cmd "$@"
+	fi
+}
+alias s="sudo"
 alias install="sudo apt-get install"
 alias remove="sudo apt-get remove"
 alias ls="ls -ABhp --color=always"
@@ -390,8 +363,8 @@ alias -s htm=$BROWSER
 # SSH aliases
 alias home="ssh -XC dmsuperman@dmsuperman.com"
 alias host="ssh -C -p 33445 dmsuperman@cjohnson.me"
-alias host-attach-im="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -radAp im\""
-alias host-attach-irc="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -rxp irc\""
+alias host-attach-im="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -radA -p im\""
+alias host-attach-irc="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -rx -p irc\""
 alias data="ssh -C dmsuperman@data.cjohnson.me"
 
 # Edit aliases inline
