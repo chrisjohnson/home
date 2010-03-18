@@ -245,6 +245,21 @@
         <desktop>6</desktop>
       </action>
     </keybind>
+    <keybind key="C-W-KP_7">
+      <action name="Desktop">
+        <desktop>7</desktop>
+      </action>
+    </keybind>
+    <keybind key="C-W-KP_8">
+      <action name="Desktop">
+        <desktop>8</desktop>
+      </action>
+    </keybind>
+    <keybind key="C-W-KP_9">
+      <action name="Desktop">
+        <desktop>9</desktop>
+      </action>
+    </keybind>
     <keybind key="W-g">
       <action name="Execute">
         <execute>gcolor2</execute>
@@ -447,6 +462,9 @@
         <execute>amixer -q set Master 2- unmute</execute>
       </action>
     </keybind>
+	<keybind key="W-d">
+		<action name="ToggleDecorations" />
+	</keybind>
     <!--These don't work, figure these out later-->
     <keybind key="W-KP_7">
       <action name="MoveToEdgeNorthWest"/>
