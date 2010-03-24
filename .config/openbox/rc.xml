@@ -340,11 +340,6 @@
         <execute>gmrun</execute>
       </action>
     </keybind>
-    <keybind key="C-k">
-      <action name="Execute">
-        <execute>kupfer</execute>
-      </action>
-    </keybind>
     <keybind key="C-W-a">
       <action name="ToggleAlwaysOnTop"/>
     </keybind>
