@@ -237,6 +237,10 @@ alias rsync.exact="rsync -rtpogxv --progress -l -H"
 alias rsync.to-host="rsync -urltPv --delete --bwlimit=30"
 alias rsync.loose="rsync -zvru"
 
+mvln(){
+	mv $1 $2
+	ln -s $2 $1
+}
 mid(){
 	if test $# -lt 2; then
 		echo "$0: Insufficient arguments"
