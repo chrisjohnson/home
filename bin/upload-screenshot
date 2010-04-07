@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#COMMAND="curl -o '"$1".upload.log' -# --form 'code=code' --form 'tags=tag' --form 'file=@"$1"' 'http://bayimg.com/upload'"
+COMMAND="curl -o '"$1".upload.log' -# --form 'adult=f' --form 'name="$1"' --form 't=file' --form 'f=@"$1"' 'http://imagebin.ca/upload.php'"
+sh -c "$COMMAND"
+if [ -f "$1.upload.log" ]
+	then
+		LOGFILE="$1.upload.log"
+		OUTPUT=`screenshot-extract-link $LOGFILE`
+		if [ -t 1 ]
+			then
+				echo $OUTPUT
+		else
+			zenity --width=500 --title="Upload complete" --entry --text="Here is your uploaded image:" --entry-text="$OUTPUT"
+		fi
+		rm $LOGFILE
+else
+	if [ -t 1 ]
+		then
+			echo "Upload failed!"
+	else
+		zenity --info --text="Upload failed!"
+	fi
+fi

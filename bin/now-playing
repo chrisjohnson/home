@@ -1,0 +1,48 @@
+#!/bin/bash
+mpd_status(){
+	META=`mpc --format '[%artist% / ][%album% / ][%title% ]' 2> /dev/null | grep "/" | grep -v 'n/a' | head -n1 2> /dev/null`
+	TIME=`mpc status 2> /dev/null | grep -v "volume:" 2> /dev/null | head -n2 | tail -n1 | awk '{print $3, $4}' 2> /dev/null`
+	if [ "$META" = "" ]; then
+		META="Nothing"
+	fi
+	if [ "$TIME" = "" ]; then
+		TIME="0:00/0:00"
+	fi
+}
+banshee_status(){
+	# Export the dbus session address for SSH
+	if [[ -z "$SSH_CLIENT" && -z "$SSH2_CLIENT" ]]; then
+		echo > /dev/null # We aren't in SSH
+	else
+		PID=$(pidof mono /usr/lib/banshee-1/Banshee.exe)
+		export DBUS_SESSION_BUS_ADDRESS=$(cat /proc/$PID/environ | xargs -0 -n1 | grep DBUS_SESSION_BUS_ADDRESS | cut -d= -f2-)
+	fi
+	if [ "`banshee --query-current-state | grep playing`" == "" ]; then
+		META="Nothing"
+		TIME="00:00/00:00"
+	else
+		ARTIST="`banshee --query-artist | sed s/artist:\ //`"
+		ALBUM="`banshee --query-album | sed s/album:\ //`"
+		TITLE="`banshee --query-title | sed s/title:\ //`"
+		META="$ARTIST / $ALBUM / $TITLE"
+		STARTSECONDS="`banshee --query-position | sed s/position:\ // | awk '{print int($1)}'`"
+		ENDSECONDS="`banshee --query-duration | sed s/duration:\ // | awk '{print int($1)}'`"
+		if [ "$ENDSECONDS" -gt 3600 ]; then
+			FORMAT="%T"
+		else
+			FORMAT="%M:%S"
+		fi
+		END="`date -d "1970-01-01 $ENDSECONDS sec" +$FORMAT`"
+		START="`date -d "1970-01-01 $STARTSECONDS sec" +$FORMAT`"
+		TIME="$START/$END"
+	fi
+}
+if [ "`ps axu | grep -i banshee | grep -v grep`" == "" ]; then
+	mpd_status
+else
+	banshee_status
+	if [ "$META" == "Nothing" ]; then
+		mpd_status
+	fi
+fi
+echo "Now Playing: $META [$TIME]"

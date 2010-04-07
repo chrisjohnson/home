@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ "${1}" == "quick" ]
+	then
+		QUICK="true"
+else
+	QUICK="false"
+fi
+
+if [ "${QUICK}" == "false" ]
+	then
+		zenity --question --title "Upload" --text "Upload to imagebin?"
+		UPLOAD=$?
+		zenity --info --text="Please select the area to take a screenshot of"
+		if [ "$UPLOAD" = "0" ]; then
+			scrot -e 'mv $f ~/Desktop/ && upload-screenshot ~/Desktop/$f' -s -m -c -b -d 2
+		else
+			scrot -e 'mv $f ~/Desktop/ && zenity --width=500 --title="Screenshot" --entry --text="Path to screenshot:" --entry-text="~/Desktop/$f"' -s -m -c -b -d 2
+		fi
+else
+	scrot -e 'mv $f ~/Desktop/ && zenity --width=500 --title="Screenshot" --entry --text="Path to screenshot:" --entry-text="~/Desktop/$f"' -m -b
+fi

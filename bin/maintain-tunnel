@@ -1,0 +1,2 @@
+#!/bin/zsh
+while [ 1 ]; do ps axu 2>/dev/null | grep ".*ssh.*dmsuperman.*2222.*" | grep -v grep | read RESULT; if [[ "$RESULT" == "" ]]; then ssh -f dmsuperman@dmsuperman.com -R2222:localhost:22 -N; sleep 5s; else echo "Already connected, waiting 60s"; sleep 60s; fi; done

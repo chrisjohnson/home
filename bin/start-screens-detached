@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/screen -d -m -O -S screens -c ~/.screenrc-start-detached
