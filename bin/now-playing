@@ -1,9 +1,15 @@
 #!/bin/bash
 mpd_status(){
-	META=`mpc --format '[%artist% / ][%album% / ][%title% ]' 2> /dev/null | grep "/" | grep -v 'n/a' | head -n1 2> /dev/null`
+	META=`mpc --format '[%artist% / ][%album% / ][%title% ]' 2> /dev/null | grep "/" | grep -v 'n/a'`
+	if [ "`echo $META | grep -P '(\\[paused\\]|n/a)'`" = "" ]; then
+		META=`echo $META | head -n1`
+	else
+		META=""
+	fi
 	TIME=`mpc status 2> /dev/null | grep -v "volume:" 2> /dev/null | head -n2 | tail -n1 | awk '{print $3, $4}' 2> /dev/null`
 	if [ "$META" = "" ]; then
 		META="Nothing"
+		TIME="0:00/0:00"
 	fi
 	if [ "$TIME" = "" ]; then
 		TIME="0:00/0:00"
