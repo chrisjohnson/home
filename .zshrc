@@ -312,6 +312,39 @@ flac-to-v0(){
 flac-to-v2(){
 	flac-to-mp3 "-V2"
 }
+id3-read-tag(){
+	# Given a filename, hash it and read the id3 tags from the hash table using the md5 hash of the file as key
+	# If the file hasn't already been scanned, read it into the hash table
+	HASHNAME=`echo $1 | md5sum | awk '{print $1}'`
+	if [[ "$ID3_FILE_DB[$HASHNAME]" == "" ]]; then
+		id3-read-file $HASHNAME $1
+	fi
+	case ${2:l} in
+		tit2|title) field="TIT2";;
+		tpe1|artist) field="TPE1";;
+		talb|album) field="TALB";;
+		trck|track) field="TRCK";;
+		tyer|year) field="TYER";;
+		tcon|genre) field="TCON";;
+		*) field="";;
+	esac
+	echo $ID3_FILE_DB[$HASHNAME] | grep "^${field}" | sed "s/^${field}=//"
+}
+id3-read-file(){
+	# Read the tags for a given file and store the results in a searchable array
+	typeset -xA "ID3_FILE_DB"
+	typeset -x "ID3_FILE_DB[${1}]"="`mid3v2 $2`"
+}
+id3-rename-file(){
+	# Given a filename, read all the relevant information from the hash table and rename it appropriately
+	filename=$1
+	basedir=`dirname $1`
+	title=`id3-read-tag $filename title | sed "s/\//-/g"`
+	track=`id3-read-tag $filename track`
+	track=`printf '%02d' $track`
+	newfilename="$basedir/$track.$title.mp3"
+	echo "Moving file $filename to $newfilename"
+}
 pslist(){
 	case $1 in
 		cpu | CPU | %cpu) sort="-%cpu";;
