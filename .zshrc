@@ -316,6 +316,7 @@ id3-read-tag(){
 	# Given a filename, hash it and read the id3 tags from the hash table using the md5 hash of the file as key
 	# If the file hasn't already been scanned, read it into the hash table
 	HASHNAME=`echo $1 | md5sum | awk '{print $1}'`
+	typeset -xA ID3_FILE_DB
 	if [[ "$ID3_FILE_DB[$HASHNAME]" == "" ]]; then
 		id3-read-file $HASHNAME $1
 	fi
@@ -340,8 +341,11 @@ id3-rename-file(){
 	filename=$1
 	basedir=`dirname $1`
 	title=`id3-read-tag $filename title | sed "s/\//-/g"`
+	album=`id3-read-tag $filename album`
+	artist=`id3-read-tag $filename artist`
 	track=`id3-read-tag $filename track`
 	track=`printf '%02d' $track`
+	year=`id3-read-tag $filename year`
 	newfilename="$basedir/$track.$title.mp3"
 	echo "Moving file $filename to $newfilename"
 }
