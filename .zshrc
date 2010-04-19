@@ -329,7 +329,7 @@ id3-read-tag(){
 		tcon|genre) field="TCON";;
 		*) field="";;
 	esac
-	echo $ID3_FILE_DB[$HASHNAME] | grep "^${field}" | sed "s/^${field}=//"
+	echo $ID3_FILE_DB[$HASHNAME] | grep "^${field}" 2>/dev/null | sed "s/^${field}=//"
 }
 id3-read-file(){
 	# Read the tags for a given file and store the results in a searchable array
