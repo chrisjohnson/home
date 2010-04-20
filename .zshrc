@@ -380,7 +380,7 @@ id3-clean-dir(){
 	echo "Done!"
 }
 title-clean(){
-	echo $1 | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | sed 's/\sand\s/ and /gi'
+	echo $1 | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | sed 's/\sand\s/ and /gi' | sed 's/\sa\s/ a /gi'
 }
 pslist(){
 	case $1 in
