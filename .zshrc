@@ -345,7 +345,7 @@ id3-rename-file(){
 	title=`id3-read-tag $filename title | sed "s/\//-/g"`
 	album=`id3-read-tag $filename album`
 	artist=`id3-read-tag $filename artist`
-	track=`id3-read-tag $filename track`
+	track=`id3-read-tag $filename track | sed "s/\/.*//g"`
 	track=`printf '%02d' $track`
 	year=`id3-read-tag $filename year`
 	newfilename="$basedir/$track.$title.mp3"
