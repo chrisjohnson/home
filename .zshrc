@@ -355,15 +355,15 @@ id3-rename-file(){
 id3-clean-tags(){
 	filename=$1
 	title=`id3-read-tag $filename title`
-	echo $title | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | read newtitle
+	title-clean $title | read newtitle
 	artist=`id3-read-tag $filename artist`
-	echo $artist | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | read newartist
+	title-clean $artist | read newartist
 	album=`id3-read-tag $filename album`
-	echo $album | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | read newalbum
+	title-clean $album | read newalbum
 	echo "Title: $title => $newtitle"
 	echo "Album: $album => $newalbum"
 	echo "Artist: $artist => $newartist"
-	mid3v2 -a "$newartist" -A "$newalbum" -t "$newtitle" "$filename"
+	mid3v2 -a "$newartist" -A "$newalbum" -t "$newtitle" --TPOS "1/1" "$filename"
 }
 id3-clean-dir(){
 	if [[ "$1" == "" ]]; then
@@ -378,6 +378,9 @@ id3-clean-dir(){
 		echo "==============="
 	done
 	echo "Done!"
+}
+title-clean(){
+	echo $1 | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | sed 's/\sand\s/ and /gi'
 }
 pslist(){
 	case $1 in
