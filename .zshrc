@@ -233,9 +233,9 @@ alias rtch="screen -rxU"
 alias nano="nano -w"
 alias source="source ~/.zshrc"
 alias source.real="source"
-alias rsync.exact="rsync -rtpogxv --progress -l -H"
+alias rsync.exact="rsync -rtpogxv -P -l -H"
 alias rsync.to-host="rsync -urltPv --delete --bwlimit=30"
-alias rsync.loose="rsync -zvru"
+alias rsync.loose="rsync -zvru -P"
 
 mvln(){
 	mv $1 $2
