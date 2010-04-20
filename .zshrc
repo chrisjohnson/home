@@ -312,13 +312,14 @@ flac-to-v0(){
 flac-to-v2(){
 	flac-to-mp3 "-V2"
 }
+
 id3-read-tag(){
 	# Given a filename, hash it and read the id3 tags from the hash table using the md5 hash of the file as key
 	# If the file hasn't already been scanned, read it into the hash table
 	HASHNAME=`echo $1 | md5sum | awk '{print $1}'`
-	typeset -xA ID3_FILE_DB
+	typeset -gA "ID3_FILE_DB"
 	if [[ "$ID3_FILE_DB[$HASHNAME]" == "" ]]; then
-		id3-read-file $HASHNAME $1
+		id3-read-file $HASHNAME "$1"
 	fi
 	case ${2:l} in
 		tit2|title) field="TIT2";;
@@ -329,15 +330,16 @@ id3-read-tag(){
 		tcon|genre) field="TCON";;
 		*) field="";;
 	esac
-	echo $ID3_FILE_DB[$HASHNAME] | grep "^${field}" 2>/dev/null | sed "s/^${field}=//"
+	echo $ID3_FILE_DB[$HASHNAME] | grep -a "^${field}" 2>/dev/null | sed "s/^${field}=//"
 }
 id3-read-file(){
 	# Read the tags for a given file and store the results in a searchable array
-	typeset -xA "ID3_FILE_DB"
-	typeset -x "ID3_FILE_DB[${1}]"="`mid3v2 $2`"
+	typeset -gA "ID3_FILE_DB"
+	ID3_FILE_DB[$1]=`mid3v2 $2`
 }
 id3-rename-file(){
 	# Given a filename, read all the relevant information from the hash table and rename it appropriately
+	typeset -gA "ID3_FILE_DB"
 	filename=$1
 	basedir=`dirname $1`
 	title=`id3-read-tag $filename title | sed "s/\//-/g"`
@@ -347,7 +349,35 @@ id3-rename-file(){
 	track=`printf '%02d' $track`
 	year=`id3-read-tag $filename year`
 	newfilename="$basedir/$track.$title.mp3"
-	echo "Moving file $filename to $newfilename"
+	echo "Moving \"$filename\" to \"$newfilename\""
+	mv "$filename" "$newfilename"
+}
+id3-clean-tags(){
+	filename=$1
+	title=`id3-read-tag $filename title`
+	echo $title | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | read newtitle
+	artist=`id3-read-tag $filename artist`
+	echo $artist | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | read newartist
+	album=`id3-read-tag $filename album`
+	echo $album | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | read newalbum
+	echo "Title: $title => $newtitle"
+	echo "Album: $album => $newalbum"
+	echo "Artist: $artist => $newartist"
+	mid3v2 -a "$newartist" -A "$newalbum" -t "$newtitle" "$filename"
+}
+id3-clean-dir(){
+	if [[ "$1" == "" ]]; then
+		dir=`pwd`
+	else
+		dir="$1"
+	fi
+	find $dir -type f -iname "*mp3" | while read FILE; do
+		echo "Found $FILE"
+		id3-clean-tags "$FILE"
+		id3-rename-file "$FILE"
+		echo "==============="
+	done
+	echo "Done!"
 }
 pslist(){
 	case $1 in
