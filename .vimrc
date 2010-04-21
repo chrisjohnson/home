@@ -104,6 +104,8 @@ nnoremap <C-S-Tab> gT
 nnoremap <C-t> :tabnew<CR>
 " Run the current file in a perl window
 map ;p :!perl "%"
+" Sync the current working copy to sandbox
+map ;s :!cd $HOME/projects/comsite5-redesign; swc-new sync<cr>
 " Build the current file as a PDF and open it with evince
 map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
 
