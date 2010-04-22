@@ -73,6 +73,10 @@ map <leader>e :edit
 map <leader>q :q<cr>
 map <leader>p "+gp
 map <leader>P "+gP
+" yank/put to special register (to avoid the automatically handled one)
+map <leader>sy "ry
+map <leader>sp "rp
+map <leader>sP "rP
 " Copy to X clipboard with ,y
 map <leader>y "+y
 " ,x to de-highlight from the search
