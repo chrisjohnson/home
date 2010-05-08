@@ -273,6 +273,12 @@
     <keybind key="W-m">
       <action name="ToggleMaximizeFull"/>
     </keybind>
+    <keybind key="W-v">
+      <action name="ToggleMaximizeVert"/>
+    </keybind>
+    <keybind key="W-h">
+      <action name="ToggleMaximizeHorz"/>
+    </keybind>
 	<!--
     <keybind key="C-W-f">
       <action name="Execute">
