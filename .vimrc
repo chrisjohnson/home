@@ -73,6 +73,10 @@ map <leader>e :edit
 map <leader>q :q<cr>
 map <leader>p "+gp
 map <leader>P "+gP
+" yank/put to special register (to avoid the automatically handled one)
+map <leader>sy "ry
+map <leader>sp "rp
+map <leader>sP "rP
 " Copy to X clipboard with ,y
 map <leader>y "+y
 " ,x to de-highlight from the search
@@ -104,6 +108,8 @@ nnoremap <C-S-Tab> gT
 nnoremap <C-t> :tabnew<CR>
 " Run the current file in a perl window
 map ;p :!perl "%"
+" Sync the current working copy to sandbox
+map ;s :!cd $HOME/projects/comsite5-redesign; swc-new sync<cr>
 " Build the current file as a PDF and open it with evince
 map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
 
