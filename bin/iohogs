@@ -1,0 +1,4 @@
+#!/bin/sh
+echo 1 | sudo tee /proc/sys/vm/block_dump > /dev/null
+dmesg | egrep "READ|WRITE|dirtied" | awk '{print $2}' | grep -Po '\w+(?=\()' | sort | uniq -c | sort -rn
+echo 0 | sudo tee /proc/sys/vm/block_dump > /dev/null
