@@ -1,0 +1,2 @@
+#!/bin/sh
+sar -u 1 1 | grep -v Average | tail -n1 | awk '{print $7"%"}'
