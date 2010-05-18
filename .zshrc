@@ -210,6 +210,7 @@ sudo(){
 	fi
 }
 alias s="sudo"
+alias stealth-mode="HISTSIZE=; HISTFILE=;"
 alias install="sudo apt-get install"
 alias remove="sudo apt-get remove"
 alias ls="ls -ABhp --color=always"
