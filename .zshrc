@@ -350,11 +350,13 @@ id3-rename-file(){
 	album=`id3-read-tag $filename album`
 	artist=`id3-read-tag $filename artist`
 	track=`id3-read-tag $filename track | sed "s/\/.*//g"`
-	track=`printf '%02d' $track`
+	track=`track-clean $track`
 	year=`id3-read-tag $filename year`
 	newfilename="$basedir/$track.$title.mp3"
-	echo "Moving \"$filename\" to \"$newfilename\""
-	mv "$filename" "$newfilename"
+	if [[ "$filename" != "$newfilename" ]]; then
+		echo "Moving \"$filename\" to \"$newfilename\""
+		mv "$filename" "$newfilename"
+	fi
 }
 id3-clean-tags(){
 	filename=$1
@@ -374,17 +376,39 @@ id3-clean-dir(){
 		dir=`pwd`
 	else
 		dir="$1"
+		if [[ "$2" == "track" ]]; then
+			albumtrack=1
+		else
+			albumtrack=0
+		fi
 	fi
+	find $dir -type f -iname "*mp3" | wc -l | read ALBUMCOUNT
 	find $dir -type f -iname "*mp3" | while read FILE; do
 		echo "Found $FILE"
 		id3-clean-tags "$FILE"
 		id3-rename-file "$FILE"
+		if [[ "$albumtrack" == "1" ]]; then
+			echo "Fixing track"
+			id3-fix-track "$FILE" "$ALBUMCOUNT"
+		fi
 		echo "==============="
 	done
 	echo "Done!"
 }
+id3-fix-track(){
+	echo $1 | read FILE
+	echo $2 | read ALBUMCOUNT
+	track-clean $ALBUMCOUNT | read $ALBUMCOUNT
+	id3-read-tag $FILE track | read TRACK
+	track-clean $TRACK | read NEWTRACK
+	NEWTRACK="$NEWTRACK/$ALBUMCOUNT"
+	mid3v2 -T "$NEWTRACK" "$FILE"
+}
 title-clean(){
 	echo $1 | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | sed 's/\sand\s/ and /gi' | sed 's/\sa\s/ a /gi'
+}
+track-clean(){
+	printf '%02d' "`echo $1 | sed 's/\/.*$//g'`"
 }
 pslist(){
 	case $1 in
