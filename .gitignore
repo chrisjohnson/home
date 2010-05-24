@@ -4,5 +4,6 @@
 !.config/openbox/*
 *.gitignore*
 *.vim/swap*
+*.vim/.netrwhist*
 *.viminfo*
 *.vimrc.old
