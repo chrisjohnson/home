@@ -352,7 +352,7 @@ id3-rename-file(){
 	track=`id3-read-tag $filename track | sed "s/\/.*//g"`
 	track=`track-clean $track`
 	year=`id3-read-tag $filename year`
-	if [[ "$track" == "0" ]]; then
+	if [[ "$track" == "00" ]]; then
 		newfilename="$basedir/$artist - $title.mp3"
 	else
 		newfilename="$basedir/$track.$title.mp3"
