@@ -386,11 +386,11 @@ id3-clean-dir(){
 	find $dir -type f -iname "*mp3" | while read FILE; do
 		echo "Found $FILE"
 		id3-clean-tags "$FILE"
-		id3-rename-file "$FILE"
 		if [[ "$albumtrack" == "1" ]]; then
 			echo "Fixing track"
 			id3-fix-track "$FILE" "$ALBUMCOUNT"
 		fi
+		id3-rename-file "$FILE"
 		echo "==============="
 	done
 	echo "Done!"
