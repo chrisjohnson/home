@@ -399,7 +399,7 @@ id3-clean-file(){
 	ALBUMTRACK="$2"
 	ALBUMCOUNT="$3"
 	id3-clean-tags "$FILE"
-	if [[ "$albumtrack" == "1" ]]; then
+	if [[ "$ALBUMTRACK" == "1" ]]; then
 		echo "Fixing track"
 		id3-fix-track "$FILE" "$ALBUMCOUNT"
 	fi
