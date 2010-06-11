@@ -110,6 +110,8 @@ nnoremap <C-t> :tabnew<CR>
 map ;p :!perl "%"
 " Sync the current working copy to sandbox
 map ;s :!cd $HOME/projects/comsite5-redesign; swc-new sync<cr>
+" Restart the sandbox server
+map ;r :!$HOME/bin/manta-restart<cr>
 " Build the current file as a PDF and open it with evince
 map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
 
