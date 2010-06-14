@@ -9,6 +9,8 @@ for($t = 0; $t < $lines; $t++){
 	$command = $gcommand;
 	$input[$t] =~ qr/$pattern/;
 	$count = @-;
+	# Replace %0 with the entire string
+	$command =~ s/\%0/$input[$t]/;
 	# Iterate the matches from the pattern
 	for($i = 1; $i < $count; $i++){
 		# Extract the match and build the command string
