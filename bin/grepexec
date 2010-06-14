@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+$input = <STDIN>;
+chomp($input);
+
+$pattern = $ARGV[0];
+$command = $ARGV[1];
+$input =~ qr/$pattern/;
+$count = @-;
+# Iterate the matches from the pattern
+for($i = 1; $i < $count; $i++){
+	# Extract the match and build the command string
+	$arg = ${$i};
+	$cmdarg = "\%" . $i;
+	# Replace $cmdarg (should be %1, %2, etc) with $arg (whatever data was extracted from the match)
+	$command =~ s/$cmdarg/$arg/g;
+}
+exec $command;
