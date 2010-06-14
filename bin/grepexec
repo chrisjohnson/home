@@ -1,16 +1,12 @@
 #!/usr/bin/perl
-@input = <STDIN>;
-
 $pattern = $ARGV[0];
 $gcommand = $ARGV[1];
-$lines = @input;
 # Iterate the lines from the input
-for($t = 0; $t < $lines; $t++){
+while(my $line = <STDIN>){
+	chomp($line);
 	$command = $gcommand;
-	$input[$t] =~ qr/$pattern/;
+	$line =~ qr/$pattern/;
 	$count = @-;
-	# Replace %0 with the entire string
-	$command =~ s/\%0/$input[$t]/;
 	# Iterate the matches from the pattern
 	for($i = 1; $i < $count; $i++){
 		# Extract the match and build the command string
@@ -19,6 +15,8 @@ for($t = 0; $t < $lines; $t++){
 		# Replace $cmdarg (should be %1, %2, etc) with $arg (whatever data was extracted from the match)
 		$command =~ s/$cmdarg/$arg/g;
 	}
+	# Replace %0 with the entire string
+	$command =~ s/\%0/$line/;
 	# Execute the command for this line
 	system $command;
 }
