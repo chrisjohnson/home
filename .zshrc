@@ -409,7 +409,7 @@ id3-clean-file(){
 id3-fix-track(){
 	echo $1 | read FILE
 	echo $2 | read ALBUMCOUNT
-	track-clean $ALBUMCOUNT | read $ALBUMCOUNT
+	track-clean $ALBUMCOUNT | read ALBUMCOUNT
 	id3-read-tag $FILE track | read TRACK
 	track-clean $TRACK | read NEWTRACK
 	NEWTRACK="$NEWTRACK/$ALBUMCOUNT"
