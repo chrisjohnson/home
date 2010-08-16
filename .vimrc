@@ -101,6 +101,8 @@ map ;y :%y<space>+<cr>
 map ;q :quitall<cr>
 " ;wq to write and quit
 map ;wq :w<cr>:q<cr><cr>
+" r to repeat search
+map r /<CR>
 " Command-line navigation
 cnoremap <C-x> <Right>
 cnoremap <C-z> <Left>
