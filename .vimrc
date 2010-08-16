@@ -60,6 +60,12 @@ if has('gui_running')
 	set columns=120
 endif
 
+" Remap the arrow keys to ijkl
+map i <Up>
+map j <Left>
+map k <Down>
+noremap h i
+
 " Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
 imap <c-n> <esc>
@@ -109,7 +115,7 @@ nnoremap <C-t> :tabnew<CR>
 " Run the current file in a perl window
 map ;p :!perl "%"
 " Sync the current working copy to sandbox
-map ;s :!cd $HOME/projects/comsite5-redesign; swc-new sync<cr>
+map ;s :!cd $HOME/projects/site-redesign; swc-new sync<cr>
 " Restart the sandbox server
 map ;r :!$HOME/bin/manta-restart<cr>
 " Build the current file as a PDF and open it with evince
