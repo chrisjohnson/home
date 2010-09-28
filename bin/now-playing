@@ -44,11 +44,17 @@ banshee_status(){
 		TIME="$START/$END"
 	fi
 }
-if [ "`ps axu | grep -i banshee | grep -v grep`" = "" ]; then
+mplayer_status(){
+	~/bin/mplayer-np | read LINE
+	echo $LINE | sed -r 's/^(.+?)\[(.+?)\]$/\1/' | read META
+	echo $LINE | sed -r 's/^(.+?)\[(.+?)\]$/\2/'  | read TIME
+}
+if [[ "`ps axu | grep -i mplayer | grep -v grep`" == "" || ! -a /tmp/mplayer.log ]]; then
+
 	mpd_status
 else
-	banshee_status
-	if [ "$META" == "Nothing" ]; then
+	mplayer_status
+	if [[ "$META" == "Nothing" ]]; then
 		mpd_status
 	fi
 fi
