@@ -88,7 +88,8 @@ compdef _sudo fork
 
 # Change C-w to work on alphanumeric words
 autoload -U select-word-style
-select-word-style bash
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+select-word-style normal
 
 ###########################################
 # Prompt style
