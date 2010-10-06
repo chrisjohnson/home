@@ -86,6 +86,10 @@ zstyle ':completion:*:ssh:*' group-order \
 # Add completion for "fork", lazily
 compdef _sudo fork
 
+# Change C-w to work on alphanumeric words
+autoload -U select-word-style
+select-word-style bash
+
 ###########################################
 # Prompt style
 ###########################################
