@@ -1,0 +1,5 @@
+#!/usr/bin/perl
+@input = <STDIN>;
+foreach (@input) {
+  print join (' ', map {ucfirst(lc($_))} split /\s+/, $_) . "\n";
+}
