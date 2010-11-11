@@ -401,6 +401,11 @@ id3-clean-dir(){
 	done
 	echo "Done!"
 }
+id3-clean-files(){
+	for file in $*
+		do id3-clean-file $file
+	done
+}
 id3-clean-file(){
 	FILE="$1"
 	ALBUMTRACK="$2"
