@@ -1,5 +1,6 @@
 ###########################################
 # Set up the history
+# Another test
 ###########################################
 HISTFILE=~/.zsh_hist
 HISTSIZE=1000
