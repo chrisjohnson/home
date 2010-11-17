@@ -427,7 +427,7 @@ id3-fix-track(){
 	mid3v2 -T "$NEWTRACK" "$FILE"
 }
 title-clean(){
-	echo $1 | sed 's/\sof\s/ of /gi' | sed 's/\sthe\s/ the /gi' | sed 's/\sand\s/ and /gi' | sed 's/\sa\s/ a /gi'
+	echo $1 | sed 's/\sof\s/ of /gi' | sed 's/(?![-\(\)&])\sthe\s/ the /gi' | sed 's/\sand\s/ and /gi' | sed 's/\sa\s/ a /gi'
 }
 track-clean(){
 	printf '%02d' "`echo $1 | sed 's/\/.*$//g'`"
