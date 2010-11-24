@@ -279,6 +279,11 @@
     <keybind key="W-h">
       <action name="ToggleMaximizeHorz"/>
     </keybind>
+    <keybind key="C-W-k">
+      <action name="Execute">
+        <execute>~/bin/kill-flash</execute>
+      </action>
+    </keybind>
 	<!--
     <keybind key="C-W-f">
       <action name="Execute">
