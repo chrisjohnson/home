@@ -323,7 +323,21 @@ flac-to-v0(){
 flac-to-v2(){
 	flac-to-mp3 "-V2"
 }
-
+bitrates(){
+	# Retreive the bitrate of files passed as arguments and print them out
+	for file in $*
+		do
+		echo "`basename \"$file\"` - `bitrate \"$file\"`"
+	done
+}
+bitrate(){
+	# Print the bitrate of the file given as an argument
+	echo $1 | read file
+	exiftool -AudioBitrate "$file" | sed -r 's/^.*:\s([0-9]+)/\1/' | read audiobitrate
+	if [[ $audiobitrate -gt 1000 ]]; then
+		echo "$(( audiobitrate / 1000 ))k"
+	fi
+}
 id3-read-tag(){
 	# Given a filename, hash it and read the id3 tags from the hash table using the md5 hash of the file as key
 	# If the file hasn't already been scanned, read it into the hash table
