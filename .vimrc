@@ -117,7 +117,7 @@ nnoremap <C-t> :tabnew<CR>
 " Run the current file in a perl window
 map ;p :!perl "%"
 " Sync the current working copy to sandbox
-map ;s :!cd $HOME/projects/site-redesign; swc-new sync<cr>
+map ;s :!swc sync<cr>
 " Restart the sandbox server
 map ;r :!$HOME/bin/manta-restart<cr>
 " Build the current file as a PDF and open it with evince
