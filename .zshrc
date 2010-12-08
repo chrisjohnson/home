@@ -246,6 +246,7 @@ alias source.real="source"
 alias rsync.exact="rsync -rtpogxv -P -l -H"
 alias rsync.to-host="rsync -urltPv --delete --bwlimit=30"
 alias rsync.loose="rsync -zvru -P"
+alias mvtorrents="mv ~/Downloads/*torrent /shortcuts/watch/"
 alias fullupdate="cd $HOME; git pull; source ~/.zshrc; cd -"
 
 mvln(){
