@@ -339,6 +339,15 @@ bitrate(){
 		echo "$(( audiobitrate / 1000 ))k"
 	fi
 }
+bpm(){
+	infile=$1
+	echo $infile | sed -n 's/^.*\.\(wav\)$/\1/p' | read WAV
+	if [[ "$WAV" == "" ]]; then
+		ffmpeg -y -i $infile -f wav /tmp/buffer.wav 2>/dev/null >/dev/null
+		infile="/tmp/buffer.wav"
+	fi
+	soundstretch $infile -bpm | sed -n 's/Detected BPM rate \(.*\)/\1 BPM/p'
+}
 id3-read-tag(){
 	# Given a filename, hash it and read the id3 tags from the hash table using the md5 hash of the file as key
 	# If the file hasn't already been scanned, read it into the hash table
@@ -363,21 +372,35 @@ id3-read-file(){
 	typeset -gA "ID3_FILE_DB"
 	ID3_FILE_DB[$1]=`mid3v2 $2`
 }
+id3-rename-files(){
+	cat -- | read format
+	echo $format
+	for file in $*
+		do id3-rename-file $file $format
+	done
+}
 id3-rename-file(){
 	# Given a filename, read all the relevant information from the hash table and rename it appropriately
 	typeset -gA "ID3_FILE_DB"
 	filename=$1
 	basedir=`dirname $1`
+	format=$2
 	title=`id3-read-tag $filename title | sed "s/\//-/g"`
 	album=`id3-read-tag $filename album`
 	artist=`id3-read-tag $filename artist`
 	track=`id3-read-tag $filename track | sed "s/\/.*//g"`
 	track=`track-clean $track`
 	year=`id3-read-tag $filename year`
-	if [[ "$track" == "00" ]]; then
-		newfilename="$basedir/$artist - $title.mp3"
+	if [[ "$format" == "" ]]; then
+		if [[ "$track" == "00" ]]; then
+			newfilename="$basedir/$artist - $title.mp3"
+		else
+			newfilename="$basedir/$track.$title.mp3"
+		fi
 	else
-		newfilename="$basedir/$track.$title.mp3"
+		if [[ "$format" == "artist" ]]; then
+			newfilename="$basedir/$track.$title - $artist.mp3"
+		fi
 	fi
 	if [[ "$filename" != "$newfilename" ]]; then
 		echo "Moving \"$filename\" to \"$newfilename\""
