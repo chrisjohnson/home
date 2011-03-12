@@ -233,6 +233,7 @@ alias -g h="| head"
 alias -g e="; exit"
 alias gmp="gnome-mplayer"
 alias vmplayer="mplayer -vo vdpau -vc ffh264vdpau"
+alias hvmplayer="mplayer -cache 32000 -vo vdpau -vc ffh264vdpau"
 alias hdvmplayer="mplayer -vo vdpau -vc ffh264vdpau -cache-min 75 -cache 65536"
 alias id3="mid3v2"
 alias grep="grep --color=auto"
@@ -463,6 +464,14 @@ id3-fix-track(){
 	track-clean $TRACK | read NEWTRACK
 	NEWTRACK="$NEWTRACK/$ALBUMCOUNT"
 	mid3v2 -T "$NEWTRACK" "$FILE"
+}
+id3-scan-tags(){
+	cat -- | while read file; do
+		track=$(echo $file | sed -E 's/^([0-9]+)\..*$/\1/')
+		if [[ ! $track == "" ]]; then
+			id3 -T "$track" "$file"
+		fi
+	done
 }
 title-clean(){
 	echo $1 | sed 's/\sof\s/ of /gi' | sed 's/(?![-\(\)&])\sthe\s/ the /gi' | sed 's/\sand\s/ and /gi' | sed 's/(?![-\(\)&])\sa\s/ a /gi'
