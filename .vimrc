@@ -125,6 +125,8 @@ map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
 
 colorscheme wombat
 
+let g:ackprg="ack-grep -H --nocolor --nogroup"
+
 autocmd FileType php let php_noShortTags=1
 
 autocmd FileType php hi MatchParen ctermbg=blue guibg=lightblue
