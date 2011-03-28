@@ -1,8 +1,12 @@
 syntax on
+set nocompatible
 set tabstop=4
 set background=dark
 set nobackup
 set autoindent
+" Set up a huge history and undo cache
+set history=1000
+set undolevels=1000
 " Show the changed line count for commands
 set report=0
 " Show the command as you type it
@@ -15,8 +19,6 @@ set incsearch
 set hlsearch
 " Don't do spell-checking by default
 set nospell
-" Unfold everything
-set nofoldenable
 " Enable mouse support
 set mouse=a
 " Case insensitive search by default, but switch to case sensitive when searching with uppercase
@@ -28,6 +30,8 @@ set pastetoggle=<F12>
 set scrolloff=5
 " Set the dir to store all the swap files
 set directory=$HOME/.vim/swap,.
+" But then disable them anyway
+set noswapfile
 " Show line numbers
 set number
 set numberwidth=1 " But keep it narrow
@@ -35,6 +39,9 @@ set numberwidth=1 " But keep it narrow
 set showtabline=2
 " Set << and >> to move 4 spaces (1 tab)
 set shiftwidth=4
+" Make spaces easier to see
+set listchars=tab:.\ ,trail:.
+set list
 " Set up the font for gvim
 set guifont=Liberation\ Mono\ 9
 " Set the statusline
@@ -59,6 +66,19 @@ if has('gui_running')
 	set lines=40
 	set columns=120
 endif
+" Hide the toolbar in gvim
+set guioptions-=T
+" Set up ack
+let g:ackprg="ack -H --nocolor --nogroup --column"
+" Folding
+set foldmethod=syntax
+set foldlevel=1
+set foldminlines=5
+" Fold perl
+let perl_fold = 1
+let perl_fold_blocks = 1
+" Don't Fold PHP
+let php_fold = 0
 
 " Remap the arrow keys to ijkl
 map i <Up>
@@ -122,10 +142,10 @@ map ;s :!swc sync<cr>
 map ;r :!$HOME/bin/manta-restart<cr>
 " Build the current file as a PDF and open it with evince
 map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
+" Map w!! to sudo write
+cmap w!! w !sudo tee % > /dev/null
 
 colorscheme wombat
-
-let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 autocmd FileType php let php_noShortTags=1
 
