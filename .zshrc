@@ -250,8 +250,7 @@ alias mvtorrents="mv ~/Downloads/*torrent /shortcuts/watch/"
 alias fullupdate="cd $HOME; git pull; source ~/.zshrc; cd -"
 
 mvln(){
-	mv $1 $2
-	ln -s $2 $1
+	mv $1 $2 && ln -s $2 $1
 }
 mid(){
 	if test $# -lt 2; then
