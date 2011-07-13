@@ -94,6 +94,7 @@ select-word-style normal
 ###########################################
 # Prompt style
 ###########################################
+setopt interactivecomments
 autoload -U promptinit
 promptinit
 autoload -U colors zsh/terminfo
