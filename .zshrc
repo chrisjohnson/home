@@ -13,7 +13,31 @@ setopt menucomplete
 setopt completeinword # Enable in-word completion
 
 bindkey -e
-bindkey ' ' magic-space    # also do history expansion on space
+typeset -Ag abbreviations
+abbreviations=(
+  "jj"         "!$"
+  "jl"         "!#:1"
+  "jk"         "!-2$"
+  "Ix"         "| xargs"
+  "e"         "/shortcuts/music/Electronic"
+  "m"         "/shortcuts/music/Metal"
+)
+magic-abbrev-expand() {
+    local MATCH
+    LBUFFER=${LBUFFER%%(#m)[\-_a-zA-Z0-9]#}
+    LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
+    zle self-insert
+}
+no-magic-abbrev-expand() {
+  LBUFFER+=' '
+}
+zle -N magic-abbrev-expand
+zle -N no-magic-abbrev-expand
+bindkey " " magic-abbrev-expand
+bindkey "//" magic-abbrev-expand
+bindkey "^x " no-magic-abbrev-expand
+bindkey -M isearch " " magic-space
+
 # Make them work on some funky systems
 bindkey '\e[1~'   beginning-of-line  # Linux console
 bindkey '\e[H'    beginning-of-line  # xterm
