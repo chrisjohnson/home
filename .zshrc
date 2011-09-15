@@ -20,6 +20,7 @@ abbreviations=(
   "jk"         "!-2$"
   "Ix"         "| xargs"
   "e"         "/shortcuts/music/Electronic"
+  "d"         "/shortcuts/downloads/complete"
   "m"         "/shortcuts/music/Metal"
 )
 magic-abbrev-expand() {
