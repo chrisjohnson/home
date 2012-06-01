@@ -147,6 +147,8 @@ cmap w!! w !sudo tee % > /dev/null
 
 colorscheme wombat
 
+call pathogen#infect()
+
 autocmd FileType php let php_noShortTags=1
 
 autocmd FileType php hi MatchParen ctermbg=blue guibg=lightblue
