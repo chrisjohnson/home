@@ -136,6 +136,8 @@ colorscheme wombat
 
 call pathogen#infect()
 
+silent! source ~/.vimrc_local
+
 autocmd FileType php let php_noShortTags=1
 
 autocmd FileType php hi MatchParen ctermbg=blue guibg=lightblue

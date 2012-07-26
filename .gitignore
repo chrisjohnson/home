@@ -8,3 +8,4 @@
 *.vim/sessions/*
 *.viminfo*
 *.vimrc.old
+*.vimrc_local
