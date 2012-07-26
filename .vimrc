@@ -21,9 +21,6 @@ set hlsearch
 set nospell
 " Enable mouse support
 set mouse=a
-" Make search use better regex
-nnoremap / /\v
-vnoremap / /\v
 " Case insensitive search by default, but switch to case sensitive when searching with uppercase
 set ignorecase
 set smartcase
@@ -94,11 +91,21 @@ map i <Up>
 map j <Left>
 map k <Down>
 noremap h i
+" And map them with control to navigate splits
+nnoremap <C-i> <C-w>k
+nnoremap <C-j> <C-w>h
+nnoremap <C-k> <C-w>j
+nnoremap <C-l> <C-w>l
+" Create hotkeys to create splits
+nnoremap <C-h> <C-w>s
+nnoremap <C-v> <C-w>v
 
 " Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
 imap <c-n> <esc>
 vmap <c-n> <esc>
+" And jj in insert mode
+inoremap jj <ESC>
 
 let mapleader = ","
 map <leader>tn :tabnew<cr>
@@ -163,4 +170,4 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 
 hi MatchParen cterm=none ctermbg=none ctermfg=white
 
-au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $VIM/syntax/zsh.vim
+au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
