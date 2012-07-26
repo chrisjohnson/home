@@ -21,6 +21,9 @@ set hlsearch
 set nospell
 " Enable mouse support
 set mouse=a
+" Make search use better regex
+nnoremap / /\v
+vnoremap / /\v
 " Case insensitive search by default, but switch to case sensitive when searching with uppercase
 set ignorecase
 set smartcase
@@ -137,6 +140,8 @@ map ;p :!perl "%"
 map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
 " Map w!! to sudo write
 cmap w!! w !sudo tee % > /dev/null
+" Make ; work like :
+nnoremap ; :
 
 colorscheme wombat
 
