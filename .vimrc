@@ -28,13 +28,19 @@ set smartcase
 set pastetoggle=<F12>
 " Give 5 lines of space between the cursor and the top/bottom when scrolling
 set scrolloff=5
+" Persistent undo
+set undofile
 " Set the dir to store all the swap files
 set directory=$HOME/.vim/swap,.
+" And all the undo files
+set undodir=$HOME/.vim/undo,.
 " But then disable them anyway
 set noswapfile
 " Show line numbers
 set number
 set numberwidth=1 " But keep it narrow
+" Make the line number relative
+set relativenumber
 " Always show tabs
 set showtabline=2
 " Set << and >> to move 4 spaces (1 tab)
