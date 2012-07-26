@@ -93,7 +93,6 @@ vmap <c-n> <esc>
 
 let mapleader = ","
 map <leader>tn :tabnew<cr>
-map <leader>u :VCSUpdate<cr>
 map <leader>w :w<cr>
 map <leader>e :edit 
 map <leader>q :q<cr>
@@ -107,14 +106,6 @@ map <leader>sP "rP
 map <leader>y "+y
 " ,x to de-highlight from the search
 map <leader>x :nohlsearch<cr>
-" ,a to add the current file to version control
-map <leader>a :VCSAdd<cr>
-" Control+Enter to commit
-map <C-Enter> <leader>cc<cr>
-" ;c to commit without a commit log
-map ;c <leader>cc<leader>cc
-map ;l viwuW
-map ;u viwUW
 " ;y to yank the whole buffer to the X clipboard
 map ;y :%y<space>+<cr>
 " ;q to close all tabs and quit entirely
@@ -136,10 +127,6 @@ nnoremap <C-S-Tab> gT
 nnoremap <C-t> :tabnew<CR>
 " Run the current file in a perl window
 map ;p :!perl "%"
-" Sync the current working copy to sandbox
-map ;s :!swc sync<cr>
-" Restart the sandbox server
-map ;r :!$HOME/bin/manta-restart<cr>
 " Build the current file as a PDF and open it with evince
 map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
 " Map w!! to sudo write
