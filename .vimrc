@@ -109,6 +109,7 @@ inoremap jj <ESC>
 
 let mapleader = ","
 map <leader>nt :NERDTree<cr>
+map <leader>g :GundoToggle<cr>
 map <leader>tn :tabnew<cr>
 map <leader>w :w<cr>
 map <leader>e :edit 
