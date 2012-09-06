@@ -379,7 +379,7 @@ id3-read-tag(){
 	HASHNAME=`echo $1 | md5sum | awk '{print $1}'`
 	typeset -gA "ID3_FILE_DB"
 	if [[ "$ID3_FILE_DB[$HASHNAME]" == "" ]]; then
-		id3-read-file $HASHNAME "$1"
+		id3-read-file "$HASHNAME" "$1"
 	fi
 	case ${2:l} in
 		tit2|title) field="TIT2";;
@@ -398,10 +398,13 @@ id3-read-file(){
 	ID3_FILE_DB[$1]=`mid3v2 $2`
 }
 id3-rename-files(){
-	cat -- | read format
-	echo $format
+	if [[ ! -t 0 ]]; then
+		cat | read format
+	else
+		format=""
+	fi
 	for file in $*
-		do id3-rename-file $file $format
+		do echo "$format" | id3-rename-file $file
 	done
 }
 id3-rename-file(){
@@ -409,7 +412,11 @@ id3-rename-file(){
 	typeset -gA "ID3_FILE_DB"
 	filename=$1
 	basedir=`dirname $1`
-	format=$2
+	if [[ ! -t 0 ]]; then
+		cat | read format
+	else
+		format=""
+	fi
 	title=`id3-read-tag $filename title | sed "s/\//-/g"`
 	album=`id3-read-tag $filename album`
 	artist=`id3-read-tag $filename artist`
@@ -423,8 +430,10 @@ id3-rename-file(){
 			newfilename="$basedir/$track.$title.mp3"
 		fi
 	else
-		if [[ "$format" == "artist" ]]; then
+		if [[ "$format" == "title" ]]; then
 			newfilename="$basedir/$track.$title - $artist.mp3"
+		else
+			newfilename="$basedir/$track.$artist - $title.mp3"
 		fi
 	fi
 	if [[ "$filename" != "$newfilename" ]]; then
@@ -434,11 +443,11 @@ id3-rename-file(){
 }
 id3-clean-tags(){
 	filename=$1
-	title=`id3-read-tag $filename title`
+	title=`id3-read-tag "$filename" title`
 	title-clean $title | read newtitle
-	artist=`id3-read-tag $filename artist`
+	artist=`id3-read-tag "$filename" artist`
 	title-clean $artist | read newartist
-	album=`id3-read-tag $filename album`
+	album=`id3-read-tag "$filename" album`
 	title-clean $album | read newalbum
 	echo "Title: $title => $newtitle"
 	echo "Album: $album => $newalbum"
@@ -456,20 +465,35 @@ id3-clean-dir(){
 			albumtrack=0
 		fi
 	fi
+	if [[ ! -t 0 ]]; then
+		cat | read format
+	else
+		format=""
+	fi
 	find $dir -type f -iname "*mp3" | wc -l | read ALBUMCOUNT
 	find $dir -type f -iname "*mp3" | while read FILE; do
 		echo "Found $FILE"
-		id3-clean-file "$FILE" "$albumtrack" "$ALBUMCOUNT"
+		echo "$format" | id3-clean-file "$FILE" "$albumtrack" "$ALBUMCOUNT"
 		echo "==============="
 	done
 	echo "Done!"
 }
 id3-clean-files(){
+	if [[ ! -t 0 ]]; then
+		cat | read format
+	else
+		format=""
+	fi
 	for file in $*
-		do id3-clean-file $file
+		do echo "$format" | id3-clean-file $file
 	done
 }
 id3-clean-file(){
+	if [[ ! -t 0 ]]; then
+		cat | read format
+	else
+		format=""
+	fi
 	FILE="$1"
 	ALBUMTRACK="$2"
 	ALBUMCOUNT="$3"
@@ -478,7 +502,7 @@ id3-clean-file(){
 		echo "Fixing track"
 		id3-fix-track "$FILE" "$ALBUMCOUNT"
 	fi
-	id3-rename-file "$FILE"
+	echo "$format" | id3-rename-file "$FILE"
 }
 id3-fix-track(){
 	echo $1 | read FILE
@@ -490,7 +514,7 @@ id3-fix-track(){
 	mid3v2 -T "$NEWTRACK" "$FILE"
 }
 id3-scan-tags(){
-	cat -- | while read file; do
+	cat | while read file; do
 		track=$(echo $file | sed -E 's/^([0-9]+)\..*$/\1/')
 		if [[ ! $track == "" ]]; then
 			id3 -T "$track" "$file"
