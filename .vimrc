@@ -98,7 +98,7 @@ nnoremap <C-k> <C-w>j
 nnoremap <C-l> <C-w>l
 " Create hotkeys to create splits
 nnoremap <C-h> <C-w>s
-nnoremap <C-v> <C-w>v
+nnoremap <C-u> <C-w>v
 
 " Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
