@@ -28,13 +28,19 @@ set smartcase
 set pastetoggle=<F12>
 " Give 5 lines of space between the cursor and the top/bottom when scrolling
 set scrolloff=5
+" Persistent undo
+set undofile
 " Set the dir to store all the swap files
 set directory=$HOME/.vim/swap,.
+" And all the undo files
+set undodir=$HOME/.vim/undo,.
 " But then disable them anyway
 set noswapfile
 " Show line numbers
 set number
 set numberwidth=1 " But keep it narrow
+" Make the line number relative
+set relativenumber
 " Always show tabs
 set showtabline=2
 " Set << and >> to move 4 spaces (1 tab)
@@ -85,15 +91,26 @@ map i <Up>
 map j <Left>
 map k <Down>
 noremap h i
+" And map them with control to navigate splits
+nnoremap <C-i> <C-w>k
+nnoremap <C-j> <C-w>h
+nnoremap <C-k> <C-w>j
+nnoremap <C-l> <C-w>l
+" Create hotkeys to create splits
+nnoremap <C-h> <C-w>s
+nnoremap <C-u> <C-w>v
 
 " Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
 imap <c-n> <esc>
 vmap <c-n> <esc>
+" And jj in insert mode
+inoremap jj <ESC>
 
 let mapleader = ","
+map <leader>nt :NERDTree<cr>
+map <leader>g :GundoToggle<cr>
 map <leader>tn :tabnew<cr>
-map <leader>u :VCSUpdate<cr>
 map <leader>w :w<cr>
 map <leader>e :edit 
 map <leader>q :q<cr>
@@ -107,14 +124,6 @@ map <leader>sP "rP
 map <leader>y "+y
 " ,x to de-highlight from the search
 map <leader>x :nohlsearch<cr>
-" ,a to add the current file to version control
-map <leader>a :VCSAdd<cr>
-" Control+Enter to commit
-map <C-Enter> <leader>cc<cr>
-" ;c to commit without a commit log
-map ;c <leader>cc<leader>cc
-map ;l viwuW
-map ;u viwUW
 " ;y to yank the whole buffer to the X clipboard
 map ;y :%y<space>+<cr>
 " ;q to close all tabs and quit entirely
@@ -136,18 +145,18 @@ nnoremap <C-S-Tab> gT
 nnoremap <C-t> :tabnew<CR>
 " Run the current file in a perl window
 map ;p :!perl "%"
-" Sync the current working copy to sandbox
-map ;s :!swc sync<cr>
-" Restart the sandbox server
-map ;r :!$HOME/bin/manta-restart<cr>
 " Build the current file as a PDF and open it with evince
 map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
 " Map w!! to sudo write
 cmap w!! w !sudo tee % > /dev/null
+" Make ; work like :
+nnoremap ; :
 
 colorscheme wombat
 
 call pathogen#infect()
+
+silent! source ~/.vimrc_local
 
 autocmd FileType php let php_noShortTags=1
 
@@ -163,4 +172,4 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 
 hi MatchParen cterm=none ctermbg=none ctermfg=white
 
-au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $VIM/syntax/zsh.vim
+au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim

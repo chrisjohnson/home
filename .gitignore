@@ -4,7 +4,11 @@
 !.config/openbox/*
 *.gitignore*
 *.vim/swap*
+*.vim/undo*
+*.vim/ruby/command-t*
+*.vim/ruby/command-t/*
 *.vim/.netrwhist*
 *.vim/sessions/*
 *.viminfo*
 *.vimrc.old
+*.vimrc_local

@@ -1,0 +1,22 @@
+defscrollback 5000
+startup_message off
+
+chdir
+
+# Disable the bell
+vbell off
+bell_msg ""
+
+autodetach on
+
+bind ' ' windowlist -b
+bind 'm' monitor
+
+# Lines across the bottom
+backtick 1 60 1 memuse
+hardstatus alwayslastline
+hardstatus string '%0>%{= kw} %-Lw%50>%{=b bw}  %n %t  %{= kw}%+Lw %{= kw}%-1<%{-}%{=dd}'
+caption always "%?%F%{=b bW}%:%{= bW}%? [%f%] %t %h %-70=%H  [ L: %l M: %1` ]  %D %d %M %Y, %C:%s %A %{= .b}%{-}%{=dd}"
+
+msgwait 600
+activity "      Activity has appeared in window    %n - %t"
