@@ -273,6 +273,7 @@ alias rsync.to-host="rsync -urltPv --delete --bwlimit=30"
 alias rsync.loose="rsync -zvru -P"
 alias mvtorrents="mv ~/Downloads/*torrent /shortcuts/watch/"
 alias fullupdate="cd $HOME; git pull; source ~/.zshrc; cd -"
+alias smv="rsync --remove-source-files"
 
 mvln(){
 	mv $1 $2 && ln -s $2 $1
