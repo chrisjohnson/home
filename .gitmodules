@@ -16,3 +16,6 @@
 [submodule ".vim/bundle/command-t"]
 	path = .vim/bundle/command-t
 	url = git://git.wincent.com/command-t.git
+[submodule ".vim/bundle/vim-session"]
+	path = .vim/bundle/vim-session
+	url = https://github.com/xolox/vim-session.git
