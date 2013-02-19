@@ -155,6 +155,7 @@ nnoremap ; :
 colorscheme wombat
 
 call pathogen#infect()
+Helptags
 
 silent! source ~/.vimrc_local
 
