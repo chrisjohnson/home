@@ -24,6 +24,8 @@ set mouse=a
 " Case insensitive search by default, but switch to case sensitive when searching with uppercase
 set ignorecase
 set smartcase
+" Case insensitive tab completion
+set wildignorecase
 " Paste-mode where there is no autoindentation
 set pastetoggle=<F12>
 " Give 5 lines of space between the cursor and the top/bottom when scrolling
