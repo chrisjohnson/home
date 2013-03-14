@@ -102,6 +102,8 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>s
 nnoremap <C-u> <C-w>v
 
+nnoremap <F8> :TagbarToggle<CR>
+
 " Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
 imap <c-n> <esc>

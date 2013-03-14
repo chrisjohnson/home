@@ -22,3 +22,9 @@
 [submodule ".vim/bundle/vdebug"]
 	path = .vim/bundle/vdebug
 	url = https://github.com/joonty/vdebug.git
+[submodule ".vim/bundle/vim-gitgutter"]
+	path = .vim/bundle/vim-gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git
+[submodule ".vim/bundle/tagbar"]
+	path = .vim/bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git

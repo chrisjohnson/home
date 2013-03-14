@@ -47,6 +47,7 @@ ExtractSnipsFile()	snipMate.txt	/*ExtractSnipsFile()*
 Filename()	snipMate.txt	/*Filename()*
 Git	git.txt	/*Git*
 ResetSnippets()	snipMate.txt	/*ResetSnippets()*
+Tabular.txt	Tabular.txt	/*Tabular.txt*
 VCSCommandCVSDiffOpt	vcscommand.txt	/*VCSCommandCVSDiffOpt*
 VCSCommandCVSExec	vcscommand.txt	/*VCSCommandCVSExec*
 VCSCommandCommitOnWrite	vcscommand.txt	/*VCSCommandCommitOnWrite*
@@ -219,6 +220,12 @@ snipMate.txt	snipMate.txt	/*snipMate.txt*
 snippet	snipMate.txt	/*snippet*
 snippet-syntax	snipMate.txt	/*snippet-syntax*
 snippets	snipMate.txt	/*snippets*
+tabular	Tabular.txt	/*tabular*
+tabular-intro	Tabular.txt	/*tabular-intro*
+tabular-scripting	Tabular.txt	/*tabular-scripting*
+tabular-toc	Tabular.txt	/*tabular-toc*
+tabular-walkthrough	Tabular.txt	/*tabular-walkthrough*
+tabular.vim	Tabular.txt	/*tabular.vim*
 vcscommand	vcscommand.txt	/*vcscommand*
 vcscommand-buffer-management	vcscommand.txt	/*vcscommand-buffer-management*
 vcscommand-buffer-variables	vcscommand.txt	/*vcscommand-buffer-variables*
