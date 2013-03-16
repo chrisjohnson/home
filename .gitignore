@@ -2,6 +2,8 @@
 !.zshrc
 !.vim*
 !.config/openbox/*
+!.zsh/*
+*.zsh/cache/*
 *.gitignore*
 *.vim/swap*
 *.vim/undo*
