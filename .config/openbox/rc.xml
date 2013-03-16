@@ -34,9 +34,10 @@
     <!-- with Smart placement on a multi-monitor system, try to place new windows
        on: 'Any' - any monitor, 'Mouse' - where the mouse is, 'Active' - where
        the active window is -->
+    <primaryMonitor/>
   </placement>
   <theme>
-    <name>Carbon</name>
+    <name>Surreal</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -86,14 +87,14 @@
       <slant>normal</slant>
       <!-- 'italic' or 'normal' -->
     </font>
-    <font place="OnScreenDisplay">
-      <name>sans</name>
-      <size>9</size>
-      <!-- font size in points -->
-      <weight>bold</weight>
-      <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
-      <!-- 'italic' or 'normal' -->
+    <font place="ActiveOnScreenDisplay">
+      <name/>
+    </font>
+    <font place="InactiveOnScreenDisplay">
+      <name>Sans</name>
+      <size>8</size>
+      <weight/>
+      <slant/>
     </font>
   </theme>
   <desktops>
@@ -105,17 +106,13 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>8</number>
+    <number>4</number>
     <firstdesk>1</firstdesk>
     <names>
       <name>Primary</name>
-      <name>Secondary</name>
-      <name>Email</name>
-      <name>Chat</name>
       <name>Reference</name>
-      <name>Sandbox</name>
-      <name>Misc</name>
-      <name>Misc</name>
+      <name>Communications</name>
+      <name>Music</name>
     </names>
     <popupTime>875</popupTime>
     <!-- The number of milliseconds to show the popup for when switching
@@ -167,95 +164,95 @@
   </dock>
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
-    <keybind key="C-W-Left">
+    <keybind key="C-A-Left">
       <action name="DesktopLeft">
         <dialog>no</dialog>
         <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-W-Right">
+    <keybind key="C-A-Right">
       <action name="DesktopRight">
         <dialog>no</dialog>
         <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-W-Up">
+    <keybind key="C-A-Up">
       <action name="DesktopUp">
         <dialog>no</dialog>
         <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-W-Down">
+    <keybind key="C-A-Down">
       <action name="DesktopDown">
         <dialog>no</dialog>
         <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-W-A-Left">
+    <keybind key="C-S-A-Left">
       <action name="SendToDesktopLeft">
         <dialog>no</dialog>
         <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-W-A-Right">
+    <keybind key="C-S-A-Right">
       <action name="SendToDesktopRight">
         <dialog>no</dialog>
         <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-W-A-Up">
+    <keybind key="C-S-A-Up">
       <action name="SendToDesktopUp">
         <dialog>no</dialog>
         <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-W-A-Down">
+    <keybind key="C-S-A-Down">
       <action name="SendToDesktopDown">
         <dialog>no</dialog>
         <wrap>yes</wrap>
       </action>
     </keybind>
-    <keybind key="C-W-KP_1">
+    <keybind key="C-A-KP_1">
       <action name="Desktop">
         <desktop>1</desktop>
       </action>
     </keybind>
-    <keybind key="C-W-KP_2">
+    <keybind key="C-A-KP_2">
       <action name="Desktop">
         <desktop>2</desktop>
       </action>
     </keybind>
-    <keybind key="C-W-KP_3">
+    <keybind key="C-A-KP_3">
       <action name="Desktop">
         <desktop>3</desktop>
       </action>
     </keybind>
-    <keybind key="C-W-KP_4">
+    <keybind key="C-A-KP_4">
       <action name="Desktop">
         <desktop>4</desktop>
       </action>
     </keybind>
-    <keybind key="C-W-KP_5">
+    <keybind key="C-A-KP_5">
       <action name="Desktop">
         <desktop>5</desktop>
       </action>
     </keybind>
-    <keybind key="C-W-KP_6">
+    <keybind key="C-A-KP_6">
       <action name="Desktop">
         <desktop>6</desktop>
       </action>
     </keybind>
-    <keybind key="C-W-KP_7">
+    <keybind key="C-A-KP_7">
       <action name="Desktop">
         <desktop>7</desktop>
       </action>
     </keybind>
-    <keybind key="C-W-KP_8">
+    <keybind key="C-A-KP_8">
       <action name="Desktop">
         <desktop>8</desktop>
       </action>
     </keybind>
-    <keybind key="C-W-KP_9">
+    <keybind key="C-A-KP_9">
       <action name="Desktop">
         <desktop>9</desktop>
       </action>
@@ -279,71 +276,19 @@
     <keybind key="W-h">
       <action name="ToggleMaximizeHorz"/>
     </keybind>
-    <keybind key="C-W-k">
+    <keybind key="C-A-k">
       <action name="Execute">
         <execute>~/bin/kill-flash</execute>
       </action>
     </keybind>
-	<!--
-    <keybind key="C-W-f">
+    <keybind key="C-A-g">
       <action name="Execute">
-        <execute>wmctrl -r :SELECT: -e 0,1281,27,1320,1000</execute>
+        <execute>gvim</execute>
       </action>
     </keybind>
-    <keybind key="C-W-d">
+    <keybind key="C-A-t">
       <action name="Execute">
-        <execute>wmctrl -r :SELECT: -e 0,310,27,968,1000</execute>
-      </action>
-    </keybind>
-    <keybind key="C-W-g">
-      <action name="Execute">
-        <execute>wmctrl -r :SELECT: -e 0,0,24,1279,1000</execute>
-      </action>
-    </keybind>
-    <keybind key="C-W-h">
-      <action name="Execute">
-        <execute>wmctrl -r :SELECT: -e 0,1281,24,1680,1000</execute>
-      </action>
-    </keybind>
-	-->
-	<keybind key="C-W-g">
-		<action name="Execute">
-			<execute>gvim</execute>
-		</action>
-	</keybind>
-    <keybind key="C-W-c">
-      <action name="Execute">
-        <execute>terminator --geometry=1100x600</execute>
-      </action>
-    </keybind>
-    <keybind key="C-W-b">
-      <action name="Execute">
-        <execute>terminator --geometry=1320x975+1281+27</execute>
-      </action>
-    </keybind>
-    <keybind key="C-W-v">
-      <action name="Execute">
-        <execute>terminator --geometry=968x975+310+27</execute>
-      </action>
-    </keybind>
-    <keybind key="C-W-A-c">
-      <action name="Execute">
-        <execute>sh -c "DISPLAY=:0.1 terminator"</execute>
-      </action>
-    </keybind>
-    <keybind key="C-W-PageUp">
-      <action name="Execute">
-        <execute>mpc prev</execute>
-      </action>
-    </keybind>
-    <keybind key="C-W-PageDown">
-      <action name="Execute">
-        <execute>mpc next</execute>
-      </action>
-    </keybind>
-    <keybind key="C-W-space">
-      <action name="Execute">
-        <execute>mpc toggle</execute>
+        <execute>terminator --geometry=900x500</execute>
       </action>
     </keybind>
     <keybind key="A-F2">
@@ -351,21 +296,15 @@
         <execute>gmrun</execute>
       </action>
     </keybind>
-    <keybind key="C-W-a">
+    <keybind key="C-A-a">
       <action name="ToggleAlwaysOnTop"/>
     </keybind>
-    <keybind key="C-W-s">
+    <keybind key="C-A-s">
       <action name="ToggleOmnipresent"/>
     </keybind>
-    <keybind key="W-d">
-      <action name="ToggleShowDesktop"/>
-    </keybind>
     <!-- Keybindings for windows -->
-    <keybind key="C-W-x">
+    <keybind key="C-A-x">
       <action name="Close"/>
-    </keybind>
-    <keybind key="W-d">
-      <action name="ToggleShowDesktop"/>
     </keybind>
     <keybind key="A-Escape">
       <action name="Lower"/>
@@ -385,16 +324,6 @@
     <keybind key="C-A-space">
       <action name="ShowMenu">
         <menu>client-list-combined-menu</menu>
-      </action>
-    </keybind>
-    <keybind key="C-W-A-space">
-      <action name="ShowMenu">
-        <menu>mpd-menu</menu>
-      </action>
-    </keybind>
-    <keybind key="C-W-A-c">
-      <action name="ShowMenu">
-        <menu>weather-menu</menu>
       </action>
     </keybind>
     <keybind key="Print">
@@ -468,9 +397,9 @@
         <execute>amixer -q set Master 2- unmute</execute>
       </action>
     </keybind>
-	<keybind key="W-d">
-		<action name="ToggleDecorations" />
-	</keybind>
+    <keybind key="W-d">
+      <action name="ToggleDecorations"/>
+    </keybind>
     <!--These don't work, figure these out later-->
     <keybind key="W-KP_7">
       <action name="MoveToEdgeNorthWest"/>
