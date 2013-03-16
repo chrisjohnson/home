@@ -185,7 +185,7 @@ fi
 export PATH="$HOME/bin:${PATH}"
 
 # Applications
-export PAGER='less'
+export PAGER='less -R'
 export EDITOR='vim'
 export BROWSER='chromium-browser'
 
