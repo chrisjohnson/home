@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/tagbar"]
 	path = .vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule ".zsh/bundles/syntax-highlighting"]
+	path = .zsh/bundles/syntax-highlighting
+	url = git://github.com/zsh-users/zsh-syntax-highlighting.git

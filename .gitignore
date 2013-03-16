@@ -11,6 +11,7 @@
 *.vim/ruby/command-t/*
 *.vim/.netrwhist*
 *.vim/sessions/*
+*.vim/.VimballRecord*
 *.viminfo*
 *.vimrc.old
 *.vimrc_local
