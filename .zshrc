@@ -581,12 +581,6 @@ alias -s net=$BROWSER
 alias -s html=$BROWSER
 alias -s htm=$BROWSER
 
-# SSH aliases
-alias home="ssh -XC cjohnson@dmsuperman.com"
-alias host="ssh -C -p 33445 dmsuperman@cjohnson.me"
-alias host-attach-im="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -radA -p im\""
-alias host-attach-irc="ssh -Cp 33445 dmsuperman@cjohnson.me -t \"screen -rx -p irc\""
-
 # Edit aliases inline
 edalias(){
     [[ -z "$1" ]] && { echo "Usage: edalias <alias_to_edit>" ; return 1 } || vared aliases'[$1]' ;
