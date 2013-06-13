@@ -42,7 +42,7 @@ set noswapfile
 set number
 set numberwidth=1 " But keep it narrow
 " Make the line number relative
-set relativenumber
+"set relativenumber
 " Always show tabs
 set showtabline=2
 " Set << and >> to move 4 spaces (1 tab)
