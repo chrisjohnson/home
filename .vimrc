@@ -120,6 +120,8 @@ map <leader>g :GundoToggle<cr>
 map <leader>tn :tabnew<cr>
 map <leader>w :w<cr>
 map <leader>e :edit 
+" ;e to reload all current buffers
+map ;e :set noconfirm<cr>:bufdo e!<cr>:set confirm<cr>
 map <leader>q :q<cr>
 map <leader>p "+gp
 map <leader>P "+gP
