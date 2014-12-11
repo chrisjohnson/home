@@ -25,7 +25,9 @@ set mouse=a
 set ignorecase
 set smartcase
 " Case insensitive tab completion
-set wildignorecase
+if exists("&wildignorecase")
+	set wildignorecase
+endif
 " Paste-mode where there is no autoindentation
 set pastetoggle=<F12>
 " Give 5 lines of space between the cursor and the top/bottom when scrolling
