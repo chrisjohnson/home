@@ -198,7 +198,7 @@ id3-scan-tags(){
 	done
 }
 title-clean(){
-	echo $1 | sed 's/\sof\s/ of /gi' | sed 's/(?![-\(\)&])\sthe\s/ the /gi' | sed 's/\sand\s/ and /gi' | sed 's/(?![-\(\)&])\sa\s/ a /gi'
+	echo $1 | sed 's/\sof\s/ of /gi' | sed 's/(?![-\(\)&])\sthe\s/ the /gi' | sed 's/\sand\s/ and /gi' | sed 's/(?![-\(\)&])\sa\s/ a /gi' | sed 's/\s(original\smix)//i'
 }
 track-clean(){
 	printf '%02d' "`echo $1 | sed 's/\/.*$//g'`"
