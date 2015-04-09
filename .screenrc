@@ -12,6 +12,8 @@ autodetach on
 bind ' ' windowlist -b
 bind 'm' monitor
 
+altscreen on
+
 # Lines across the bottom
 backtick 1 60 1 memuse
 hardstatus alwayslastline
@@ -20,3 +22,15 @@ caption always "%?%F%{=b bW}%:%{= bW}%? [%f%] %t %h %-70=%H  [ L: %l M: %1` ]  %
 
 msgwait 600
 activity "      Activity has appeared in window    %n - %t"
+
+# navigating regions with Alt-arrows
+bindkey "^[^[[D" focus left
+bindkey "^[^[[C" focus right
+bindkey "^[^[[A" focus up
+bindkey "^[^[[B" focus down
+
+# enable copy mode when using pgup/pgdn
+bindkey -k %e eval copy 'stuff "^b"'
+bindkey -k %c eval copy 'stuff "^f"'
+bindkey -m %e eval copy 'stuff "^b"'
+bindkey -m %c eval copy 'stuff "^f"'
