@@ -1,6 +1,11 @@
 syntax on
 set nocompatible
+" Set tab character to 4 spaces
 set tabstop=4
+" Always show tabs
+set showtabline=2
+" Set << and >> to move 4 spaces (1 tab)
+set shiftwidth=4
 set background=dark
 set nobackup
 set autoindent
@@ -43,10 +48,6 @@ set number
 set numberwidth=1 " But keep it narrow
 " Make the line number relative
 "set relativenumber
-" Always show tabs
-set showtabline=2
-" Set << and >> to move 4 spaces (1 tab)
-set shiftwidth=4
 " Make spaces easier to see
 set listchars=tab:.\ ,trail:.
 set list
