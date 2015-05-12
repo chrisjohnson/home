@@ -49,6 +49,3 @@
 [submodule ".vim/bundle/ultisnips"]
 	path = .vim/bundle/ultisnips
 	url = git@github.com:SirVer/ultisnips.git
-[submodule ".vim/plugins/tern_for_vim.git"]
-	path = .vim/plugins/tern_for_vim.git
-	url = git@github.com:marijnh/tern_for_vim.git
