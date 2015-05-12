@@ -1,0 +1,21 @@
+#!/bin/bash
+# grep for vim
+
+# Tries for ag
+# If there's no ag installed, and we're in a git repo, git grep -n
+# Fall back to grep
+
+# Default
+CMD='grep -n --nocolor'
+
+# ag exists, use that
+command -v ag >/dev/null 2>&1 && CMD='ag --nogroup --nocolor'
+
+if [ -d .git ]; then
+	CMD='git grep -n'
+fi
+
+git rev-parse --git-dir && CMD='git grep -n'
+
+#echo $CMD $*
+$CMD $*
