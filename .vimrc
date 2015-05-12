@@ -1,6 +1,11 @@
 syntax on
 set nocompatible
+" Set tab character to 4 spaces
 set tabstop=4
+" Always show tabs
+set showtabline=2
+" Set << and >> to move 4 spaces (1 tab)
+set shiftwidth=4
 set background=dark
 set nobackup
 set autoindent
@@ -45,10 +50,6 @@ set number
 set numberwidth=1 " But keep it narrow
 " Make the line number relative
 "set relativenumber
-" Always show tabs
-set showtabline=2
-" Set << and >> to move 4 spaces (1 tab)
-set shiftwidth=4
 " Make spaces easier to see
 set listchars=tab:.\ ,trail:.
 set list
@@ -82,7 +83,7 @@ set guioptions-=T
 let g:ackprg="ack -H --nocolor --nogroup --column"
 " Prepare tagbar
 let g:tagbar_autofocus=1
-let g:tagbar_autoclose=1
+"let g:tagbar_autoclose=1
 " Folding
 set foldmethod=syntax
 set foldlevel=1
@@ -92,6 +93,14 @@ let perl_fold = 1
 let perl_fold_blocks = 1
 " Don't Fold PHP
 let php_fold = 0
+" Set leaderkey to be comma
+let mapleader = ","
+" Bind ,k to grep for the last searched string
+nnoremap <leader>k :grep <C-R>/<CR>:cw<CR>
+" bind K to grep word under cursor
+nnoremap K :grep "\b<C-R><C-W>\b"<CR>:cw<CR>
+" Use git grep instead of grep
+set grepprg=git\ grep\ -n
 
 " Remap the arrow keys to ijkl
 map i <Up>
@@ -116,7 +125,6 @@ vmap <c-n> <esc>
 " And jj in insert mode
 inoremap jj <ESC>
 
-let mapleader = ","
 map <leader>nt :NERDTree<cr>
 map <leader>g :GundoToggle<cr>
 map <leader>tn :tabnew<cr>
@@ -135,6 +143,7 @@ map <leader>sP "rP
 map <leader>y "+y
 " ,x to de-highlight from the search
 map <leader>x :nohlsearch<cr>
+map <leader>m :!mkdir -p %:h<cr>
 " ;y to yank the whole buffer to the X clipboard
 map ;y :%y<space>+<cr>
 " ;q to close all tabs and quit entirely
@@ -185,3 +194,4 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 hi MatchParen cterm=none ctermbg=none ctermfg=white
 
 au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
+set tabpagemax=40

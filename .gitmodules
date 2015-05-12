@@ -37,3 +37,18 @@
 [submodule ".vim/bundle/vim-obsession"]
 	path = .vim/bundle/vim-obsession
 	url = git://github.com/tpope/vim-obsession.git
+[submodule ".vim/bundle/linediff.vim"]
+	path = .vim/bundle/linediff.vim
+	url = https://github.com/AndrewRadev/linediff.vim.git
+[submodule ".vim/bundle/mustache"]
+	path = .vim/bundle/mustache
+	url = git://github.com/mustache/vim-mustache-handlebars.git
+[submodule ".vim/bundle/vim-abolish"]
+	path = .vim/bundle/vim-abolish
+	url = git://github.com/tpope/vim-abolish.git
+[submodule ".vim/bundle/ultisnips"]
+	path = .vim/bundle/ultisnips
+	url = git@github.com:SirVer/ultisnips.git
+[submodule ".vim/bundle/tern_for_vim.git"]
+	path = .vim/bundle/tern_for_vim.git
+	url = git@github.com:marijnh/tern_for_vim.git
