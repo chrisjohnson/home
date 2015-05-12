@@ -96,11 +96,14 @@ let php_fold = 0
 " Set leaderkey to be comma
 let mapleader = ","
 " Bind ,k to grep for the last searched string
-nnoremap <leader>k :grep <C-R>/<CR>:cw<CR>
+nnoremap <leader>k :grep -r <C-R>/ .<CR>:cw<CR>
 " bind K to grep word under cursor
-nnoremap K :grep "\b<C-R><C-W>\b"<CR>:cw<CR>
-" Use git grep instead of grep
-set grepprg=git\ grep\ -n
+nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
+" Use ag if it exists instead of grep for :grep
+if executable('ag')
+	set grepprg=ag\ --nogroup\ --nocolor
+endif
+
 
 " Remap the arrow keys to ijkl
 map i <Up>
