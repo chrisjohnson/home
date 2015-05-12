@@ -81,7 +81,7 @@ set guioptions-=T
 let g:ackprg="ack -H --nocolor --nogroup --column"
 " Prepare tagbar
 let g:tagbar_autofocus=1
-let g:tagbar_autoclose=1
+"let g:tagbar_autoclose=1
 " Folding
 set foldmethod=syntax
 set foldlevel=1
@@ -91,6 +91,14 @@ let perl_fold = 1
 let perl_fold_blocks = 1
 " Don't Fold PHP
 let php_fold = 0
+" Set leaderkey to be comma
+let mapleader = ","
+" Use git grep instead of grep
+set grepprg="git grep -n"
+" Bind ,k to grep for the last searched string
+nnoremap <leader>k :grep! <C-R>/<CR>:cw<CR>
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Remap the arrow keys to ijkl
 map i <Up>
@@ -115,7 +123,6 @@ vmap <c-n> <esc>
 " And jj in insert mode
 inoremap jj <ESC>
 
-let mapleader = ","
 map <leader>nt :NERDTree<cr>
 map <leader>g :GundoToggle<cr>
 map <leader>tn :tabnew<cr>
