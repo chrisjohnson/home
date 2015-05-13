@@ -1,12 +1,13 @@
+--langdef=javascript
 --langdef=js
---langmap=js:.js
---regex-JavaScript=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/F,function,functions/
---regex-JavaScript=/function[ \t]*([A-Za-z0-9._$()]+)[ \t]*\(/\1/F,function,functions/
---regex-JavaScript=/([A-Za-z0-9._$]+)[ \t]*=[ \t]*\{/\1/o,object,objects/
---regex-JavaScript=/^[ \t]*([A-Za-z0-9._$]+)[ \t]*[:][ \t]*[^\{]/\1/p,property,properties/
---regex-JavaScript=/^[ \t]+var[ \t]*([A-Za-z0-9._$]+)[ \t]*=[ \t]*[\d"'\[]/\1/v,variable,variables/
---regex-JavaScript=/\/\/[ \t]*(TODO)[ \t]*\:*(.*)/\1/I,{To do}/
---regex-JavaScript=/\/\/[ \t]*(FIXME)[ \t]*\:*(.*)/\1/I,{Fix me}/
+--langmap=javascript:.js
+--regex-javascript=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/F,function,functions/
+--regex-javascript=/function[ \t]*([A-Za-z0-9._$()]+)[ \t]*\(/\1/F,function,functions/
+--regex-javascript=/([A-Za-z0-9._$]+)[ \t]*=[ \t]*\{/\1/o,object,objects/
+--regex-javascript=/^[ \t]*([A-Za-z0-9._$]+)[ \t]*[:][ \t]*[^\{]/\1/p,property,properties/
+--regex-javascript=/^[ \t]+var[ \t]*([A-Za-z0-9._$]+)[ \t]*=[ \t]*[\d"'\[]/\1/v,variable,variables/
+--regex-javascript=/\/\/[ \t]*(TODO)[ \t]*\:*(.*)/\1/I,{To do}/
+--regex-javascript=/\/\/[ \t]*(FIXME)[ \t]*\:*(.*)/\1/I,{Fix me}/
 
 --langdef=less
 --langmap=less:.less
