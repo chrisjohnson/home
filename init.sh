@@ -13,12 +13,4 @@ cd ~/.vim/bundle/command-t/ruby/command-t && if [ ! -e Makefile ]; then
 	make
 fi
 
-cd ~/.vim/bundle/tern_for_vim.git &&
-	npm install
-
-cd $SCRIPTPATH &&
-	node -e "require.resolve('jsctags')" 2>/dev/null || npm install git://github.com/ramitos/jsctags.git &&
-	echo $PATH | grep -qv jsctags &&
-		echo "Add $SCRIPTPATH/node_modules/jsctags/bin to your PATH"
-
 echo "Done!"
