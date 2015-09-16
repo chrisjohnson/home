@@ -107,9 +107,9 @@ endif
 nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
 imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
 nmap <F2> :.w !pbcopy<CR><CR>
-vmap <F2> :w !pbcopy<CR><CR>
-" Make it work with the actual selection instead of the entire line
-vmap <F3> :call system('pbcopy', getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1])<CR>:echo ""<CR>
+"vmap <F2> :w !pbcopy<CR><CR>
+" Make it work with the actual selection instead of always the entire line
+vmap <F2> :call system('pbcopy', GetSelection())<CR>:echo ""<CR>
 
 
 " Remap the arrow keys to ijkl
