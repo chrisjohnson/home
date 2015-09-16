@@ -103,6 +103,13 @@ nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
 if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
 endif
+" Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
+nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+nmap <F2> :.w !pbcopy<CR><CR>
+"vmap <F2> :w !pbcopy<CR><CR>
+" Make it work with the actual selection instead of the entire line
+vmap <F2> :call system('pbcopy', getline("'<")[getpos("'<")[2]-1:getpos("'>")[2]-1])<CR>
 
 
 " Remap the arrow keys to ijkl
