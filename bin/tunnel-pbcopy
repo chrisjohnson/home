@@ -1,0 +1,3 @@
+#!/bin/bash
+
+while true; do ssh ad.local -R2224:localhost:2224 ; echo 'Died' && sleep 10s && echo 'Reconnecting'; done
