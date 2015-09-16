@@ -111,8 +111,8 @@ nmap <F2> :.w !pbcopy<CR><CR>
 " Make it work with the actual selection instead of always the entire line
 vmap <F2> :call system('pbcopy', GetSelection())<CR>:echo ""<CR>
 " Switch buffers quickly
-nmap <leader>l :ls<CR>:b<space>
-vmap <leader>l :ls<CR>:b<space>
+nmap <leader>l :ls<CR> :b<space>
+vmap <leader>l :ls<CR> :b<space>
 
 
 " Remap the arrow keys to ijkl
