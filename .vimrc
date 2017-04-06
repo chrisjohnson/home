@@ -83,6 +83,7 @@ set guioptions-=T
 let g:ackprg="ack -H --nocolor --nogroup --column"
 " Prepare tagbar
 let g:tagbar_autofocus=1
+let g:tagbar_compact=1
 "let g:tagbar_autoclose=1
 " Folding
 set foldmethod=syntax
