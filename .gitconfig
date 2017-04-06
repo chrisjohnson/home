@@ -1,0 +1,16 @@
+[user]
+	email = chrisjohnson0@gmail.com
+	name = Chris Johnson
+[push]
+	default = simple
+[core]
+	editor = vim
+[alias]
+	fpush = push --force
+	apush = push --all
+	mpush = push origin :
+[url "ssh://git@github.com/"]
+	pushInsteadOf = git://github.com/
+	pushInsteadOf = https://github.com/
+	pushInsteadOf = http://github.com/
+	pushInsteadOf = gh:
