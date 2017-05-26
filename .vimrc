@@ -8,7 +8,6 @@ set showtabline=2
 set shiftwidth=4
 set background=dark
 set nobackup
-set autoindent
 " Set up a huge history and undo cache
 set history=1000
 set undolevels=1000
@@ -104,6 +103,18 @@ nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
 if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
 endif
+
+
+" Indentation
+set autoindent
+" load filetype-specific indent files
+filetype indent on
+" Use spaces instead of tabs for ruby/python
+au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 tabstop=4 expandtab
+au Filetype ruby set shiftwidth=2 tabstop=2 expandtab
+set wrap "Wrap lines
+
+
 " Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
 nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
 imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
