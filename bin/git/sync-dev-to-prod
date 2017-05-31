@@ -1,0 +1,23 @@
+#!/bin/bash
+source $(which shell-colors)
+
+shopt -s expand_aliases
+
+alias rsed="sed -r"
+# Support -E instead of -r on mac
+uname | grep -qi darwin && alias rsed="sed -E"
+
+pwd | grep Sites &>/dev/null || { echo 'Run this from within a site dir' ; exit 1 ; }
+
+BASE=$(pwd | rsed 's/(.*(ADThemes|adthemes)\/Sites\/[^\/]+).*/\1/')
+echo $BASE | grep -q 'Sites\/?$' && { echo 'Run this from within a site dir' ; exit 1 ; }
+
+dev="$BASE/dev/"
+prod="$BASE/prod/"
+echo -e "${bold}${red}Syncing ${stout}$dev${reset}${bold}${red} to ${stout}$prod${reset}${bold}${red} (this may delete uncommitted files in prod)${reset}"
+read -p "Continue? [y/N] " response
+if [[ $response == "" || $response == "n" || $response == "N" ]]; then
+	exit 1
+fi
+
+rsync -zvruP --delete "$dev" "$prod"

@@ -1,0 +1,20 @@
+#!/bin/bash
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+source "$DIR/git-completion.bash"
+__git_complete branch _git_checkout
+__git_complete add _git_add
+__git_complete cherry-pick _git_cherry_pick
+__git_complete cherry-pick-into _git_cherry_pick
+__git_complete merge _git_merge
+__git_complete merge-into _git_merge
+__git_complete rebase _git_rebase
+__git_complete rebase-into _git_rebase
+__git_complete pull _git_pull
+__git_complete push _git_push

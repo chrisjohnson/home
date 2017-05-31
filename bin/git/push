@@ -1,0 +1,5 @@
+#!/bin/bash
+source $(which shell-colors)
+
+echo -e "${bold}${yellow}:: git push${reset}"
+git push

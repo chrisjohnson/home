@@ -1,0 +1,30 @@
+#!/bin/bash
+source $(which shell-colors)
+
+# Check for incomplete merges
+git diff --cached | grep -q '<<<<<<<' && { echo -e "${bold}${red}You are committing an incomplete merge -- there should be no <<<<<< HEAD  or ===== merge tags in your files${reset}" && echo 'Please always review your full commit before committing it, via the `staged` command' && exit 1 ; }
+
+echo "Committing staged changes, please review the following changes (only staged changes will be committed):"
+echo -e "${bold}${yellow}:: git status${reset}"
+git status
+
+while getopts ":m:" opt; do
+	case $opt in
+		m) message="$OPTARG"
+		;;
+	esac
+done
+
+echo ""
+if [[ -z "$message" ]]; then
+	echo "Please enter your commit message (control-c to cancel commit):"
+	read message || { echo -e "${bold}${red}No commit message specified, abandoning commit${reset}" && exit 1 ; }
+fi
+if [[ -z "$message" ]]; then
+	echo -e "${bold}${red}No commit message specified, abandoning commit${reset}"
+	exit 1
+fi
+escaped="${message//\"/\\\"}"
+#escaped="${escaped//\'/\\\'}"
+echo -e "${bold}${yellow}:: git commit -m \"$escaped\"${reset}"
+git commit -m "$message"

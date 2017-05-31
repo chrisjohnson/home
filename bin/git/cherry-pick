@@ -1,0 +1,8 @@
+#!/bin/bash
+source $(which shell-colors)
+
+change=$1
+
+echo "Cherry picking change $change"
+echo -e "${bold}${yellow}:: git cherry-pick \"$change\"${reset}"
+git cherry-pick "$change"

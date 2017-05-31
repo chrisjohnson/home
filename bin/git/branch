@@ -1,0 +1,49 @@
+#!/bin/bash
+source $(which shell-colors)
+
+branch=$(current-branch)
+dest=$1
+
+if [[ $branch == $dest ]]; then
+	echo -e "${bold}${red}You are already on ${stout}$branch${reset}${bold}${red}, dont run this command here (it has no effect)${reset}"
+	exit 1
+fi
+has-local-modifications
+if [[ $? -ne 0 ]]; then
+	echo -e "${bold}${red}Your branch ${stout}$branch${reset}${bold}${red} has local modifications, are you sure you want to switch branches? It is suggested that you stash, commit, or abandon your changes before running this command${reset}"
+	read -p "Continue? [y/N] " response
+	if [[ $response == "" || $response == "n" || $response == "N" ]]; then
+		exit 1
+	fi
+fi
+
+echo -e "Switching to branch ${bold}${red}${stout}$dest${reset}"
+echo -e "${bold}${yellow}:: git checkout \"$dest\"${reset}"
+git checkout "$dest" || exit 1
+
+# Check for submodules from the old branch which don't exist in the new branch
+{ git status --porcelain | grep -E '^\?.*\/$' | while read dir; do
+	dir=$(echo $dir| sed -E 's/^\?\? //')
+	if [[ -f "$dir/.git" ]]; then
+		# It's a submodule, we can remove it
+		echo -e "${bold}${red}Detected submodule ${stout}$dir${reset}${bold}${red} from previous branch which no longer exists in this branch, would you like to delete these files?${reset}"
+		read -u3 -p "Continue? [y/N] " response
+		if [[ $response == "" || $response == "n" || $response == "N" ]]; then
+			exit 1
+		fi
+		rm -rf "$dir"
+	fi
+done ; } 3<&0
+
+# Pull if our local branch is out of date
+git remote update &>/dev/null
+function possibly-pull {
+	echo -e "${bold}${red}Your branch ${stout}$dest${reset}${bold}${red} is behind remote, would you like to run a pull?${reset}"
+	read -p "Continue? [y/N] " response
+	if [[ $response == "" || $response == "n" || $response == "N" ]]; then
+		exit 1
+	fi
+	pull
+}
+# [possibly-]pull already runs submodule-update
+git status | grep -qE '(is behind|have diverged)' && possibly-pull || submodule-update

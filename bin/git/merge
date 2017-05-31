@@ -1,0 +1,15 @@
+#!/bin/bash
+source $(which shell-colors)
+
+branch=$(current-branch)
+dest=$1
+
+if [[ $branch == $dest ]]; then
+	echo -e "${bold}${red}You are already on ${stout}$branch${reset}${bold}${red}, dont run this command here (it has no effect)${reset}"
+	exit 1
+fi
+has-local-modifications || { echo -e "${bold}${red}Your branch ${bold}${red}${stout}$branch${reset}${bold}${red} has local modifications, please stash, commit, or abandon your changes before running this command${reset}" && exit 1 ; }
+
+echo -e "Merging ${bold}${red}${stout}$dest${reset} into your branch ${bold}${red}${stout}$branch${reset}"
+echo -e "${bold}${yellow}:: git merge --no-edit \"$dest\"${reset}"
+git merge --no-edit "$dest"

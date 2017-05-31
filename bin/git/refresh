@@ -1,0 +1,14 @@
+#!/bin/bash
+source $(which shell-colors)
+
+branch=$(current-branch)
+
+if [[ $branch == 'master' ]]; then
+	echo -e "${bold}${red}You are currently on ${stout}$branch${reset}${bold}${red}, dont run this command here (it has no effect)${reset}"
+	exit
+fi
+has-local-modifications || { echo -e "${bold}${red}Your branch ${bold}${red}${stout}$branch${reset}${bold}${red} has local modifications, please stash, commit, or abandon your changes before running this command${reset}" && exit 1 ; }
+
+echo -e "Refreshing your branch ${bold}${red}${stout}$branch${reset} from ${bold}${red}${stout}master${reset}"
+echo -e "${bold}${yellow}:: git fetch && git merge --no-edit origin/master${reset}"
+git fetch && git merge --no-edit origin/master

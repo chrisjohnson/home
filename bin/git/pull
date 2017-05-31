@@ -1,0 +1,8 @@
+#!/bin/bash
+source $(which shell-colors)
+
+echo "Pulling remote changes"
+echo -e "${bold}${yellow}:: git pull --rebase${reset}"
+git pull --rebase || exit 1
+
+submodule-update

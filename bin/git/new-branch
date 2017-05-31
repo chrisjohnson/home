@@ -1,0 +1,18 @@
+#!/bin/bash
+source $(which shell-colors)
+
+newbranch=$1
+currentbranch=$(current-branch)
+
+has-local-modifications
+if [[ $? -ne 0 ]]; then
+	echo -e "${bold}${red}Your branch ${stout}$currentbranch${reset}${bold}${red} has local modifications, are you sure you want to switch branches? It is suggested that you stash, commit, or abandon your changes before running this command${reset}"
+	read -p "Continue? [y/N] " response
+	if [[ $response == "" || $response == "n" || $response == "N" ]]; then
+		exit 1
+	fi
+fi
+
+echo -e "Creating and switching to new branch ${bold}${red}${stout}$newbranch${reset}"
+echo -e "${bold}${yellow}:: git checkout -b \"$newbranch\"${reset}"
+git checkout -b "$newbranch" || exit 1

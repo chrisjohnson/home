@@ -1,0 +1,10 @@
+compdef _git add=git-add
+compdef _git branch=git-checkout
+compdef _git cherry-pick=git-cherry-pick
+compdef _git cherry-pick-into=git-cherry-pick
+compdef _git merge=git-merge
+compdef _git merge-into=git-merge
+compdef _git pull=git-pull
+compdef _git push=git-push
+compdef _git rebase=git-rebase
+compdef _git rebase-into=git-rebase

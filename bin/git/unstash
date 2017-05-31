@@ -1,0 +1,6 @@
+#!/bin/bash
+source $(which shell-colors)
+
+echo "Restoring your stashed changes"
+echo -e "${bold}${yellow}:: git stash apply${reset}"
+git stash apply

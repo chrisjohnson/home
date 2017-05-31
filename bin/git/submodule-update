@@ -1,0 +1,15 @@
+#!/bin/bash
+source $(which shell-colors)
+
+git submodule status 2>/dev/null | grep -qE '^[^ ]' || exit 0
+
+echo ""
+echo ""
+echo "Submodules have changed:"
+echo -e "${bold}${yellow}:: git status | grep 'new commits'${reset}"
+git -c color.status=always status | grep --color=never 'new commits'
+
+echo ""
+echo "So we need to update submodules too:"
+echo -e "${bold}${yellow}:: git submodule sync && git submodule update --init --recursive${reset}"
+git submodule sync 1>/dev/null && git submodule update --init --recursive

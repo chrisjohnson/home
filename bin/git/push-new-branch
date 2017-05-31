@@ -1,0 +1,5 @@
+#!/bin/bash
+source $(which shell-colors)
+
+echo -e "${bold}${yellow}:: git push -u origin HEAD${reset}"
+git push -u origin HEAD

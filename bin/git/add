@@ -1,0 +1,6 @@
+#!/bin/bash
+source $(which shell-colors)
+
+echo "Staging files for commit"
+echo -e "${bold}${yellow}:: git add $*${reset}"
+git add $*

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+change=$1
+branch=$2
+
+branch $branch && cherry-pick $change
