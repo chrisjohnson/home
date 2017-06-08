@@ -103,6 +103,12 @@ nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
 if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
 endif
+" Ctrl-P
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPSmartTabs'
+let g:ctrlp_extensions = ['smarttabs']
+" Hilight the selected tab on the tabline
+let g:ctrlp_smarttabs_modify_tabline = 1
 
 
 " Indentation
