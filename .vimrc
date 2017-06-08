@@ -106,10 +106,11 @@ endif
 " Ctrl-P
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPSmartTabs'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|bundle|vendor)$'
+" Ctrl-P -- SmartTabs
 let g:ctrlp_extensions = ['smarttabs']
-" Hilight the selected tab on the tabline
 let g:ctrlp_smarttabs_modify_tabline = 1
-" gutentags ignore vendor code
+" gutentags
 let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
 let g:gutentags_ctags_tagfile = ".tags"
 
