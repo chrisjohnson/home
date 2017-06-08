@@ -109,6 +109,8 @@ let g:ctrlp_cmd = 'CtrlPSmartTabs'
 let g:ctrlp_extensions = ['smarttabs']
 " Hilight the selected tab on the tabline
 let g:ctrlp_smarttabs_modify_tabline = 1
+" gutentags ignore vendor code
+let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
 
 
 " Indentation
