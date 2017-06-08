@@ -111,6 +111,7 @@ let g:ctrlp_extensions = ['smarttabs']
 let g:ctrlp_smarttabs_modify_tabline = 1
 " gutentags ignore vendor code
 let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
+let g:gutentags_ctags_tagfile = ".tags"
 
 
 " Indentation
