@@ -5,6 +5,7 @@
 	default = simple
 [core]
 	editor = vim
+	excludesFile = ~/.home/.gitignore-global
 [alias]
 	fpush = push --force
 	apush = push --all
