@@ -163,7 +163,7 @@ vmap <c-n> <esc>
 " And jj in insert mode
 inoremap jj <ESC>
 
-map <leader>nt :NERDTree<cr>
+"map <leader>nt :NERDTree<cr>
 map <leader>g :GundoToggle<cr>
 map <leader>tn :tabnew<cr>
 map <leader>w :w<cr>
