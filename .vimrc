@@ -54,9 +54,6 @@ set listchars=tab:.\ ,trail:.
 set list
 " Set up the font for gvim
 set guifont=Liberation\ Mono\ 9
-" Set the statusline
-" Disabled since adding lightline
-"set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Position:\ (%4l,\ %3v)\ %p%%]\ [Lines:\ %L]%=[Git\ branch:\ %{GitBranchInfoTokens()[0]}]
 " Hide mode status since lightline includes it
 set noshowmode
 " Always show it
@@ -211,6 +208,13 @@ cmap w!! w !sudo tee % > /dev/null
 nnoremap ; :
 
 " lightline
+function! LightlineFugitive()
+	if exists('*fugitive#head')
+		silent! let branch = fugitive#head()
+		return branch !=# '' ? branch : ''
+	endif
+	return ''
+endfunction
 let g:lightline = {
 \ 'colorscheme': 'wombat',
 \ 'active': {
@@ -218,7 +222,7 @@ let g:lightline = {
 \             [ 'readonly', 'filename', 'modified', 'gitbranch' ] ]
 \ },
 \ 'component_function': {
-\   'gitbranch': 'fugitive#head'
+\   'gitbranch': 'LightlineFugitive'
 \ },
 \ }
 
