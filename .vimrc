@@ -55,7 +55,10 @@ set list
 " Set up the font for gvim
 set guifont=Liberation\ Mono\ 9
 " Set the statusline
-set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Position:\ (%4l,\ %3v)\ %p%%]\ [Lines:\ %L]%=[Git\ branch:\ %{GitBranchInfoTokens()[0]}]
+" Disabled since adding lightline
+"set statusline=%F%m%r%h%w\ [Format:\ %{&ff}]\ [Type:\ %Y]\ [Position:\ (%4l,\ %3v)\ %p%%]\ [Lines:\ %L]%=[Git\ branch:\ %{GitBranchInfoTokens()[0]}]
+" Hide mode status since lightline includes it
+set noshowmode
 " Always show it
 set laststatus=2
 " Command-line menu for completion
