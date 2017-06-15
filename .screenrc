@@ -14,6 +14,8 @@ bind 'm' monitor
 
 altscreen on
 
+term screen-256color
+
 # Lines across the bottom
 backtick 1 60 1 memfree
 hardstatus alwayslastline

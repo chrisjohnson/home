@@ -210,6 +210,19 @@ cmap w!! w !sudo tee % > /dev/null
 " Make ; work like :
 nnoremap ; :
 
+" lightline
+let g:lightline = {
+\ 'colorscheme': 'wombat',
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'readonly', 'filename', 'modified', 'gitbranch' ] ]
+\ },
+\ 'component_function': {
+\   'gitbranch': 'fugitive#head'
+\ },
+\ }
+
+" Rest of editor
 colorscheme wombat
 
 call pathogen#infect()
