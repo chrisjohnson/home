@@ -120,8 +120,8 @@ set autoindent
 " load filetype-specific indent files
 filetype indent on
 " Use spaces instead of tabs for ruby/python
-au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 tabstop=4 expandtab
-au Filetype ruby set shiftwidth=2 tabstop=2 expandtab
+au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 softtabstop=4 expandtab
+au Filetype ruby set shiftwidth=2 softtabstop=2 expandtab
 set wrap "Wrap lines
 
 
