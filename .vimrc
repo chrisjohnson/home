@@ -140,6 +140,10 @@ vmap <F2> :call system('pbcopy', GetSelection())<CR>:echo ""<CR>
 nmap <leader>l :ls<CR> :b<space>
 vmap <leader>l :ls<CR> :b<space>
 
+" r in quickfix to reload
+:autocmd BufReadPost quickfix nnoremap <buffer> r :Copen<CR>
+" R in quickfix to reload and scroll to the end
+:autocmd BufReadPost quickfix nnoremap <buffer> R :Copen<CR>G
 
 " Remap the arrow keys to ijkl
 map i <Up>
@@ -284,6 +288,8 @@ augroup FileTypeThings
 	" Use spaces instead of tabs for ruby/python
 	au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 softtabstop=4 expandtab
 	au Filetype ruby set shiftwidth=2 softtabstop=2 expandtab
+	" Use bundle exec rspec as the compiler for ruby
+	au Filetype ruby set makeprg=bundle\ exec\ rspec
 
 	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
 augroup END
