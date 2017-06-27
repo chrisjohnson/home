@@ -108,6 +108,7 @@ if executable('ag')
  
 	" ag is fast enough that CtrlP doesn't need to cache
 	let g:ctrlp_use_caching = 0
+
 endif
 " Ctrl-P
 let g:ctrlp_map = '<c-p>'
@@ -125,9 +126,6 @@ let g:gutentags_ctags_tagfile = ".tags"
 set autoindent
 " load filetype-specific indent files
 filetype indent on
-" Use spaces instead of tabs for ruby/python
-au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 softtabstop=4 expandtab
-au Filetype ruby set shiftwidth=2 softtabstop=2 expandtab
 set wrap "Wrap lines
 
 
@@ -235,26 +233,7 @@ let g:lightline = {
 " Rest of editor
 colorscheme wombat
 
-call pathogen#infect()
-Helptags
-
-silent! source ~/.vimrc_local
-
-autocmd FileType php let php_noShortTags=1
-
-autocmd FileType php hi MatchParen ctermbg=blue guibg=lightblue
-
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-
 hi MatchParen cterm=none ctermbg=none ctermfg=white
-
-au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
 set tabpagemax=40
 
 " terminal-specific magic
@@ -283,3 +262,28 @@ if s:screen || s:xterm
   cnoremap <Esc>[200~ <nop>
   cnoremap <Esc>[201~ <nop>
 endif
+
+call pathogen#infect()
+Helptags
+
+silent! source ~/.vimrc_local
+
+augroup FileTypeThings
+	autocmd FileType php let php_noShortTags=1
+
+	autocmd FileType php hi MatchParen ctermbg=blue guibg=lightblue
+
+	autocmd FileType python set omnifunc=pythoncomplete#Complete
+	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+	autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+	autocmd FileType c set omnifunc=ccomplete#Complete
+
+	" Use spaces instead of tabs for ruby/python
+	au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 softtabstop=4 expandtab
+	au Filetype ruby set shiftwidth=2 softtabstop=2 expandtab
+
+	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
+augroup END
