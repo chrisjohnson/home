@@ -99,6 +99,8 @@ let mapleader = ","
 nnoremap <leader>k :grep -r <C-R>/ .<CR>:cw<CR>
 " bind K to grep word under cursor
 nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
+" bind ,K to go to tmux manpage for word undor cursor
+nnoremap <silent><buffer> <leader>K :call tmux#man()<CR>
 if executable('ag')
 	" Use ag if it exists instead of grep for :grep
 	set grepprg=ag\ --nogroup\ --nocolor
