@@ -143,11 +143,11 @@ nmap <leader>l :ls<CR> :b<space>
 vmap <leader>l :ls<CR> :b<space>
 
 " r in quickfix to reload
-autocmd BufReadPost quickfix nnoremap <buffer> r :Copen<CR>
+autocmd FileType qf nnoremap <buffer> r :Copen<CR>
 " R in quickfix to reload and scroll to the end
-autocmd BufReadPost quickfix nnoremap <buffer> R :Copen<CR>G
+autocmd FileType qf nnoremap <buffer> R :Copen<CR>G
 " q in quickfix to close
-autocmd BufReadPost quickfix nnoremap <buffer> q :ccl<CR>
+autocmd FileType qf nnoremap <buffer> q :ccl<CR>
 
 " Remap the arrow keys to ijkl
 map i <Up>
