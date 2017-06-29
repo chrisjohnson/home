@@ -217,7 +217,7 @@ nnoremap ; :
 
 " lightline
 function! LightlineFugitive()
-	if exists('*fugitive#head')
+	if exists('*fugitive#head') && fugitive#extract_git_dir(expand('%')) !=# ''
 		silent! let branch = fugitive#head()
 		return branch !=# '' ? branch : ''
 	endif
