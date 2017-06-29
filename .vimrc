@@ -99,19 +99,20 @@ let mapleader = ","
 nnoremap <leader>k :grep -r <C-R>/ .<CR>:cw<CR>
 " bind K to grep word under cursor
 nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
-" bind ,K to go to tmux manpage for word undor cursor
-nnoremap <silent><buffer> <leader>K :call tmux#man()<CR>
+" Except in tmux config, then go to tmux manpage
+autocmd FileType tmux nnoremap <buffer> K :call tmux#man()<CR>
+
+" ag / The Silver Searcher
 if executable('ag')
 	" Use ag if it exists instead of grep for :grep
 	set grepprg=ag\ --nogroup\ --nocolor
-
 	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
- 
 	" ag is fast enough that CtrlP doesn't need to cache
 	let g:ctrlp_use_caching = 0
 
 endif
+
 " Ctrl-P
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPSmartTabs'
@@ -123,13 +124,11 @@ let g:ctrlp_smarttabs_modify_tabline = 1
 let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
 let g:gutentags_ctags_tagfile = ".tags"
 
-
 " Indentation
 set autoindent
 " load filetype-specific indent files
 filetype indent on
 set wrap "Wrap lines
-
 
 " Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
 nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
