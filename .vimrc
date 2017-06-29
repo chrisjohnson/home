@@ -289,7 +289,7 @@ augroup FileTypeThings
 	au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 softtabstop=4 expandtab
 	au Filetype ruby set shiftwidth=2 softtabstop=2 expandtab
 	" Use bundle exec rspec as the compiler for ruby
-	au Filetype ruby set makeprg=bundle\ exec\ rspec
+	au Filetype ruby set makeprg=vrspec
 
 	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
 augroup END
