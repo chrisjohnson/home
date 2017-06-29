@@ -2,8 +2,12 @@
 if hash free 2>/dev/null; then
 	free -m | grep '\-/+' | awk '{print $4}'
 else
-	INACTIVE=`memory-mac | grep 'Inactive' | awk '{print $3}'`
-	FREE=`memory-mac | grep 'Free' | awk '{print $3}'`
-	TOTAL=$((INACTIVE + FREE))
-	echo $TOTAL
+	FILE="/tmp/memfree.txt"
+	if [[ `date -r $FILE +%s` -le $((`date +%s` - 60)) ]]; then
+		INACTIVE=`memory-mac | grep 'Inactive' | awk '{print $3}'`
+		FREE=`memory-mac | grep 'Free' | awk '{print $3}'`
+		TOTAL=$((INACTIVE + FREE))
+		echo $TOTAL > $FILE
+	fi
+	cat /tmp/memfree.txt
 fi
