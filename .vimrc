@@ -96,10 +96,10 @@ let php_fold = 0
 " Set leaderkey to be comma
 let mapleader = ","
 " Bind ,k to grep for the last searched string
-nnoremap <leader>k :grep -r <C-R>/ .<CR>:cw<CR>
+nnoremap <leader>k :grep -Qr "<C-R>/" .<CR>:cw<CR>
 " bind K to grep word under cursor or selected word
 nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
-vnoremap K "vy:grep -r "\b<C-R>v\b" .<CR>:cw<CR>
+vnoremap K "vy:grep -Qr "<C-R>v" .<CR>:cw<CR>
 " Except in tmux config, then go to tmux manpage
 autocmd FileType tmux nnoremap <buffer> K :call tmux#man()<CR>
 autocmd FileType tmux vnoremap <buffer> K :call tmux#man()<CR>
@@ -112,7 +112,6 @@ if executable('ag')
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 	" ag is fast enough that CtrlP doesn't need to cache
 	let g:ctrlp_use_caching = 0
-
 endif
 
 " Ctrl-P
