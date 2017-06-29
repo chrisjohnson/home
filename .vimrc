@@ -288,7 +288,8 @@ augroup FileTypeThings
 	" Use spaces instead of tabs for ruby/python
 	au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 softtabstop=4 expandtab
 	au Filetype ruby set shiftwidth=2 softtabstop=2 expandtab
-	" Use bundle exec rspec as the compiler for ruby
+	" Use vrspec as the compiler for ruby (custom shell script ssh dispatcher for vagrant ssh bundle exec rspec)
+	au Filetype ruby compiler rspec
 	au Filetype ruby set makeprg=vrspec
 
 	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
