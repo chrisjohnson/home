@@ -132,12 +132,14 @@ filetype indent on
 set wrap "Wrap lines
 
 " Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
-nmap <F1> :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-imap <F1> <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-nmap <F2> :.w !pbcopy<CR><CR>
+"TODO: Write a wrapper that only calls reattach-to-user-namespace if necessary
+nmap <F1> :set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
+imap <F1> <Esc>:set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
+nmap <F2> :.w !reattach-to-user-namespace pbcopy<CR><CR>
 "vmap <F2> :w !pbcopy<CR><CR>
 " Make it work with the actual selection instead of always the entire line
-vmap <F2> :call system('pbcopy', GetSelection())<CR>:echo ""<CR>
+vmap <F2> :call system('reattach-to-user-namespace pbcopy', GetSelection())<CR>:echo ""<CR>
+
 " Switch buffers quickly
 nmap <leader>l :ls<CR> :b<space>
 vmap <leader>l :ls<CR> :b<space>
