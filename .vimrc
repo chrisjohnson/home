@@ -99,7 +99,7 @@ let mapleader = ","
 nnoremap <leader>k :grep -r <C-R>/ .<CR>:cw<CR>
 " bind K to grep word under cursor or selected word
 nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
-vnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
+vnoremap K "vy:grep -r "\b<C-R>v\b" .<CR>:cw<CR>
 " Except in tmux config, then go to tmux manpage
 autocmd FileType tmux nnoremap <buffer> K :call tmux#man()<CR>
 autocmd FileType tmux vnoremap <buffer> K :call tmux#man()<CR>
