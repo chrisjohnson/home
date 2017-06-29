@@ -97,10 +97,12 @@ let php_fold = 0
 let mapleader = ","
 " Bind ,k to grep for the last searched string
 nnoremap <leader>k :grep -r <C-R>/ .<CR>:cw<CR>
-" bind K to grep word under cursor
+" bind K to grep word under cursor or selected word
 nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
+vnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
 " Except in tmux config, then go to tmux manpage
 autocmd FileType tmux nnoremap <buffer> K :call tmux#man()<CR>
+autocmd FileType tmux vnoremap <buffer> K :call tmux#man()<CR>
 
 " ag / The Silver Searcher
 if executable('ag')
