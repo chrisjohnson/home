@@ -19,6 +19,8 @@ set showcmd
 set confirm
 " Begin searching immediately
 set incsearch
+" Delete existing text with backspace
+set backspace=indent,eol,start
 " Hilight the search results
 set hlsearch
 " Don't do spell-checking by default
