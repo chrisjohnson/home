@@ -54,10 +54,8 @@ set listchars=tab:.\ ,trail:.
 set list
 " Set up the font for gvim
 set guifont=Liberation\ Mono\ 9
-" Hide mode status since lightline includes it
-set noshowmode
-" Always show it
-set laststatus=2
+" Set leaderkey to be comma
+let mapleader = ","
 " Command-line menu for completion
 set wildmenu
 " Match the longest first and tab through the remaining choices
@@ -78,23 +76,14 @@ if has('gui_running')
 endif
 " Hide the toolbar in gvim
 set guioptions-=T
-" Set up ack
-let g:ackprg="ack -H --nocolor --nogroup --column"
 " Prepare tagbar
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
 "let g:tagbar_autoclose=1
-" Folding
-set foldmethod=syntax
-set foldlevel=1
-set foldminlines=5
-" Fold perl
-let perl_fold = 1
-let perl_fold_blocks = 1
-" Don't Fold PHP
-let php_fold = 0
-" Set leaderkey to be comma
-let mapleader = ","
+
+" == Searching ==
+" Set up ack
+let g:ackprg="ack -H --nocolor --nogroup --column"
 " Bind ,k to grep for the last searched string
 nnoremap <leader>k :grep -Qr "<C-R>/" .<CR>:cw<CR>
 " bind K to grep word under cursor or selected word
@@ -128,12 +117,7 @@ let g:ctrlp_smarttabs_modify_tabline = 1
 let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
 let g:gutentags_ctags_tagfile = ".tags"
 
-" Indentation
-set autoindent
-" load filetype-specific indent files
-filetype indent on
-set wrap "Wrap lines
-
+" == Key mappings ==
 " Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
 "TODO: Write a wrapper that only calls reattach-to-user-namespace if necessary
 nmap <F1> :set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
@@ -170,7 +154,6 @@ nnoremap <C-u> <C-w>v
 
 nnoremap <F8> :TagbarToggle<CR>
 
-" Hotkeys
 " Set Control - n to return to normal mode in insert mode and visual mode
 imap <c-n> <esc>
 vmap <c-n> <esc>
@@ -224,6 +207,11 @@ cmap w!! w !sudo tee % > /dev/null
 " Make ; work like :
 nnoremap ; :
 
+" == Status line ==
+" Hide mode status since lightline includes it
+set noshowmode
+" Always show it
+set laststatus=2
 " lightline
 function! LightlineFugitive()
 	if exists('*fugitive#head') && fugitive#extract_git_dir(expand('%')) !=# ''
@@ -281,6 +269,24 @@ Helptags
 
 silent! source ~/.vimrc_local
 
+" == Source Code ==
+set autoindent
+" load filetype-specific indent files
+filetype indent on
+" Wrap lines
+set wrap
+
+" Folding
+set foldmethod=syntax
+set foldlevel=1
+set foldminlines=5
+" Fold perl
+let perl_fold = 1
+let perl_fold_blocks = 1
+" Don't Fold PHP
+let php_fold = 0
+
+" == Filetype-specific ==
 augroup FileTypeThings
 	autocmd FileType php let php_noShortTags=1
 
