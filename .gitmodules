@@ -73,3 +73,6 @@
 [submodule ".vim/bundle/vim-ruby"]
 	path = .vim/bundle/vim-ruby
 	url = git@github.com:vim-ruby/vim-ruby.git
+[submodule ".vim/bundle/vim-rooter"]
+	path = .vim/bundle/vim-rooter
+	url = git@github.com:airblade/vim-rooter.git
