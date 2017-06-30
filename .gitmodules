@@ -76,3 +76,6 @@
 [submodule ".vim/bundle/vim-rooter"]
 	path = .vim/bundle/vim-rooter
 	url = git@github.com:airblade/vim-rooter.git
+[submodule ".vim/bundle/vim-grep"]
+	path = .vim/bundle/vim-grep
+	url = git@github.com:chrisjohnson/vim-grep.git
