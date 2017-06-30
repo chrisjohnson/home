@@ -113,6 +113,9 @@ if executable('ag')
 	" ag is fast enough that CtrlP doesn't need to cache
 	let g:ctrlp_use_caching = 0
 endif
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " Ctrl-P
 let g:ctrlp_map = '<c-p>'
