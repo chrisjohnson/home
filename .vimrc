@@ -84,17 +84,22 @@ let g:tagbar_compact=1
 "let g:tagbar_autoclose=1
 
 " == Searching ==
-" vim-rooter (change cwd to project root)
+" Set cwd per window/tab
 let g:rooter_use_lcd = 1
+" Follow symlinks
 let g:rooter_resolve_links = 1
+" Set cwd to file's dir for non-project files
+let g:rooter_change_directory_for_non_project_files = 'current'
+" Quiet
+let g:rooter_silent_chdir = 1
 
 " Set up ack
 let g:ackprg="ack -H --nocolor --nogroup --column"
 " Bind ,k to grep for the last searched string
-nnoremap <leader>k :grep -Qr "<C-R>/" .<CR>:cw<CR>
+nnoremap <leader>k :Grep "<C-R>/"<CR>:cw<CR>
 " bind K to grep word under cursor or selected word
-nnoremap K :grep -r "\b<C-R><C-W>\b" .<CR>:cw<CR>
-vnoremap K "vy:grep -Qr "<C-R>v" .<CR>:cw<CR>
+nnoremap K :Grep "\b<cword>\b"<CR>:cw<CR>
+vnoremap K "vy:Grep "<C-R>v"<CR>:cw<CR>
 " Except in tmux config, then go to tmux manpage
 autocmd FileType tmux nnoremap <buffer> K :call tmux#man()<CR>
 autocmd FileType tmux vnoremap <buffer> K :call tmux#man()<CR>
