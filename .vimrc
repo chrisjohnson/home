@@ -82,6 +82,10 @@ let g:tagbar_compact=1
 "let g:tagbar_autoclose=1
 
 " == Searching ==
+" vim-rooter (change cwd to project root)
+let g:rooter_use_lcd = 1
+let g:rooter_resolve_links = 1
+
 " Set up ack
 let g:ackprg="ack -H --nocolor --nogroup --column"
 " Bind ,k to grep for the last searched string
@@ -97,13 +101,12 @@ autocmd FileType tmux vnoremap <buffer> K :call tmux#man()<CR>
 if executable('ag')
 	" Use ag if it exists instead of grep for :grep
 	set grepprg=ag\ --nogroup\ --nocolor
+	" And :Ack
+	let g:ackprg = 'ag --vimgrep'
 	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 	" ag is fast enough that CtrlP doesn't need to cache
 	let g:ctrlp_use_caching = 0
-endif
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
 endif
 
 " Ctrl-P
