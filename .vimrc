@@ -78,10 +78,8 @@ if has('gui_running')
 endif
 " Hide the toolbar in gvim
 set guioptions-=T
-" Prepare tagbar
-let g:tagbar_autofocus=1
-let g:tagbar_compact=1
-"let g:tagbar_autoclose=1
+" Vertical diffing
+set diffopt+=vertical
 
 " == Searching ==
 " Set cwd per window/tab
@@ -126,6 +124,10 @@ let g:ctrlp_smarttabs_modify_tabline = 1
 " gutentags
 let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
 let g:gutentags_ctags_tagfile = ".tags"
+" Prepare tagbar
+let g:tagbar_autofocus=1
+let g:tagbar_compact=1
+"let g:tagbar_autoclose=1
 
 " == Key mappings ==
 " Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
