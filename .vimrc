@@ -188,11 +188,11 @@ map <leader>sp "rp
 map <leader>sP "rP
 " Copy to X clipboard with ,y
 map <leader>y "+y
+" ;y to yank the whole buffer to the X clipboard
+map ;y :%y<space>+<cr>
 " ,x to de-highlight from the search
 map <leader>x :nohlsearch<cr>
 map <leader>m :!mkdir -p %:h<cr>
-" ;y to yank the whole buffer to the X clipboard
-map ;y :%y<space>+<cr>
 " ;q to close all tabs and quit entirely
 map ;q :quitall<cr>
 " ;wq to write and quit
