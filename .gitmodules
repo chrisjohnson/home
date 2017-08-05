@@ -79,3 +79,6 @@
 [submodule ".vim/bundle/vim-grep"]
 	path = .vim/bundle/vim-grep
 	url = git@github.com:chrisjohnson/vim-grep.git
+[submodule ".vim/bundle/vim-vinegar"]
+	path = .vim/bundle/vim-vinegar
+	url = git@github.com:tpope/vim-vinegar.git
