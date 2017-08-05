@@ -160,6 +160,16 @@ nnoremap <C-i> <C-w>k
 nnoremap <C-j> <C-w>h
 nnoremap <C-k> <C-w>j
 nnoremap <C-l> <C-w>l
+" Also map i in netrw buffer
+augroup netrw_mapping
+    autocmd!
+    autocmd filetype netrw call NetrwMapping()
+augroup END
+
+function! NetrwMapping()
+    noremap <buffer> i <Up>
+endfunction
+
 " Create hotkeys to create splits
 nnoremap <C-h> <C-w>s
 nnoremap <C-u> <C-w>v
