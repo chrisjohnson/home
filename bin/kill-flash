@@ -1,5 +1,0 @@
-#!/bin/zsh
-setopt extended_glob
-killall -9 npviewer.bin
-killall -9 plugin-container
-rm /tmp/Flash[A-Za-z0-9]*

@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/bin/screen -O -S screens -c ~/.screenrc-start
