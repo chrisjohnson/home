@@ -1,8 +1,0 @@
-#!/usr/bin/php
-<?PHP
-$contents = file_get_contents($argv[1]);
-$pattern = "/'\>(.*?)\<\/a\>\<\/p\>$/i";
-preg_match_all($pattern, $contents, $matches);
-print($matches[1][0]);
-?>
-

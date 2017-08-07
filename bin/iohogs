@@ -1,8 +1,0 @@
-#!/bin/zsh
-echo 1 | sudo tee /proc/sys/vm/block_dump > /dev/null
-if [ "$1" != "start" ]; then
-	dmesg | egrep "READ|WRITE|dirtied" | awk '{print $2}' | grep -Po '[a-zA-Z\-\./]+(?=\()' | sort | uniq -c | sort -rn
-fi
-if [[ "$1" != "continue" && "$1" != "start" ]]; then
-	echo 0 | sudo tee /proc/sys/vm/block_dump > /dev/null
-fi

@@ -1,5 +1,0 @@
-#!/bin/zsh
-rm /tmp/iowait.fifo /tmp/iowait.stat
-mkfifo /tmp/iowait.fifo
-echo > /tmp/iowait.stat
-sh -c 'while [ 1 ]; do sh -c "iowait > /tmp/iowait.fifo" && sleep "0.5s"; done' | sh -c 'cat > /tmp/iowait.fifo' | sh -c 'cat < /tmp/iowait.fifo | while read line; do echo $line > /tmp/iowait.stat; done'
