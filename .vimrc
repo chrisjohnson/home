@@ -200,6 +200,8 @@ map <leader>sP "rP
 map <leader>y "+y
 " ;y to yank the whole buffer to the X clipboard
 map ;y :%y<space>+<cr>
+" surround.vim
+map <leader>s yshw
 " ,x to de-highlight from the search
 map <leader>x :nohlsearch<cr>
 map <leader>m :!mkdir -p %:h<cr>
