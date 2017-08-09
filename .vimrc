@@ -149,6 +149,9 @@ autocmd FileType qf nnoremap <buffer> r :Copen<CR>
 autocmd FileType qf nnoremap <buffer> R :Copen<CR>G
 " q in quickfix to close
 autocmd FileType qf nnoremap <buffer> q :ccl<CR>
+" t/T in quickfix to open in a new tab
+autocmd FileType qf nnoremap <buffer> t <C-W><Enter><C-W>T
+autocmd FileType qf nnoremap <buffer> T <C-W><Enter><C-W>T
 
 " Remap the arrow keys to ijkl
 map i <Up>
