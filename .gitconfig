@@ -7,7 +7,7 @@
 	editor = vim
 	excludesFile = ~/.home/.gitignore-global
 [alias]
-	fpush = push --force
+	fpush = push --force-with-lease
 	apush = push --all
 	mpush = push origin :
 [url "ssh://git@github.com/"]
