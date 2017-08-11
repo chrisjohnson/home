@@ -1,7 +1,5 @@
 source ~/.home/.prezto/runcoms/zpreztorc
 
-fpath=(~/.home/.prezto-functions/ $fpath)
-
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
@@ -17,6 +15,9 @@ zstyle ':prezto:load' pmodule \
   'syntax-highlighting' \
   'history-substring-search' \
   'prompt'
+
+# For steeef_modified
+fpath=(~/.home/.prezto-functions/ $fpath)
 
 # Set the prompt theme to load.
 # Auto set to 'off' on dumb terminals.
