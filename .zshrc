@@ -1,8 +1,8 @@
 PATH="$PATH:$HOME/bin:$HOME/.home/bin:$HOME/.home/bin/git"
 
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+if [[ -s "${ZDOTDIR:-$HOME}/.home/.prezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.home/.prezto/init.zsh"
 fi
 
 source "$HOME/.home/bin/git/.zcompletion"
