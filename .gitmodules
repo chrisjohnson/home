@@ -85,3 +85,6 @@
 [submodule ".vim/bundle/vim-characterize"]
 	path = .vim/bundle/vim-characterize
 	url = git@github.com:tpope/vim-characterize.git
+[submodule ".vim/bundle/vim-rhubarb"]
+	path = .vim/bundle/vim-rhubarb
+	url = git@github.com:tpope/vim-rhubarb.git

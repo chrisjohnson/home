@@ -260,7 +260,10 @@ let g:lightline = {
 \ },
 \ }
 
-" Rest of editor
+" == Git ==
+let g:github_enterprise_urls = ['https://git.innova-partners.com']
+
+" == Rest of editor ==
 colorscheme wombat
 
 hi MatchParen cterm=none ctermbg=none ctermfg=white
