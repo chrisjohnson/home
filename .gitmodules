@@ -91,3 +91,6 @@
 [submodule ".vim/bundle/vim-surround_custom_mapping"]
 	path = .vim/bundle/vim-surround_custom_mapping
 	url = git@github.com:t9md/vim-surround_custom_mapping.git
+[submodule ".prezto"]
+	path = .prezto
+	url = git@github.com:sorin-ionescu/prezto.git
