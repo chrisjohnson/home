@@ -1,0 +1,6 @@
+#!/bin/bash
+source $(which shell-colors)
+
+echo "Wiping working copy changes"
+echo -e "${bold}${yellow}:: git checkout -- $*${reset}"
+git checkout -- $*
