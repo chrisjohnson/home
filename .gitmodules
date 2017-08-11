@@ -88,3 +88,6 @@
 [submodule ".vim/bundle/vim-rhubarb"]
 	path = .vim/bundle/vim-rhubarb
 	url = git@github.com:tpope/vim-rhubarb.git
+[submodule ".vim/bundle/vim-surround_custom_mapping"]
+	path = .vim/bundle/vim-surround_custom_mapping
+	url = git@github.com:t9md/vim-surround_custom_mapping.git

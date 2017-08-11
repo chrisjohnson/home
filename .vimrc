@@ -319,6 +319,37 @@ let perl_fold_blocks = 1
 let php_fold = 0
 
 " == Filetype-specific ==
+let g:surround_custom_mapping = {}
+let g:surround_custom_mapping._ = {
+\ 'p':  "<pre> \r </pre>",
+\ 'w':  "%w(\r)",
+\ }
+let g:surround_custom_mapping.help = {
+\ 'p':  "> \r <",
+\ }
+let g:surround_custom_mapping.ruby = {
+\ '-':  "<% \r %>",
+\ '=':  "<%= \r %>",
+\ '9':  "(\r)",
+\ '5':  "%(\r)",
+\ '%':  "%(\r)",
+\ 'w':  "%w(\r)",
+\ '#':  "#{\r}",
+\ '3':  "#{\r}",
+\ 'e':  "begin \r end",
+\ 'E':  "<<EOS \r EOS",
+\ 'i':  "if \1if\1 \r end",
+\ 'u':  "unless \1unless\1 \r end",
+\ 'c':  "class \1class\1 \r end",
+\ 'm':  "module \1module\1 \r end",
+\ 'd':  "def \1def\1\2args\r..*\r(&)\2 \r end",
+\ 'p':  "\1method\1 do \2args\r..*\r|&| \2\r end",
+\ 'P':  "\1method\1 {\2args\r..*\r|&|\2 \r }",
+\ }
+let g:surround_custom_mapping.javascript = {
+\ 'f':  "function(){ \r }"
+\ }
+
 augroup FileTypeThings
 	autocmd FileType php let php_noShortTags=1
 
