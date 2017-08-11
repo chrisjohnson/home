@@ -3,7 +3,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.home/.prezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.home/.prezto/init.zsh"
 fi
 
-PATH="$PATH:$HOME/bin:$HOME/.home/bin:$HOME/.home/bin/git"
+PATH="$HOME/bin:$HOME/.home/bin:$HOME/.home/bin/git:$PATH"
 source "$HOME/.home/bin/git/.zcompletion"
 
 alias rgrep="grep -r"
