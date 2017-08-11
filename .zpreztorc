@@ -1,0 +1,35 @@
+source ~/.home/.prezto/runcoms/zpreztorc
+
+# Set the Prezto modules to load (browse modules).
+# The order matters.
+zstyle ':prezto:load' pmodule \
+  'environment' \
+  'terminal' \
+  'editor' \
+  'history' \
+  'directory' \
+  'spectrum' \
+  'utility' \
+  'completion' \
+  'syntax-highlighting' \
+  'history-substring-search' \
+  'prompt'
+
+# Set the prompt theme to load.
+# Auto set to 'off' on dumb terminals.
+zstyle ':prezto:module:prompt' theme 'steeef'
+
+# Auto convert .... to ../..
+zstyle ':prezto:module:editor' dot-expansion 'yes'
+
+# Set the SSH identities to load into the agent.
+zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_rsa2' 'id_github'
+
+# Auto set the tab and window titles.
+zstyle ':prezto:module:terminal' auto-title 'yes'
+
+# Set the window title format.
+zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
+
+# Git module: https://github.com/sorin-ionescu/prezto/tree/master/modules/git
+zstyle ':prezto:module:editor' dot-expansion 'yes'
