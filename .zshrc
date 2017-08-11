@@ -1,11 +1,11 @@
-PATH="$PATH:$HOME/bin:$HOME/.home/bin:$HOME/.home/bin/git"
-
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.home/.prezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.home/.prezto/init.zsh"
 fi
 
+PATH="$PATH:$HOME/bin:$HOME/.home/bin:$HOME/.home/bin/git"
 source "$HOME/.home/bin/git/.zcompletion"
+
 alias rgrep="grep -r"
 alias vimconflicts='vim -p +/"<<<<<<<" $( git diff --name-only --diff-filter=U | xargs )'
 
