@@ -2,7 +2,7 @@
 source $(which shell-colors)
 
 # Check for incomplete merges
-git diff --cached | grep -q '<<<<<<<' && { echo -e "${bold}${red}You are committing an incomplete merge -- there should be no <<<<<< HEAD  or ===== merge tags in your files${reset}" && echo 'Please always review your full commit before committing it, via the `staged` command' && exit 1 ; }
+git diff --cached | grep -qE '^\+.*<<<<<<<' && { echo -e "${bold}${red}You are committing an incomplete merge -- there should be no <<<<<< HEAD  or ===== merge tags in your files${reset}" && echo 'Please always review your full commit before committing it, via the `staged` command' && exit 1 ; }
 
 echo "Committing staged changes, please review the following changes (only staged changes will be committed):"
 echo -e "${bold}${yellow}:: git status${reset}"
