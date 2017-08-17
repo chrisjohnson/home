@@ -21,6 +21,26 @@ EDITOR="vim"
 PAGER="less"
 VISUAL="vim"
 
+mvln(){
+	# Get an absolute path for the target
+	tp="`dirname $2`/`basename $2`/"
+	tp="$tp:A"
+
+	# If the target doesn't include a new filename, use the same filename as the source
+	if [ -d "$2" ]; then
+		t="$tp/`basename $1`"
+	else
+		t="$tp"
+	fi
+
+	# Full path to source, even if it was specified as relative
+	s="$1:A"
+
+	mv "$s" "$t" && ln -s "$t" "$s"
+}
+alias rsync.exact="rsync -rtpogxv -P -l -H"
+alias rsync.loose="rsync -zvru -P"
+
 if [ -s ~/.zshrc_local ]; then
 	. ~/.zshrc_local
 fi
