@@ -16,3 +16,4 @@
 *.vimrc.old
 *.vimrc_local
 *.tmux/plugins/*
+*.tmux/resurrect
