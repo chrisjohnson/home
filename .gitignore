@@ -1,4 +1,3 @@
-/*
 !.zshrc
 !.vim*
 !.config/openbox/*
@@ -16,3 +15,4 @@
 *.viminfo*
 *.vimrc.old
 *.vimrc_local
+*.tmux/plugins/*

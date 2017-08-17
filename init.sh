@@ -2,12 +2,11 @@
 
 git submodule update --init --recursive
 
-if [ ! -s ~/.zshrc ]; then
-	ln -s ~/.home/.zshrc ~/.zshrc
-fi
-if [ ! -s ~/.zpreztorc ]; then
-	ln -s ~/.home/.zpreztorc ~/.zpreztorc
-fi
+for file in .zshrc .zpreztorc .tmux.conf .tmux .gitconfig .vim .vimrc; do
+	if [[ ! -a "$HOME/$file" ]]; then
+		ln -s ~/.home/$file ~/$file
+	fi
+done
 
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.home/.prezto/runcoms/^README.md(.N); do
