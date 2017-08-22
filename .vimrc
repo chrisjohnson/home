@@ -91,8 +91,6 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 " Quiet
 let g:rooter_silent_chdir = 1
 
-" Set up ack
-let g:ackprg="ack -H --nocolor --nogroup --column"
 " Bind ,k to grep for the last searched string
 nnoremap <leader>k :Grep "<C-R>/"<CR>:cw<CR>
 " bind K to grep word under cursor or selected word
