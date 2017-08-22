@@ -82,6 +82,9 @@ set guioptions-=T
 set diffopt+=vertical
 
 " == Searching ==
+" Ignore various tmp and cruft files when searching
+set wildignore+=*/.git/*,*/tmp/*,*.swp
+
 " Set cwd per window/tab
 let g:rooter_use_lcd = 1
 " Follow symlinks
