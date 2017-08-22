@@ -102,8 +102,19 @@ vnoremap K "vy:Grep "<C-R>v"<CR>:cw<CR>
 autocmd FileType tmux nnoremap <buffer> K :call tmux#man()<CR>
 autocmd FileType tmux vnoremap <buffer> K :call tmux#man()<CR>
 
+" rg / ripgrep
+if executable('rg')
+	" Use rg if it exists instead of grep for :grep
+	set grepprg=rg\ --no-heading\ --color=never
+	" And :Ack
+	let g:ackprg='rg --no-heading --color=never'
+	" Use rg in CtrlP for listing files. Lightning fast and respects .gitignore
+	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+	" rg is fast enough that CtrlP doesn't need to cache
+	let g:ctrlp_use_caching = 0
+
 " ag / The Silver Searcher
-if executable('ag')
+elseif executable('ag')
 	" Use ag if it exists instead of grep for :grep
 	set grepprg=ag\ --nogroup\ --nocolor
 	" And :Ack
