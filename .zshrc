@@ -4,9 +4,12 @@ if [[ -s "${ZDOTDIR:-$HOME}/.home/.prezto/init.zsh" ]]; then
 fi
 
 PATH="$HOME/bin:$HOME/.home/bin:$HOME/.home/bin/git:$PATH"
+
 # Note: git's git-completion.zsh file conflicts with zsh's _git file, you may have to rm/mv `/usr/local/share/zsh/site-functions/_git -> ../../../Cellar/git/2.14.1/share/zsh/site-functions/_git`
 # TODO: Maybe brew install order matters here?
 source "$HOME/.home/bin/git/.zcompletion"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias rgrep="grep -r"
 alias vimconflicts='vim -p +/"<<<<<<<" $( git diff --name-only --diff-filter=U | xargs )'
