@@ -11,18 +11,25 @@ source "$HOME/.home/bin/git/.zcompletion"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias rgrep="grep -r"
-alias vimconflicts='vim -p +/"<<<<<<<" $( git diff --name-only --diff-filter=U | xargs )'
-
+# Key bindings
 bindkey "\e[1;9C" forward-word
 bindkey "\e[1;9D" backward-word
 
 # C-b to erase current prompt, run a command, then return the current prompt as it was
 bindkey '^B' push-line
 
+# Settings
 EDITOR="vim"
 PAGER="less"
 VISUAL="vim"
+
+export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
+
+# Aliases
+alias rsync.exact="rsync -rtpogxv -P -l -H"
+alias rsync.loose="rsync -zvru -P"
+alias rgrep="grep -r"
+alias vimconflicts='vim -p +/"<<<<<<<" $( git diff --name-only --diff-filter=U | xargs )'
 
 mvln(){
 	# Get an absolute path for the target
@@ -41,9 +48,8 @@ mvln(){
 
 	mv "$s" "$t" && ln -s "$t" "$s"
 }
-alias rsync.exact="rsync -rtpogxv -P -l -H"
-alias rsync.loose="rsync -zvru -P"
 
+# Load any local zshrc overrides
 if [ -s ~/.zshrc_local ]; then
 	. ~/.zshrc_local
 fi
