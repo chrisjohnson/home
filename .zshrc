@@ -23,7 +23,7 @@ EDITOR="vim"
 PAGER="less"
 VISUAL="vim"
 
-export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 # Aliases
 alias rsync.exact="rsync -rtpogxv -P -l -H"
