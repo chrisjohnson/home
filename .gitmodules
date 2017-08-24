@@ -91,3 +91,6 @@
 [submodule ".prezto"]
 	path = .prezto
 	url = git@github.com:sorin-ionescu/prezto.git
+[submodule ".vim/bundle/fzf.vim"]
+	path = .vim/bundle/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
