@@ -308,6 +308,7 @@ if s:screen || s:xterm
   cnoremap <Esc>[201~ <nop>
 endif
 
+runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 Helptags
 
