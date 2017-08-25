@@ -327,7 +327,8 @@ if s:screen || s:xterm
   cnoremap <Esc>[201~ <nop>
 endif
 
-runtime bundle/vim-pathogen/autoload/pathogen.vim
+" Pretty much a shim in vim 8, needed for < vim 8 though
+runtime pack/plugins/start/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 Helptags
 
