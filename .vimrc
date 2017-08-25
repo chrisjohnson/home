@@ -142,7 +142,7 @@ let g:tagbar_compact=1
 "let g:tagbar_autoclose=1
 
 " FZF
-let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+"let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
@@ -156,6 +156,9 @@ nnoremap <silent> <leader>ga :BCommits<CR>
 nnoremap <silent> <leader>ft :Filetypes<CR>
 imap <C-x><C-f> <plug>(fzf-complete-file)
 imap <C-x><C-l> <plug>(fzf-complete-line)
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
 " == Key mappings ==
 " Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
