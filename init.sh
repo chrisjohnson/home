@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+git pull || { echo 'Failed to pull, stopping here' && exit 1 ; }
 git submodule update --init --recursive
 
 for file in .zshrc .zpreztorc .tmux.conf .tmux .gitconfig .vim .vimrc .fzf.zsh; do
