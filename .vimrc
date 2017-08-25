@@ -85,9 +85,6 @@ set diffopt+=vertical
 " Ignore various tmp and cruft files when searching
 set wildignore+=*/.git/*,*/tmp/*,*.swp
 
-" Load FZF
-set rtp+=/usr/local/opt/fzf
-
 " Set cwd per window/tab
 let g:rooter_use_lcd = 1
 " Follow symlinks
