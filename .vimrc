@@ -141,6 +141,22 @@ let g:tagbar_autofocus=1
 let g:tagbar_compact=1
 "let g:tagbar_autoclose=1
 
+" FZF
+let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+
+nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader>a :Buffers<CR>
+nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <leader>o :BTags<CR>
+nnoremap <silent> <leader>O :Tags<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+nnoremap <silent> <leader>ft :Filetypes<CR>
+imap <C-x><C-f> <plug>(fzf-complete-file)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+
 " == Key mappings ==
 " Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
 "TODO: Write a wrapper that only calls reattach-to-user-namespace if necessary
