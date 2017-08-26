@@ -1,6 +1,7 @@
 #!/bin/bash
-if hash free 2>/dev/null; then
-	free -m | grep '\-/+' | awk '{print $4}'
+if [[ -a /proc ]]; then
+	# Parse from /proc/meminfo
+	cat /proc/meminfo | grep -vi 'swap' | grep -E '(MemFree|Cached|Buffers):' | awk '{s+=$2} END {print int(s/1024), "MB"}'
 else
 	FILE="/tmp/memfree.txt"
 	if [[ `date -r $FILE +%s` -le $((`date +%s` - 60)) ]]; then
@@ -9,5 +10,5 @@ else
 		TOTAL=$((INACTIVE + FREE))
 		echo $TOTAL > $FILE
 	fi
-	cat /tmp/memfree.txt
+	cat /tmp/memfree.txt "MB"
 fi
