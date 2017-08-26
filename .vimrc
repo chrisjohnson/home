@@ -327,7 +327,7 @@ if s:screen || s:xterm
   cnoremap <Esc>[201~ <nop>
 endif
 
-" Pretty much a shim in vim 8, needed for < vim 8 though
+" In vim 8, this is effectively a no-op. In vim < 8, this will shim vim 8 package paths into rtp
 runtime pack/plugins/start/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 Helptags
