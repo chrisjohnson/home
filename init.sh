@@ -2,7 +2,7 @@
 
 git submodule update --init --recursive
 
-for file in .zshrc .zpreztorc .tmux.conf .tmux .gitconfig .vim .vimrc; do
+for file in .zshrc .zpreztorc .tmux.conf .tmux .gitconfig .vim .vimrc .fzf.zsh; do
 	if [[ ! -a "$HOME/$file" ]]; then
 		ln -s ~/.home/$file ~/$file
 	fi
