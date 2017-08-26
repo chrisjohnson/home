@@ -1,0 +1,35 @@
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory autocd extendedglob notify
+bindkey -e
+zstyle :compinstall filename "~/.zshrc"
+
+autoload -Uz compinit
+compinit
+autoload -Uz promptinit
+promptinit
+# adam1 clone with special whitespace for tmux C-b
+export PROMPT="%K{blue}%n@%m%k %B%F{cyan}%(4~|...|)%3~%F{white} %# %b%f%k"
+
+export TERM=xterm-256color
+
+# for linux console and RH/Debian xterm
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[4~" end-of-line
+
+# commented out keymappings for pgup/pgdown to reach begin/end of history
+#"\e[5~" beginning-of-history
+#"\e[6~" end-of-history
+bindkey "\e[5~" history-search-backward
+bindkey "\e[6~" history-search-forward
+bindkey "\e[3~" delete-char
+bindkey "\e[2~" quoted-insert
+bindkey "\e[5C" forward-word
+bindkey "\e[5D" backward-word
+bindkey "\e[1;5C" forward-word
+bindkey "\e[1;5D" backward-word
+bindkey "\e[1;9C" forward-word
+bindkey "\e[1;9D" backward-word
+
+source $HOME/.home/.zshrc_common
