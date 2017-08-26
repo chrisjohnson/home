@@ -34,6 +34,3 @@ zstyle ':prezto:module:terminal' auto-title 'yes'
 
 # Set the window title format.
 zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
-
-# Git module: https://github.com/sorin-ionescu/prezto/tree/master/modules/git
-zstyle ':prezto:module:editor' dot-expansion 'yes'
