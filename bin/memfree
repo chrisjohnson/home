@@ -10,5 +10,5 @@ else
 		TOTAL=$((INACTIVE + FREE))
 		echo $TOTAL > $FILE
 	fi
-	cat /tmp/memfree.txt "MB"
+	echo $(cat $FILE) "MB"
 fi
