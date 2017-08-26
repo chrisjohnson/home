@@ -3,7 +3,13 @@
 git pull || { echo 'Failed to pull, stopping here' && exit 1 ; }
 git submodule update --init --recursive
 
-for file in .zshrc .zpreztorc .tmux.conf .tmux .gitconfig .vim .vimrc .fzf.zsh; do
+for file in .zshrc .zpreztorc .fzf.zsh; do
+	if [[ ! -a "$HOME/$file" ]]; then
+		ln -s ~/.home/zsh/$file ~/$file
+	fi
+done
+
+for file in .tmux.conf .tmux .gitconfig .vim .vimrc; do
 	if [[ ! -a "$HOME/$file" ]]; then
 		ln -s ~/.home/$file ~/$file
 	fi

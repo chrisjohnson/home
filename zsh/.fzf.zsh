@@ -18,4 +18,3 @@ type fzf &>/dev/null || { "$PATH" != *"$FZF_BIN_PATH"* && export PATH="$PATH:$FZ
 
 # Key bindings
 source "$FZF_SHELL_PATH/key-bindings.zsh"
-

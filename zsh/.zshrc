@@ -6,7 +6,7 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
-source $HOME/.home/.zshrc_common
+source $HOME/.home/zsh/.zshrc_common
 
 # Key bindings
 bindkey "\e[1;9C" forward-word
