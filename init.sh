@@ -18,3 +18,4 @@ done
 
 type rg &>/dev/null || { echo 'rg not installed!' ; }
 type fzf &>/dev/null || { echo 'fzf not installed!' ; }
+type tmux &>/dev/null || { echo 'tmux not installed!' ; }
