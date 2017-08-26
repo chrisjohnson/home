@@ -16,7 +16,7 @@ for file in .tmux.conf .tmux .gitconfig .vim .vimrc; do
 done
 
 setopt EXTENDED_GLOB
-for rcfile in "${ZDOTDIR:-$HOME}"/.home/.prezto/runcoms/^README.md(.N); do
+for rcfile in "${ZDOTDIR:-$HOME}"/.home/zsh/prezto/runcoms/^README.md(.N); do
 	if [ ! -s "${ZDOTDIR:-$HOME}/.${rcfile:t}" ]; then
 		ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
 	fi

@@ -1,4 +1,4 @@
-source ~/.home/.prezto/runcoms/zpreztorc
+source ~/.home/zsh/prezto/runcoms/zpreztorc
 
 # Set the Prezto modules to load (browse modules).
 # The order matters.
@@ -17,7 +17,7 @@ zstyle ':prezto:load' pmodule \
   'prompt'
 
 # For steeef_modified
-fpath=(~/.home/.prezto-functions/ $fpath)
+fpath=(~/.home/zsh/prezto-functions/ $fpath)
 
 # Set the prompt theme to load.
 # Auto set to 'off' on dumb terminals.

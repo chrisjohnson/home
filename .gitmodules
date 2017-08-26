@@ -88,9 +88,6 @@
 [submodule ".vim/bundle/vim-surround_custom_mapping"]
 	path = .vim/pack/plugins/start/vim-surround_custom_mapping
 	url = git@github.com:t9md/vim-surround_custom_mapping.git
-[submodule ".prezto"]
-	path = .prezto
-	url = git@github.com:sorin-ionescu/prezto.git
 [submodule ".vim/bundle/fzf.vim"]
 	path = .vim/pack/plugins/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
@@ -106,3 +103,6 @@
 [submodule ".vim/bundle/vim-pathogen"]
 	path = .vim/pack/plugins/start/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+[submodule "zsh/prezto"]
+	path = zsh/prezto
+	url = https://github.com/sorin-ionescu/prezto.git

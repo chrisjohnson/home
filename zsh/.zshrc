@@ -1,6 +1,6 @@
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.home/.prezto/init.zsh" ]]; then
-	source "${ZDOTDIR:-$HOME}/.home/.prezto/init.zsh"
+if [[ -s "${ZDOTDIR:-$HOME}/.home/zsh/prezto/init.zsh" ]]; then
+	source "${ZDOTDIR:-$HOME}/.home/zsh/prezto/init.zsh"
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
