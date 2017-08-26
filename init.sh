@@ -16,5 +16,5 @@ for rcfile in "${ZDOTDIR:-$HOME}"/.home/.prezto/runcoms/^README.md(.N); do
 	fi
 done
 
-type rg &>/dev/null || { echo 'rg not installed! Install it and run this again' ; }
-type fzf &>/dev/null || { echo 'fzf not installed! Install it and run this again' ; }
+type rg &>/dev/null || { echo 'rg not installed!' ; }
+type fzf &>/dev/null || { echo 'fzf not installed!' ; }
