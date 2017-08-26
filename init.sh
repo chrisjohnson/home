@@ -15,3 +15,6 @@ for rcfile in "${ZDOTDIR:-$HOME}"/.home/.prezto/runcoms/^README.md(.N); do
 		ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
 	fi
 done
+
+type rg &>/dev/null || { echo 'rg not installed! Install it and run this again' ; }
+type fzf &>/dev/null || { echo 'fzf not installed! Install it and run this again' ; }
