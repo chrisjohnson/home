@@ -407,7 +407,7 @@ augroup FileTypeThings
 	au Filetype ruby compiler rspec
 	au Filetype ruby set makeprg=vrspec
 	" Enable long-line highlighting
-	au Filetype ruby match OverLength /\%81v.*/
+	au Filetype ruby match OverLength /\%101v.*/
 
 	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
 augroup END
