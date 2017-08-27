@@ -383,6 +383,9 @@ let g:surround_custom_mapping.javascript = {
 \ 'f':  "function(){ \r }"
 \ }
 
+" Highlight lines that are too long
+highlight OverLength ctermbg=1 ctermfg=white
+
 augroup FileTypeThings
 	autocmd FileType php let php_noShortTags=1
 
@@ -403,6 +406,8 @@ augroup FileTypeThings
 	" Use vrspec as the compiler for ruby (custom shell script ssh dispatcher for vagrant ssh bundle exec rspec)
 	au Filetype ruby compiler rspec
 	au Filetype ruby set makeprg=vrspec
+	" Enable long-line highlighting
+	au Filetype ruby match OverLength /\%81v.*/
 
 	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
 augroup END
