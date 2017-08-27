@@ -9,17 +9,11 @@ for file in .zshrc .zpreztorc .fzf.zsh; do
 	fi
 done
 
-for file in .tmux.conf .tmux .gitconfig .vim .vimrc; do
+for file in .tmux.conf .tmux .gitconfig .vim .vimrc .iterm-settings; do
 	if [[ ! -a "$HOME/$file" && ! -h "$HOME/$file" ]]; then
 		ln -s ~/.home/$file ~/$file
 	fi
 done
-
-iterm_settings=".iterm-settings/com.googlecode.iterm2.plist"
-if [[ ! -a "$HOME/$iterm_settings" && ! -h "$HOME/$iterm_settings" ]]; then
-	mkdir -p ~/.iterm-settings
-	ln -s ~/.home/$iterm_settings ~/$iterm_settings
-fi
 
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.home/zsh/prezto/runcoms/^README.md(.N); do
