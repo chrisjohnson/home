@@ -203,3 +203,5 @@ title-clean(){
 track-clean(){
 	printf '%02d' "`echo $1 | sed 's/\/.*$//g'`"
 }
+
+alias id3="mid3v2"
