@@ -17,6 +17,8 @@ alias rsync.exact="rsync -rtpogxv -P -l -H"
 alias rsync.loose="rsync -zvru -P"
 alias rgrep="grep -r"
 alias vimconflicts='vim -p +/"<<<<<<<" $( git diff --name-only --diff-filter=U | xargs )'
+alias -g g="| grep"
+alias -g l="| less"
 
 mvln(){
 	# Get an absolute path for the target
