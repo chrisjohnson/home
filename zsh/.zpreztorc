@@ -23,6 +23,9 @@ fpath=(~/.home/zsh/prezto-functions/ $fpath)
 # Auto set to 'off' on dumb terminals.
 zstyle ':prezto:module:prompt' theme 'steeef_modified'
 
+# Don't abbreviate long paths
+zstyle ':prezto:module:prompt' pwd-length 'long'
+
 # Auto convert .... to ../..
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
