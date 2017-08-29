@@ -41,9 +41,9 @@ set scrolloff=5
 " Persistent undo
 set undofile
 " Set the dir to store all the swap files
-set directory=$HOME/.vim/swap,.
+set directory=$HOME/.vim/swap
 " And all the undo files
-set undodir=$HOME/.vim/undo,.
+set undodir=$HOME/.vim/undo
 " But then disable them anyway
 set noswapfile
 " Show line numbers
