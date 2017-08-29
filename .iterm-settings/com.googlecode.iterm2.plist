@@ -3130,9 +3130,9 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 1680 1050 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>745 528 796 473 0 0 1680 1050 </string>
+	<string>2927 847 796 473 1440 -34 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 161 650 452 0 0 1680 1027 </string>
+	<string>261 101 1178 526 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>176 70 650 452 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -5473,7 +5473,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-08-27T05:39:20Z</date>
+	<date>2017-08-29T11:30:04Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -5490,6 +5490,8 @@
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.40000000596046448</real>
+	<key>SuppressShellIntegrationUpgradeAnnouncementForHost_cjohnson@li1321-137.members.linode.com</key>
+	<true/>
 	<key>SwitchTabModifier</key>
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
