@@ -9,7 +9,7 @@ for file in .zshrc .zpreztorc .fzf.zsh; do
 	fi
 done
 
-for file in .tmux.conf .tmux .gitconfig .vim .vimrc .iterm-settings; do
+for file in .tmux.conf .tmux .gitconfig .vim .vimrc .iterm-settings .ignore; do
 	if [[ ! -a "$HOME/$file" && ! -h "$HOME/$file" ]]; then
 		ln -s ~/.home/$file ~/$file
 	fi
