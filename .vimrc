@@ -280,7 +280,6 @@ function! LightlineFugitive()
 endfunction
 " Temporarily disable tabline until https://github.com/itchyny/lightline.vim/issues/239 is fixed/addressed
 let g:lightline = {
-\ 'enable': { 'tabline': 0 },
 \ 'colorscheme': 'wombat',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
