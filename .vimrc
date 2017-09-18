@@ -296,8 +296,8 @@ let g:lightline = {
 \   'right': []
 \ },
 \ 'tab': {
-\   'active': [ 'tabnum', 'readonly', 'filename', 'modified' ],
-\   'inactive': [ 'tabnum', 'readonly', 'filename', 'modified' ]
+\   'active': [ 'tabnum', 'filename', 'modified' ],
+\   'inactive': [ 'tabnum', 'filename', 'modified' ]
 \ },
 \ }
 
