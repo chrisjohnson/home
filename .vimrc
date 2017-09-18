@@ -278,15 +278,26 @@ function! LightlineFugitive()
 	endif
 	return ''
 endfunction
-" Temporarily disable tabline until https://github.com/itchyny/lightline.vim/issues/239 is fixed/addressed
 let g:lightline = {
 \ 'colorscheme': 'wombat',
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ],
-\             [ 'readonly', 'filename', 'modified', 'gitbranch' ] ]
-\ },
 \ 'component_function': {
 \   'gitbranch': 'LightlineFugitive'
+\ },
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified', 'gitbranch', 'filename' ] ],
+\   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+\ },
+\ 'inactive': {
+\   'left': [ [ 'filename' ] ],
+\   'right': [ [ 'lineinfo' ], [ 'percent' ] ]
+\ },
+\ 'tabline': {
+\   'left': [ [ 'tabs' ] ],
+\   'right': []
+\ },
+\ 'tab': {
+\   'active': [ 'tabnum', 'readonly', 'filename', 'modified' ],
+\   'inactive': [ 'tabnum', 'readonly', 'filename', 'modified' ]
 \ },
 \ }
 
