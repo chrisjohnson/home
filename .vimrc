@@ -107,32 +107,13 @@ autocmd FileType tmux vnoremap <buffer> K :call tmux#man()<CR>
 if executable('rg')
 	" Use rg if it exists instead of grep for :grep
 	set grepprg=rg\ --no-heading\ --color=never
-	" And :Ack
-	let g:ackprg='rg --no-heading --color=never'
-	" Use rg in CtrlP for listing files. Lightning fast and respects .gitignore
-	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-	" rg is fast enough that CtrlP doesn't need to cache
-	let g:ctrlp_use_caching = 0
 
 " ag / The Silver Searcher
 elseif executable('ag')
 	" Use ag if it exists instead of grep for :grep
 	set grepprg=ag\ --nogroup\ --nocolor
-	" And :Ack
-	let g:ackprg = 'ag --vimgrep'
-	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	" ag is fast enough that CtrlP doesn't need to cache
-	let g:ctrlp_use_caching = 0
 endif
 
-" Ctrl-P
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPSmartTabs'
-let g:ctrlp_custom_ignore = '\v[\/](\.git|bundle|vendor)$'
-" Ctrl-P -- SmartTabs
-let g:ctrlp_extensions = ['smarttabs']
-let g:ctrlp_smarttabs_modify_tabline = 1
 " gutentags
 let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
 let g:gutentags_ctags_tagfile = ".tags"
@@ -147,13 +128,13 @@ let g:tagbar_compact=1
 nnoremap <silent> <leader><space> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
 nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <c-p> :Windows<CR>
 nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
-nnoremap <silent> <leader>ft :Filetypes<CR>
 imap <C-x><C-f> <plug>(fzf-complete-file)
 imap <C-x><C-l> <plug>(fzf-complete-line)
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -374,6 +355,8 @@ set wrap
 set foldmethod=syntax
 set foldlevel=1
 set foldminlines=5
+"TODO
+"set foldnestmax=3
 " Fold perl
 let perl_fold = 1
 let perl_fold_blocks = 1

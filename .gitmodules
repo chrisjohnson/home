@@ -43,12 +43,6 @@
 [submodule ".vim/bundle/surround.vim"]
 	path = .vim/pack/plugins/start/surround.vim
 	url = https://github.com/tpope/vim-surround.git
-[submodule ".vim/bundle/ctrlp-smarttabs"]
-	path = .vim/pack/plugins/start/ctrlp-smarttabs
-	url = git@github.com:DavidEGx/ctrlp-smarttabs.git
-[submodule ".vim/bundle/ctrlp.vim"]
-	path = .vim/pack/plugins/start/ctrlp.vim
-	url = git@github.com:ctrlpvim/ctrlp.vim.git
 [submodule ".vim/bundle/vim-gutentags"]
 	path = .vim/pack/plugins/start/vim-gutentags
 	url = git@github.com:ludovicchabant/vim-gutentags.git
