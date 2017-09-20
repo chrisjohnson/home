@@ -355,8 +355,7 @@ set wrap
 set foldmethod=syntax
 set foldlevel=1
 set foldminlines=5
-"TODO
-"set foldnestmax=3
+
 " Fold perl
 let perl_fold = 1
 let perl_fold_blocks = 1
