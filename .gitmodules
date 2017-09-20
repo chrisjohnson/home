@@ -103,3 +103,6 @@
 [submodule ".vim/pack/plugins/start/vim-foldfunctions"]
 	path = .vim/pack/plugins/start/vim-foldfunctions
 	url = git@github.com:chrisjohnson/vim-foldfunctions.git
+[submodule ".vim/pack/plugins/start/vim-peekaboo"]
+	path = .vim/pack/plugins/start/vim-peekaboo
+	url = https://github.com/junegunn/vim-peekaboo.git
