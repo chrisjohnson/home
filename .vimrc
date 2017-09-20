@@ -278,13 +278,32 @@ function! LightlineFugitive()
 	endif
 	return ''
 endfunction
+function! LightlineTag()
+	silent! let currenttag = tagbar#currenttag('%s','')
+	return currenttag !=# '' ? currenttag : ''
+endfunction
+function! LightlineGutentags()
+	silent! let tagstatus = gutentags#statusline()
+	return tagstatus !=# '' ? 'Generating Tags' : ''
+endfunction
+function! LightlineMode()
+  return expand('%:t') ==# '__Tagbar__' ? 'Tagbar':
+        \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
+        \ &filetype ==# 'unite' ? 'Unite' :
+        \ &filetype ==# 'vimfiler' ? 'VimFiler' :
+        \ &filetype ==# 'vimshell' ? 'VimShell' :
+        \ lightline#mode()
+endfunction
 let g:lightline = {
 \ 'colorscheme': 'wombat',
 \ 'component_function': {
-\   'gitbranch': 'LightlineFugitive'
+\   'gitbranch': 'LightlineFugitive',
+\   'tag': 'LightlineTag',
+\   'gutentags': 'LightlineGutentags',
+\   'mode': 'LightlineMode',
 \ },
 \ 'active': {
-\   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified', 'gitbranch', 'filename' ] ],
+\   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified', 'gitbranch', 'filename', 'tag', 'gutentags' ] ],
 \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
 \ },
 \ 'inactive': {
