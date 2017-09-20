@@ -354,7 +354,7 @@ set wrap
 " Folding
 set foldmethod=syntax
 set foldlevel=1
-set foldminlines=5
+set foldminlines=3
 
 " Fold perl
 let perl_fold = 1
