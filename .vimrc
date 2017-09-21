@@ -355,12 +355,6 @@ function! MyFoldText()
 	return "+-- " . sub . " --(" . n . " lines)" . v:folddashes
 endfunction
 
-" Fold perl
-let perl_fold = 1
-let perl_fold_blocks = 1
-" Don't Fold PHP
-let php_fold = 0
-
 " == Filetype-specific ==
 let g:surround_custom_mapping = {}
 let g:surround_custom_mapping._ = {
