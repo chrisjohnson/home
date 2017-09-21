@@ -197,7 +197,6 @@ vmap <c-n> <esc>
 " And jj in insert mode
 inoremap jj <ESC>
 
-"map <leader>nt :NERDTree<cr>
 map <leader>g :GundoToggle<cr>
 map <leader>tn :tabnew<cr>
 map <leader>w :w<cr>
@@ -226,25 +225,14 @@ map ;q :quitall<cr>
 map ;wq :w<cr>:q<cr><cr>
 " r to repeat search
 map r /<CR>
-" Command-line navigation
-cnoremap <C-x> <Right>
-cnoremap <C-z> <Left>
-" Alt+Left/Right to switch tabs
-nnoremap <A-Left> gT
-nnoremap <A-Right> gt
-" Control+Tab (+Shift, for reverse direction) to switch through tabs
-nnoremap <C-Tab> gt
-nnoremap <C-S-Tab> gT
 " Control+t for new tab
 nnoremap <C-t> :tabnew<CR>
-" Run the current file in a perl window
-map ;p :!perl "%"
-" Build the current file as a PDF and open it with evince
-map ;pdf :!pdf "%" && evince "`dirname '%'`/`basename '%' .tex`.pdf"<cr>
 " Map w!! to sudo write
 cmap w!! w !sudo tee % > /dev/null
 " Make ; work like :
 nnoremap ; :
+" Space to toggle folds
+nnoremap <Space> za
 
 " == Status line ==
 " Hide mode status since lightline includes it
