@@ -347,12 +347,26 @@ set foldlevel=1
 set foldminlines=3
 set foldcolumn=1
 
-set foldtext=MyFoldText() 
-function! MyFoldText()
-	let n = v:foldend - v:foldstart + 1 
-	let line = getline(v:foldstart)
-	let sub = substitute(line, '^\s*', '', 'g')
-	return "+-- " . sub . " --(" . n . " lines)" . v:folddashes
+" Stolen from anyfold
+set foldtext=MinimalFoldText()
+function! MinimalFoldText() abort
+	let fs = v:foldstart
+	while getline(fs) !~ '\w'
+		let fs = nextnonblank(fs + 1)
+	endwhile
+	if fs > v:foldend
+		let line = getline(v:foldstart)
+	else
+		let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+	endif
+
+	let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+	let foldSize = 1 + v:foldend - v:foldstart
+	let foldSizeStr = " " . foldSize . " lines "
+	let foldLevelStr = repeat("  +  ", v:foldlevel)
+	let lineCount = line("$")
+	let expansionString = repeat(" ", w - strwidth(foldSizeStr.line.foldLevelStr))
+	return line . expansionString . foldSizeStr . foldLevelStr
 endfunction
 
 " == Filetype-specific ==
