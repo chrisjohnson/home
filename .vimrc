@@ -125,9 +125,9 @@ let g:tagbar_compact=1
 " FZF
 "let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
-nnoremap <silent> <leader><space> :Files<CR>
-nnoremap <silent> <leader>a :Buffers<CR>
-nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>a :Windows<CR>
 nnoremap <c-p> :Windows<CR>
 nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
@@ -233,6 +233,8 @@ cmap w!! w !sudo tee % > /dev/null
 nnoremap ; :
 " Space to toggle folds
 nnoremap <Space> za
+" <leader>Space to focus on current fold
+nnoremap <leader><Space> zMzv:set foldminlines=1<cr>
 
 " == Status line ==
 " Hide mode status since lightline includes it
