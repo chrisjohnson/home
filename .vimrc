@@ -345,6 +345,15 @@ set wrap
 set foldmethod=syntax
 set foldlevel=1
 set foldminlines=3
+set foldcolumn=1
+
+set foldtext=MyFoldText() 
+function! MyFoldText()
+	let n = v:foldend - v:foldstart + 1 
+	let line = getline(v:foldstart)
+	let sub = substitute(line, '^\s*', '', 'g')
+	return "+-- " . sub . " --(" . n . " lines)" . v:folddashes
+endfunction
 
 " Fold perl
 let perl_fold = 1
