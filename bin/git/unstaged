@@ -1,5 +1,5 @@
 #!/bin/bash
 source $(which shell-colors)
 
-echo -e "${bold}${yellow}:: git diff${reset}"
-git diff
+echo -e "${bold}${yellow}:: git diff --color-words${reset}"
+git diff --color-words
