@@ -1,0 +1,10 @@
+#!/bin/bash
+source $(which shell-colors)
+
+echo "Pruning remote-tracking branches for remote branches that no longer exist"
+echo -e "${bold}${yellow}:: git remote prune origin${reset}"
+git remote prune origin
+
+echo "Pruning local branches that are already merged into master"
+echo -e "${bold}${yellow}:: git branch --merged master | grep -v '^* master$' | xargs git branch -d${reset}"
+git branch --merged master --no-color | grep -v '^* master$' | xargs -n1 git branch -d
