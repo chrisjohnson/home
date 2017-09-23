@@ -87,7 +87,9 @@ xmap XX <Plug>GitGutterTextObjectInnerVisual
 " Set Control - n to return to normal mode in insert mode and visual mode
 "TODO: Temporarily disabled to maybe learn how to use omnifunc properly?
 "imap <c-n> <esc>
+imap <leader>n <esc>
 vmap <c-n> <esc>
+vmap <leader>n <esc>
 " And jj in insert mode
 inoremap jj <ESC>
 " }}}
@@ -308,10 +310,6 @@ nmap <F2> :.w !reattach-to-user-namespace pbcopy<CR><CR>
 " Make it work with the actual selection instead of always the entire line
 vmap <F2> :call system('reattach-to-user-namespace pbcopy', GetSelection())<CR>:echo ""<CR>
 
-" yank/put to special register (to avoid the automatically handled one)
-map <leader>sy "ry
-map <leader>sp "rp
-map <leader>sP "rP
 " ,y Copy host clipboard with
 map <leader>y "+y
 " ;y to yank the whole buffer to the X clipboard
@@ -319,6 +317,11 @@ map ;y :%y<space>+<cr>
 " ,p ,P Paste from host clipboard
 map <leader>p "+gp
 map <leader>P "+gP
+
+" yank/put to special register (to avoid the automatically handled one)
+map <leader>sy "ry
+map <leader>sp "rp
+map <leader>sP "rP
 " }}}
 
 " == Window Management == {{{
