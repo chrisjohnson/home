@@ -109,3 +109,6 @@
 [submodule ".vim/pack/plugins/start/vim-misc"]
 	path = .vim/pack/plugins/start/vim-misc
 	url = https://github.com/xolox/vim-misc.git
+[submodule ".vim/pack/plugins/start/vim8-bracketed-paste-mode-tmux"]
+	path = .vim/pack/plugins/start/vim8-bracketed-paste-mode-tmux
+	url = git@github.com:chrisjohnson/vim8-bracketed-paste-mode-tmux.git
