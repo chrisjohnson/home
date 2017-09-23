@@ -1,81 +1,4 @@
 " vim: fdm=marker foldminlines=1
-" == Colors / UI == {{{
-set background=dark
-" Enable mouse support
-set mouse=a
-" Give 5 lines of space between the cursor and the top/bottom when scrolling
-set scrolloff=5
-" Show line numbers
-set number
-set numberwidth=1 " But keep it narrow
-" Make the line number relative
-"set relativenumber
-" Make spaces easier to see
-set listchars=tab:.\ ,trail:.
-set list
-" Enable syntax highlighting
-syntax on
-" New windows to below or right
-set splitbelow
-set splitright
-" Highlight the current line (but only in gvim, it looks terrible in normal vim)
-if has('gui_running')
-	set cursorline
-	set lines=40
-	set columns=120
-endif
-" Hide the toolbar in gvim
-set guioptions-=T
-" Vertical diffing
-set diffopt+=vertical
-" Colorscheme
-colorscheme wombat
-" Highlight coloring
-hi MatchParen cterm=none ctermbg=none ctermfg=white
-" Max 40 tabs
-set tabpagemax=40
-" }}}
-
-" == Code Formatting == {{{
-" Set tab character to 4 spaces
-set tabstop=4
-" Always show tabs
-set showtabline=2
-" Set << and >> to move 4 spaces (1 tab)
-set shiftwidth=4
-" Enable auto indent
-set autoindent
-" Wrap lines
-set wrap
-
-" Folding
-set foldmethod=syntax
-set foldlevel=1
-set foldminlines=3
-set foldcolumn=1
-" Stolen from anyfold
-set foldtext=MinimalFoldText()
-function! MinimalFoldText() abort
-	let fs = v:foldstart
-	while getline(fs) !~ '\w'
-		let fs = nextnonblank(fs + 1)
-	endwhile
-	if fs > v:foldend
-		let line = getline(v:foldstart)
-	else
-		let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-	endif
-
-	let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-	let foldSize = 1 + v:foldend - v:foldstart
-	let foldSizeStr = " " . foldSize . " lines "
-	let foldLevelStr = repeat("  +  ", v:foldlevel)
-	let lineCount = line("$")
-	let expansionString = repeat(" ", w - strwidth(foldSizeStr.line.foldLevelStr))
-	return line . expansionString . foldSizeStr . foldLevelStr
-endfunction
-" }}}
-
 " == Editor Preferences == {{{
 " Disable backup files
 set nobackup
@@ -131,8 +54,98 @@ Helptags
 set backspace=indent,eol,start
 " Set leaderkey to be comma
 let mapleader = ","
+" Make ; work like :
+nnoremap ; :
 " Paste-mode where there is no autoindentation
 set pastetoggle=<F12>
+
+" Remap the arrow keys to ijkl
+map i <Up>
+map j <Left>
+map k <Down>
+noremap h i
+" And map them with control to navigate splits
+nnoremap <C-i> <C-w>k
+nnoremap <C-j> <C-w>h
+nnoremap <C-k> <C-w>j
+nnoremap <C-l> <C-w>l
+" Also map i in netrw buffer
+augroup netrw_mapping
+    autocmd!
+    autocmd filetype netrw noremap <buffer> i <Up>
+augroup END
+
+" Set Control - n to return to normal mode in insert mode and visual mode
+imap <c-n> <esc>
+vmap <c-n> <esc>
+" And jj in insert mode
+inoremap jj <ESC>
+" }}}
+
+" == Key mappings == {{{
+" Gundo
+map <leader>g :GundoToggle<cr>
+" surround.vim
+map <leader>s yshw
+" ,w to write
+map <leader>w :w<cr>
+" ,e to edit
+map <leader>e :edit 
+" ;e to reload all current buffers
+map ;e :set noconfirm<cr>:bufdo e!<cr>:set confirm<cr>
+map <leader>q :q<cr>
+" ,m to create dirs necessary for the current file
+map <leader>m :!mkdir -p %:h<cr>
+" ;q to close all tabs and quit entirely
+map ;q :quitall<cr>
+" ;wq to write and quit
+map ;wq :w<cr>:q<cr><cr>
+" Map w!! to sudo write
+cmap w!! w !sudo tee % > /dev/null
+" }}}
+
+" == Code Formatting == {{{
+" Set tab character to 4 spaces
+set tabstop=4
+" Always show tabs
+set showtabline=2
+" Set << and >> to move 4 spaces (1 tab)
+set shiftwidth=4
+" Enable auto indent
+set autoindent
+" Wrap lines
+set wrap
+
+" Folding
+set foldmethod=syntax
+set foldlevel=1
+set foldminlines=3
+set foldcolumn=1
+" Stolen from anyfold
+set foldtext=MinimalFoldText()
+function! MinimalFoldText() abort
+	let fs = v:foldstart
+	while getline(fs) !~ '\w'
+		let fs = nextnonblank(fs + 1)
+	endwhile
+	if fs > v:foldend
+		let line = getline(v:foldstart)
+	else
+		let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+	endif
+
+	let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+	let foldSize = 1 + v:foldend - v:foldstart
+	let foldSizeStr = " " . foldSize . " lines "
+	let foldLevelStr = repeat("  +  ", v:foldlevel)
+	let lineCount = line("$")
+	let expansionString = repeat(" ", w - strwidth(foldSizeStr.line.foldLevelStr))
+	return line . expansionString . foldSizeStr . foldLevelStr
+endfunction
+" Space to toggle folds
+nnoremap <Space> za
+" <leader>Space to focus on current fold
+nnoremap <leader><Space> zMzv:set foldminlines=1<cr>
 " }}}
 
 " == Search == {{{
@@ -147,6 +160,10 @@ set smartcase
 set wrapscan
 " Ignore various tmp and cruft files when searching
 set wildignore+=*/.git/*,*/tmp/*,*.swp
+" r to repeat search
+map r /<CR>
+" ,x to de-highlight from the search
+map <leader>x :nohlsearch<cr>
 
 " Bind ,k to grep for the last searched string
 nnoremap <leader>k :Grep "<C-R>/"<CR>:cw<CR>
@@ -171,10 +188,11 @@ endif
 " gutentags
 let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
 let g:gutentags_ctags_tagfile = ".tags"
-" Prepare tagbar
+" Tagbar
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
 "let g:tagbar_autoclose=1
+nnoremap <F8> :TagbarToggle<CR>
 
 " FZF
 "let g:fzf_nvim_statusline = 0 " disable statusline overwriting
@@ -196,9 +214,73 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 " }}}
 
-" == Key mappings == {{{
-" Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
-"TODO: Write a wrapper that only calls reattach-to-user-namespace if necessary
+" == Colors / UI == {{{
+set background=dark
+" Enable mouse support
+set mouse=a
+" Give 5 lines of space between the cursor and the top/bottom when scrolling
+set scrolloff=5
+" Show line numbers
+set number
+set numberwidth=1 " But keep it narrow
+" Make the line number relative
+"set relativenumber
+" Make spaces easier to see
+set listchars=tab:.\ ,trail:.
+set list
+" Enable syntax highlighting
+syntax on
+" New windows to below or right
+set splitbelow
+set splitright
+" Highlight the current line (but only in gvim, it looks terrible in normal vim)
+if has('gui_running')
+	set cursorline
+	set lines=40
+	set columns=120
+endif
+" Hide the toolbar in gvim
+set guioptions-=T
+" Vertical diffing
+set diffopt+=vertical
+" Colorscheme
+colorscheme wombat
+" Highlight coloring
+hi MatchParen cterm=none ctermbg=none ctermfg=white
+" Max 40 tabs
+set tabpagemax=40
+" }}}
+
+" == Quickfix == {{{
+" r in quickfix to reload
+autocmd FileType qf nnoremap <buffer> r :Copen<CR>
+" R in quickfix to reload and scroll to the end
+autocmd FileType qf nnoremap <buffer> R :Copen<CR>G
+" q in quickfix to close
+autocmd FileType qf nnoremap <buffer> q :ccl<CR>
+" and for help
+autocmd FileType help nnoremap <buffer> q :q<CR>
+" vim-qf
+let g:qf_mapping_ack_style = 1
+nmap Q <Plug>qf_qf_toggle
+nmap qf <Plug>qf_qf_switch
+
+function AfterQuickfix() " called in `after`
+	" [q ]q to navigate qf entries
+	nmap ]q <Plug>qf_qf_next
+	nmap ]Q <Plug>qf_qf_next
+	nmap [q <Plug>qf_qf_previous
+	nmap [Q <Plug>qf_qf_previous
+	" t/T in quickfix to open in a new tab
+	autocmd FileType qf nnoremap <silent> <buffer> t <C-W><Enter><C-W>T :doauto FileType<CR>
+	autocmd FileType qf nnoremap <silent> <buffer> T <C-W><Enter><C-W>T :doauto FileType<CR>
+endfunction
+" }}}
+
+" == Copy / Paste == {{{
+" pbcopy/pbpaste
+"TODO: Write a wrapper that only calls reattach-to-user-namespace if necessary (or include a no-op reattach-to-user-namespace wrapper)
+"TODO: Write a check/wrapper for clipper
 nmap <F1> :set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
 imap <F1> <Esc>:set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
 nmap <F2> :.w !reattach-to-user-namespace pbcopy<CR><CR>
@@ -206,93 +288,27 @@ nmap <F2> :.w !reattach-to-user-namespace pbcopy<CR><CR>
 " Make it work with the actual selection instead of always the entire line
 vmap <F2> :call system('reattach-to-user-namespace pbcopy', GetSelection())<CR>:echo ""<CR>
 
-" Switch buffers quickly
-nmap <leader>l :ls<CR> :b<space>
-vmap <leader>l :ls<CR> :b<space>
-
-" Quickfix
-" r in quickfix to reload
-autocmd FileType qf nnoremap <buffer> r :Copen<CR>
-" R in quickfix to reload and scroll to the end
-autocmd FileType qf nnoremap <buffer> R :Copen<CR>G
-" q in quickfix to close
-autocmd FileType qf nnoremap <buffer> q :ccl<CR>
-" vim-qf
-let g:qf_mapping_ack_style = 1
-nmap Q <Plug>qf_qf_toggle
-nmap qf <Plug>qf_qf_switch
-" See .vim/after/plugin/vimrc.vim for more
-
-" Remap the arrow keys to ijkl
-map i <Up>
-map j <Left>
-map k <Down>
-noremap h i
-" And map them with control to navigate splits
-nnoremap <C-i> <C-w>k
-nnoremap <C-j> <C-w>h
-nnoremap <C-k> <C-w>j
-nnoremap <C-l> <C-w>l
-" Also map i in netrw buffer
-augroup netrw_mapping
-    autocmd!
-    autocmd filetype netrw call NetrwMapping()
-augroup END
-
-function! NetrwMapping()
-    noremap <buffer> i <Up>
-endfunction
-
-" Create hotkeys to create splits
-nnoremap <C-h> <C-w>s
-nnoremap <C-u> <C-w>v
-
-nnoremap <F8> :TagbarToggle<CR>
-
-" Set Control - n to return to normal mode in insert mode and visual mode
-imap <c-n> <esc>
-vmap <c-n> <esc>
-" And jj in insert mode
-inoremap jj <ESC>
-
-map <leader>g :GundoToggle<cr>
-map <leader>tn :tabnew<cr>
-map <leader>w :w<cr>
-map <leader>e :edit 
-" ;e to reload all current buffers
-map ;e :set noconfirm<cr>:bufdo e!<cr>:set confirm<cr>
-map <leader>q :q<cr>
-map <leader>p "+gp
-map <leader>P "+gP
 " yank/put to special register (to avoid the automatically handled one)
 map <leader>sy "ry
 map <leader>sp "rp
 map <leader>sP "rP
-" Copy to X clipboard with ,y
+" ,y Copy host clipboard with
 map <leader>y "+y
 " ;y to yank the whole buffer to the X clipboard
 map ;y :%y<space>+<cr>
-" surround.vim
-map <leader>s yshw
-" ,x to de-highlight from the search
-map <leader>x :nohlsearch<cr>
-map <leader>m :!mkdir -p %:h<cr>
-" ;q to close all tabs and quit entirely
-map ;q :quitall<cr>
-" ;wq to write and quit
-map ;wq :w<cr>:q<cr><cr>
-" r to repeat search
-map r /<CR>
+" ,p ,P Paste from host clipboard
+map <leader>p "+gp
+map <leader>P "+gP
+" }}}
+
+" == Window Management == {{{
+" Create hotkeys to create splits
+nnoremap <C-h> <C-w>s
+nnoremap <C-u> <C-w>v
+" Open new tab
+map <leader>tn :tabnew<cr>
 " Control+t for new tab
 nnoremap <C-t> :tabnew<CR>
-" Map w!! to sudo write
-cmap w!! w !sudo tee % > /dev/null
-" Make ; work like :
-nnoremap ; :
-" Space to toggle folds
-nnoremap <Space> za
-" <leader>Space to focus on current fold
-nnoremap <leader><Space> zMzv:set foldminlines=1<cr>
 " }}}
 
 " == Status line == {{{
