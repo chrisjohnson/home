@@ -168,7 +168,7 @@ autocmd FileType qf nnoremap <buffer> q :ccl<CR>
 " vim-qf
 let g:qf_mapping_ack_style = 1
 nmap Q <Plug>qf_qf_toggle
-nmap qf <c-w>j
+nmap qf <Plug>qf_qf_switch
 " See .vim/after/plugin/vimrc.vim for more
 
 " Remap the arrow keys to ijkl
