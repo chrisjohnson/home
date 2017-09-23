@@ -50,7 +50,6 @@ let g:rooter_silent_chdir = 1
 " In vim 8, this is effectively a no-op. In vim < 8, this will shim vim 8 package paths into rtp
 runtime pack/plugins/start/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
-Helptags
 " }}}
 
 " == Keyboard Preferences == {{{
@@ -196,15 +195,6 @@ elseif executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-" gutentags
-let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
-let g:gutentags_ctags_tagfile = ".tags"
-" Tagbar
-let g:tagbar_autofocus=1
-let g:tagbar_compact=1
-"let g:tagbar_autoclose=1
-nnoremap <F8> :TagbarToggle<CR>
-
 " FZF
 "let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
@@ -223,6 +213,18 @@ imap <C-x><C-l> <plug>(fzf-complete-line)
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
+" }}}
+
+" == Tags == {{{
+Helptags
+" gutentags
+let g:gutentags_ctags_exclude=["vendor", "bundle", ".git"]
+let g:gutentags_ctags_tagfile = ".tags"
+" Tagbar
+let g:tagbar_autofocus=1
+let g:tagbar_compact=1
+"let g:tagbar_autoclose=1
+nnoremap <F8> :TagbarToggle<CR>
 " }}}
 
 " == Colors / UI == {{{
