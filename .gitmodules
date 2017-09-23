@@ -13,9 +13,6 @@
 [submodule ".vim/bundle/vim-session"]
 	path = .vim/pack/plugins/start/vim-session
 	url = https://github.com/xolox/vim-session.git
-[submodule ".vim/bundle/vdebug"]
-	path = .vim/pack/plugins/start/vdebug
-	url = https://github.com/joonty/vdebug.git
 [submodule ".vim/bundle/vim-gitgutter"]
 	path = .vim/pack/plugins/start/vim-gitgutter
 	url = git://github.com/airblade/vim-gitgutter.git
@@ -106,3 +103,6 @@
 [submodule ".vim/pack/plugins/start/vim-peekaboo"]
 	path = .vim/pack/plugins/start/vim-peekaboo
 	url = https://github.com/junegunn/vim-peekaboo.git
+[submodule ".vim/pack/plugins/start/vim-qf"]
+	path = .vim/pack/plugins/start/vim-qf
+	url = https://github.com/romainl/vim-qf.git

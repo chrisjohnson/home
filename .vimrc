@@ -80,6 +80,9 @@ endif
 set guioptions-=T
 " Vertical diffing
 set diffopt+=vertical
+" Enable ftplugin loading
+filetype on
+filetype plugin on
 
 " == Searching ==
 " Ignore various tmp and cruft files when searching
@@ -155,15 +158,17 @@ vmap <F2> :call system('reattach-to-user-namespace pbcopy', GetSelection())<CR>:
 nmap <leader>l :ls<CR> :b<space>
 vmap <leader>l :ls<CR> :b<space>
 
+" Quickfix
 " r in quickfix to reload
 autocmd FileType qf nnoremap <buffer> r :Copen<CR>
 " R in quickfix to reload and scroll to the end
 autocmd FileType qf nnoremap <buffer> R :Copen<CR>G
 " q in quickfix to close
 autocmd FileType qf nnoremap <buffer> q :ccl<CR>
-" t/T in quickfix to open in a new tab
-autocmd FileType qf nnoremap <buffer> t <C-W><Enter><C-W>T
-autocmd FileType qf nnoremap <buffer> T <C-W><Enter><C-W>T
+" vim-qf
+let g:qf_mapping_ack_style = 1
+nmap Q <Plug>qf_qf_toggle
+" See .vim/after/plugin/vimrc.vim for more
 
 " Remap the arrow keys to ijkl
 map i <Up>
