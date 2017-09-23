@@ -106,3 +106,6 @@
 [submodule ".vim/pack/plugins/start/vim-qf"]
 	path = .vim/pack/plugins/start/vim-qf
 	url = https://github.com/romainl/vim-qf.git
+[submodule ".vim/pack/plugins/start/vim-misc"]
+	path = .vim/pack/plugins/start/vim-misc
+	url = https://github.com/xolox/vim-misc.git
