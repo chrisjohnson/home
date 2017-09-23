@@ -1,51 +1,10 @@
-syntax on
-set nocompatible
-" Set tab character to 4 spaces
-set tabstop=4
-" Always show tabs
-set showtabline=2
-" Set << and >> to move 4 spaces (1 tab)
-set shiftwidth=4
+" vim: fdm=marker foldminlines=1
+" == Colors / UI == {{{
 set background=dark
-set nobackup
-" Set up a huge history and undo cache
-set history=1000
-set undolevels=1000
-" Show the changed line count for commands
-set report=0
-" Show the command as you type it
-set showcmd
-" Confirm closing unsaved files
-set confirm
-" Begin searching immediately
-set incsearch
-" Delete existing text with backspace
-set backspace=indent,eol,start
-" Hilight the search results
-set hlsearch
-" Don't do spell-checking by default
-set nospell
 " Enable mouse support
 set mouse=a
-" Case insensitive search by default, but switch to case sensitive when searching with uppercase
-set ignorecase
-set smartcase
-" Case insensitive tab completion
-if exists("&wildignorecase")
-	set wildignorecase
-endif
-" Paste-mode where there is no autoindentation
-set pastetoggle=<F12>
 " Give 5 lines of space between the cursor and the top/bottom when scrolling
 set scrolloff=5
-" Persistent undo
-set undofile
-" Set the dir to store all the swap files
-set directory=$HOME/.vim/swap
-" And all the undo files
-set undodir=$HOME/.vim/undo
-" But then disable them anyway
-set noswapfile
 " Show line numbers
 set number
 set numberwidth=1 " But keep it narrow
@@ -54,19 +13,8 @@ set numberwidth=1 " But keep it narrow
 " Make spaces easier to see
 set listchars=tab:.\ ,trail:.
 set list
-" Set up the font for gvim
-set guifont=Liberation\ Mono\ 9
-" Set leaderkey to be comma
-let mapleader = ","
-" Command-line menu for completion
-set wildmenu
-" Match the longest first and tab through the remaining choices
-set wildmode=longest:full,full
-" Suffixes that get lower priority when doing tab completion for filenames
-" These are files we are not likely to want to edit or read
-set suffixes=.bak,~,.swp,.swo,.swn,.swm,.o,.d,.info,.aux,.dvi,.pdf,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll,.bin,.exe
-" Wrap searching around the EOF and BOF
-set wrapscan
+" Enable syntax highlighting
+syntax on
 " New windows to below or right
 set splitbelow
 set splitright
@@ -80,14 +28,89 @@ endif
 set guioptions-=T
 " Vertical diffing
 set diffopt+=vertical
-" Enable ftplugin loading
+" Colorscheme
+colorscheme wombat
+" Highlight coloring
+hi MatchParen cterm=none ctermbg=none ctermfg=white
+" Max 40 tabs
+set tabpagemax=40
+" }}}
+
+" == Code Formatting == {{{
+" Set tab character to 4 spaces
+set tabstop=4
+" Always show tabs
+set showtabline=2
+" Set << and >> to move 4 spaces (1 tab)
+set shiftwidth=4
+" Enable auto indent
+set autoindent
+" Wrap lines
+set wrap
+
+" Folding
+set foldmethod=syntax
+set foldlevel=1
+set foldminlines=3
+set foldcolumn=1
+" Stolen from anyfold
+set foldtext=MinimalFoldText()
+function! MinimalFoldText() abort
+	let fs = v:foldstart
+	while getline(fs) !~ '\w'
+		let fs = nextnonblank(fs + 1)
+	endwhile
+	if fs > v:foldend
+		let line = getline(v:foldstart)
+	else
+		let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+	endif
+
+	let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+	let foldSize = 1 + v:foldend - v:foldstart
+	let foldSizeStr = " " . foldSize . " lines "
+	let foldLevelStr = repeat("  +  ", v:foldlevel)
+	let lineCount = line("$")
+	let expansionString = repeat(" ", w - strwidth(foldSizeStr.line.foldLevelStr))
+	return line . expansionString . foldSizeStr . foldLevelStr
+endfunction
+" }}}
+
+" == Editor Preferences == {{{
+" Disable backup files
+set nobackup
+" Set up a huge history and undo cache
+set history=1000
+set undolevels=1000
+" Show the changed line count for commands
+set report=0
+" Show the command as you type it
+set showcmd
+" Confirm closing unsaved files
+set confirm
+" Don't do spell-checking by default
+set nospell
+" Persistent undo
+set undofile
+" Set the dir to store all the swap files
+set directory=$HOME/.vim/swap
+" And all the undo files
+set undodir=$HOME/.vim/undo
+" But then disable them anyway
+set noswapfile
+" Case insensitive tab completion
+set wildignorecase
+" Command-line menu for completion
+set wildmenu
+" Match the longest first and tab through the remaining choices
+set wildmode=longest:full,full
+" Suffixes that get lower priority when doing tab completion for filenames
+" These are files we are not likely to want to edit or read
+set suffixes=.bak,~,.swp,.swo,.swn,.swm,.o,.d,.info,.aux,.dvi,.pdf,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll,.bin,.exe
+" Enable filetype-specific plugins and indentations
 filetype on
 filetype plugin on
-
-" == Searching ==
-" Ignore various tmp and cruft files when searching
-set wildignore+=*/.git/*,*/tmp/*,*.swp
-
+filetype indent on
 " Set cwd per window/tab
 let g:rooter_use_lcd = 1
 " Follow symlinks
@@ -96,6 +119,34 @@ let g:rooter_resolve_links = 1
 let g:rooter_change_directory_for_non_project_files = 'current'
 " Quiet
 let g:rooter_silent_chdir = 1
+
+" In vim 8, this is effectively a no-op. In vim < 8, this will shim vim 8 package paths into rtp
+runtime pack/plugins/start/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
+Helptags
+" }}}
+
+" == Keyboard Preferences == {{{
+" Delete existing text with backspace, including up to the previous line
+set backspace=indent,eol,start
+" Set leaderkey to be comma
+let mapleader = ","
+" Paste-mode where there is no autoindentation
+set pastetoggle=<F12>
+" }}}
+
+" == Search == {{{
+" Hilight the search results
+set hlsearch
+" Begin searching immediately
+set incsearch
+" Case insensitive search by default, but switch to case sensitive when searching with uppercase
+set ignorecase
+set smartcase
+" Wrap searching around the EOF and BOF
+set wrapscan
+" Ignore various tmp and cruft files when searching
+set wildignore+=*/.git/*,*/tmp/*,*.swp
 
 " Bind ,k to grep for the last searched string
 nnoremap <leader>k :Grep "<C-R>/"<CR>:cw<CR>
@@ -143,8 +194,9 @@ imap <C-x><C-l> <plug>(fzf-complete-line)
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
+" }}}
 
-" == Key mappings ==
+" == Key mappings == {{{
 " Paste/copy using pbcopy/pbpaste (which are mapped over ssh)
 "TODO: Write a wrapper that only calls reattach-to-user-namespace if necessary
 nmap <F1> :set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
@@ -241,8 +293,9 @@ nnoremap ; :
 nnoremap <Space> za
 " <leader>Space to focus on current fold
 nnoremap <leader><Space> zMzv:set foldminlines=1<cr>
+" }}}
 
-" == Status line ==
+" == Status line == {{{
 " Hide mode status since lightline includes it
 set noshowmode
 " Always show it
@@ -296,17 +349,13 @@ let g:lightline = {
 \   'inactive': [ 'tabnum', 'filename', 'modified' ]
 \ },
 \ }
+" }}}
 
-" == Git ==
+" == Git == {{{
 let g:github_enterprise_urls = ['https://git.innova-partners.com']
+" }}}
 
-" == Rest of editor ==
-colorscheme wombat
-
-hi MatchParen cterm=none ctermbg=none ctermfg=white
-set tabpagemax=40
-
-" terminal-specific magic
+" == Terminal-specific magic == {{{
 let s:screen  = &term =~ 'screen'
 let s:xterm   = &term =~ 'xterm'
 
@@ -332,50 +381,9 @@ if s:screen || s:xterm
   cnoremap <Esc>[200~ <nop>
   cnoremap <Esc>[201~ <nop>
 endif
+" }}}
 
-" In vim 8, this is effectively a no-op. In vim < 8, this will shim vim 8 package paths into rtp
-runtime pack/plugins/start/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-Helptags
-
-silent! source ~/.vimrc_local
-
-" == Source Code ==
-set autoindent
-" load filetype-specific indent files
-filetype indent on
-" Wrap lines
-set wrap
-
-" Folding
-set foldmethod=syntax
-set foldlevel=1
-set foldminlines=3
-set foldcolumn=1
-
-" Stolen from anyfold
-set foldtext=MinimalFoldText()
-function! MinimalFoldText() abort
-	let fs = v:foldstart
-	while getline(fs) !~ '\w'
-		let fs = nextnonblank(fs + 1)
-	endwhile
-	if fs > v:foldend
-		let line = getline(v:foldstart)
-	else
-		let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-	endif
-
-	let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-	let foldSize = 1 + v:foldend - v:foldstart
-	let foldSizeStr = " " . foldSize . " lines "
-	let foldLevelStr = repeat("  +  ", v:foldlevel)
-	let lineCount = line("$")
-	let expansionString = repeat(" ", w - strwidth(foldSizeStr.line.foldLevelStr))
-	return line . expansionString . foldSizeStr . foldLevelStr
-endfunction
-
-" == Filetype-specific ==
+" == Filetype-specific == {{{
 let g:surround_custom_mapping = {}
 let g:surround_custom_mapping._ = {
 \ 'p':  "<pre> \r </pre>",
@@ -435,3 +443,8 @@ augroup FileTypeThings
 
 	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
 augroup END
+" }}}
+
+" == Local vimrc == {{{
+silent! source ~/.vimrc_local
+" }}}
