@@ -1,5 +1,9 @@
 " vim: fdm=marker foldminlines=1
+let g:afterstart_callbacks = []
+
 " == Editor Preferences == {{{
+" nocompatible (no-op in most cases)
+set nocompatible
 " Disable backup files
 set nobackup
 " Set up a huge history and undo cache
@@ -60,10 +64,11 @@ nnoremap ; :
 set pastetoggle=<F12>
 
 " Remap the arrow keys to ijkl
-map i <Up>
-map j <Left>
-map k <Down>
-noremap h i
+map <nowait> i <Up>
+map <nowait> j <Left>
+map <nowait> k <Down>
+noremap <nowait> h i
+vnoremap <nowait> h i
 " And map them with control to navigate splits
 nnoremap <C-i> <C-w>k
 nnoremap <C-j> <C-w>h
@@ -74,9 +79,15 @@ augroup netrw_mapping
     autocmd!
     autocmd filetype netrw noremap <buffer> i <Up>
 augroup END
+" Disable ruby mappings from vim-ruby since they conflict with my i mapping
+let g:no_ruby_maps = 1
+" Disable gitgutter mappings for ic since they conflict with my i mapping
+omap XX <Plug>GitGutterTextObjectInnerPending
+xmap XX <Plug>GitGutterTextObjectInnerVisual
 
 " Set Control - n to return to normal mode in insert mode and visual mode
-imap <c-n> <esc>
+"TODO: Temporarily disabled to maybe learn how to use omnifunc properly?
+"imap <c-n> <esc>
 vmap <c-n> <esc>
 " And jj in insert mode
 inoremap jj <ESC>
@@ -247,6 +258,9 @@ set diffopt+=vertical
 colorscheme wombat
 " Highlight coloring
 hi MatchParen cterm=none ctermbg=none ctermfg=white
+" Highlight lines that are too long
+highlight OverLength ctermbg=1 ctermfg=white
+highlight MatchParen ctermbg=blue ctermfg=white
 " Max 40 tabs
 set tabpagemax=40
 " }}}
@@ -265,16 +279,20 @@ let g:qf_mapping_ack_style = 1
 nmap Q <Plug>qf_qf_toggle
 nmap qf <Plug>qf_qf_switch
 
-function AfterQuickfix() " called in `after`
+function AfterQuickfix()
 	" [q ]q to navigate qf entries
 	nmap ]q <Plug>qf_qf_next
 	nmap ]Q <Plug>qf_qf_next
 	nmap [q <Plug>qf_qf_previous
 	nmap [Q <Plug>qf_qf_previous
 	" t/T in quickfix to open in a new tab
-	autocmd FileType qf nnoremap <silent> <buffer> t <C-W><Enter><C-W>T :doauto FileType<CR>
-	autocmd FileType qf nnoremap <silent> <buffer> T <C-W><Enter><C-W>T :doauto FileType<CR>
+	augroup QuickFixAuCommands
+		autocmd FileType qf nnoremap <silent> <buffer> t <C-W><Enter><C-W>T :doauto FileType<CR>
+		autocmd FileType qf nnoremap <silent> <buffer> T <C-W><Enter><C-W>T :doauto FileType<CR>
+	augroup END
 endfunction
+" Register to run after plugins
+call add(g:afterstart_callbacks, function('AfterQuickfix'))
 " }}}
 
 " == Copy / Paste == {{{
@@ -431,14 +449,7 @@ let g:surround_custom_mapping.javascript = {
 \ 'f':  "function(){ \r }"
 \ }
 
-" Highlight lines that are too long
-highlight OverLength ctermbg=1 ctermfg=white
-
 augroup FileTypeThings
-	autocmd FileType php let php_noShortTags=1
-
-	autocmd FileType php hi MatchParen ctermbg=blue guibg=lightblue
-
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
 	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -463,4 +474,9 @@ augroup END
 
 " == Local vimrc == {{{
 silent! source ~/.vimrc_local
+function AfterLocalVimrc()
+	silent! source ~/.vimrc_after_local
+endfunction
+" Register to run after plugins
+call add(g:afterstart_callbacks, function('AfterQuickfix'))
 " }}}
