@@ -85,11 +85,8 @@ omap XX <Plug>GitGutterTextObjectInnerPending
 xmap XX <Plug>GitGutterTextObjectInnerVisual
 
 " Set Control - n to return to normal mode in insert mode and visual mode
-"TODO: Temporarily disabled to maybe learn how to use omnifunc properly?
-"imap <c-n> <esc>
-imap <leader>n <esc>
+imap <c-n> <esc>
 vmap <c-n> <esc>
-vmap <leader>n <esc>
 " And jj in insert mode
 inoremap jj <ESC>
 " }}}
