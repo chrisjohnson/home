@@ -124,8 +124,9 @@ set shiftwidth=4
 set autoindent
 " Wrap lines
 set wrap
+" }}}
 
-" Folding
+" == Folding == {{{
 set foldmethod=syntax
 set foldlevel=1
 set foldminlines=3
@@ -151,6 +152,13 @@ function! MinimalFoldText() abort
 	let expansionString = repeat(" ", w - strwidth(foldSizeStr.line.foldLevelStr))
 	return line . expansionString . foldSizeStr . foldLevelStr
 endfunction
+" Persist folds
+set viewdir=$HOME/.vim/view
+augroup AutoSaveFolds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent loadview
+augroup END
 " Space to toggle folds
 nnoremap <Space> za
 " <leader>Space to focus on current fold

@@ -6,6 +6,7 @@
 *.gitignore*
 *.vim/swap*
 *.vim/undo*
+*.vim/view*
 */doc/tags
 *.vim/ruby/command-t*
 *.vim/ruby/command-t/*
