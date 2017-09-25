@@ -288,7 +288,7 @@ let g:qf_mapping_ack_style = 1
 nmap Q <Plug>qf_qf_toggle
 nmap qf <Plug>qf_qf_switch
 
-function AfterQuickfix()
+function! AfterQuickfix()
 	" [q ]q to navigate qf entries
 	nmap ]q <Plug>qf_qf_next
 	nmap ]Q <Plug>qf_qf_next
@@ -456,7 +456,7 @@ augroup END
 
 " == Local vimrc == {{{
 silent! source ~/.vimrc_local
-function AfterLocalVimrc()
+function! AfterLocalVimrc()
 	silent! source ~/.vimrc_after_local
 endfunction
 " Register to run after plugins
