@@ -316,8 +316,8 @@ map <leader>y "+y
 " ;y to yank the whole buffer to the X clipboard
 map ;y :%y<space>+<cr>
 " ,p ,P Paste from host clipboard
-map <leader>p "+gp
-map <leader>P "+gP
+map <leader>p :put +<cr>
+map <leader>P :put! +<cr>
 
 " yank/put to special register (to avoid the automatically handled one)
 map <leader>sy "ry
