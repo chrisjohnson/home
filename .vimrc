@@ -318,6 +318,8 @@ map ;y :%y<space>+<cr>
 " ,p ,P Paste from host clipboard
 map <leader>p :put +<cr>
 map <leader>P :put! +<cr>
+vmap <leader>p "+p
+vmap <leader>P "+P
 
 " yank/put to special register (to avoid the automatically handled one)
 map <leader>sy "ry
