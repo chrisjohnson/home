@@ -266,7 +266,7 @@ hi MatchParen cterm=none ctermbg=none ctermfg=white
 " Highlight lines that are too long
 highlight OverLength ctermbg=1 ctermfg=white
 highlight MatchParen ctermbg=blue ctermfg=white
-" Max 40 tabs
+" Max 40 open tabs
 set tabpagemax=40
 " }}}
 
@@ -445,6 +445,7 @@ augroup FileTypeThings
 	au Filetype ruby set makeprg=vrspec
 	" Enable long-line highlighting
 	au Filetype ruby match OverLength /\%101v.*/
+	au Filetype gitcommit match OverLength /\%81v.*/
 
 	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
 augroup END
