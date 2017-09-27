@@ -173,10 +173,12 @@ set smartcase
 set wrapscan
 " Ignore various tmp and cruft files when searching
 set wildignore+=*/.git/*,*/tmp/*,*.swp
-" r to repeat search
-map r /<CR>
 " ,x to de-highlight from the search
 map <leader>x :nohlsearch<cr>
+" Use incsearch.vim
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 " Bind ,k to grep for the last searched string
 nnoremap <leader>k :Grep "<C-R>/"<CR>:cw<CR>
