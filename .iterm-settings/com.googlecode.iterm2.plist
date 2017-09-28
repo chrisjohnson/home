@@ -16,6 +16,8 @@
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
 	<integer>1</integer>
+	<key>AppleWindowTabbingMode</key>
+	<string>manual</string>
 	<key>AutoCommandHistory</key>
 	<true/>
 	<key>AutoHideTmuxClientSession</key>
@@ -3125,14 +3127,16 @@
 	<string>776 182 556 262 0 0 1440 877 </string>
 	<key>NSWindow Frame ProfilesPanel</key>
 	<string>851 144 735 382 0 0 1680 1050 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>1018 482 400 129 0 0 1680 1050 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>530 477 620 392 0 0 1680 1027 </string>
+	<string>2410 752 620 392 1440 -34 2560 1440 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 469 0 0 1680 1050 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>745 528 796 473 0 0 1680 1050 </string>
+	<string>745 554 796 473 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>261 169 650 452 0 0 1680 1027 </string>
+	<string>1440 127 650 452 1440 -34 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>176 70 650 452 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -3265,13 +3269,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.70980392156862748</real>
+				<real>0.87835693359375</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.38823529411764707</real>
+				<real>0.64808147384833303</real>
 				<key>Red Component</key>
-				<real>0.29411764705882354</real>
+				<real>0.58068378455936909</real>
 			</dict>
 			<key>Ansi 5 Color</key>
 			<dict>
@@ -5473,7 +5477,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-09-07T14:02:37Z</date>
+	<date>2017-09-27T16:03:23Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -5532,7 +5536,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.beta.9</string>
+	<string>3.1.3.beta.1</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
