@@ -270,6 +270,11 @@ highlight OverLength ctermbg=1 ctermfg=white
 highlight MatchParen ctermbg=blue ctermfg=white
 " Max 40 open tabs
 set tabpagemax=40
+" Set title in tmux/screen
+if &term =~ "screen"
+	autocmd WinEnter,BufWinEnter,FocusGained * call system("tmux rename-window 'vim | " . expand("%:t") . "'")
+	autocmd VimLeave * call system("tmux setw automatic-rename")
+endif
 " }}}
 
 " == Quickfix == {{{
