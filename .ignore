@@ -1,4 +1,7 @@
-.git
-vendor
-bundle
-coverage
+.git/
+vendor/
+bundle/
+.bundle/
+coverage/
+code/
+.npm/
