@@ -290,20 +290,26 @@ highlight MatchParen ctermbg=blue ctermfg=white
 set tabpagemax=40
 " Set title in tmux/screen
 if &term =~ "screen"
-	autocmd WinEnter,BufWinEnter,FocusGained * call system("tmux rename-window 'vim | " . expand("%:t") . "'")
-	autocmd VimLeave * call system("tmux setw automatic-rename")
+	augroup TmuxRenameCommands
+		autocmd!
+		autocmd WinEnter,BufWinEnter,FocusGained * call system("tmux rename-window 'vim | " . expand("%:t") . "'")
+		autocmd VimLeave * call system("tmux setw automatic-rename")
+	augroup END
 endif
 " }}}
 
 " == Quickfix == {{{
-" r in quickfix to reload
-autocmd FileType qf nnoremap <buffer> r :Copen<CR>
-" R in quickfix to reload and scroll to the end
-autocmd FileType qf nnoremap <buffer> R :Copen<CR>G
-" q in quickfix to close
-autocmd FileType qf nnoremap <buffer> q :ccl<CR>
-" and for help
-autocmd FileType help nnoremap <buffer> q :q<CR>
+augroup QuickFixAuCommands
+	autocmd!
+	" r in quickfix to reload
+	autocmd FileType qf nnoremap <buffer> r :Copen<CR>
+	" R in quickfix to reload and scroll to the end
+	autocmd FileType qf nnoremap <buffer> R :Copen<CR>G
+	" q in quickfix to close
+	autocmd FileType qf nnoremap <buffer> q :ccl<CR>
+	" and for help
+	autocmd FileType help nnoremap <buffer> q :q<CR>
+augroup END
 " vim-qf
 let g:qf_mapping_ack_style = 1
 nmap Q <Plug>qf_qf_toggle
@@ -316,7 +322,8 @@ function! AfterQuickfix()
 	nmap [q <Plug>qf_qf_previous
 	nmap [Q <Plug>qf_qf_previous
 	" t/T in quickfix to open in a new tab
-	augroup QuickFixAuCommands
+	augroup QuickFixAuCommandsAfter
+		autocmd!
 		autocmd FileType qf nnoremap <silent> <buffer> t <C-W><Enter><C-W>T :doauto FileType<CR>
 		autocmd FileType qf nnoremap <silent> <buffer> T <C-W><Enter><C-W>T :doauto FileType<CR>
 	augroup END
@@ -455,6 +462,7 @@ let g:surround_custom_mapping.javascript = {
 \ }
 
 augroup FileTypeThings
+	autocmd!
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
 	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
