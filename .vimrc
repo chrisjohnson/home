@@ -156,9 +156,9 @@ function! MinimalFoldText() abort
 	return line . expansionString . foldSizeStr . foldLevelStr
 endfunction
 " Space to toggle folds
-nnoremap <Space> za
+nmap <Space> za
 " <leader>Space to focus on current fold
-nnoremap <leader><Space> zMzv:set foldminlines=1<cr>
+nmap <leader><Space> zMzv:set foldminlines=1<cr>
 " }}}
 
 " == Search == {{{
@@ -228,6 +228,9 @@ let g:gutentags_ctags_tagfile = ".tags"
 " Tagbar
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
+" Don't map for i or <Space> so my mappings (folding, movement) can work as normal
+let g:tagbar_map_togglecaseinsensitive=''
+let g:tagbar_map_showproto=''
 "let g:tagbar_autoclose=1
 nnoremap <F8> :TagbarToggle<CR>
 " }}}
