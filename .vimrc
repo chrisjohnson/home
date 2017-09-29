@@ -201,10 +201,24 @@ elseif executable('ag')
 endif
 
 " FZF
+" :Rg to search in files, with preview window
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%', '?'),
+  \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 "let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>s :Rg<CR>
+nnoremap <silent> <leader>r :Rg<CR>
 nnoremap <silent> <leader>a :Windows<CR>
 nnoremap <c-p> :Windows<CR>
 nnoremap <silent> <leader>; :BLines<CR>
@@ -233,6 +247,7 @@ let g:tagbar_map_togglecaseinsensitive=''
 let g:tagbar_map_showproto=''
 "let g:tagbar_autoclose=1
 nnoremap <F8> :TagbarToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
 " }}}
 
 " == Colors / UI == {{{
