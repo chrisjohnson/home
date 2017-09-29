@@ -36,5 +36,5 @@ else
 	export dirname_command="dirname"
 fi
 _fzf_compgen_dir() {
-	rg --hidden --files --null "$1" 2>/dev/null | xargs -0 "$dirname_command" | sort | uniq
+	rg --hidden --files --null "$1" 2>/dev/null | xargs -0 "$dirname_command" | awk '{ if (!h[$0]) { print $0; h[$0]=1 } }'
 }
