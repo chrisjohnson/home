@@ -6,6 +6,11 @@ if [[ -a "/usr/local/opt/fzf" ]]; then
 elif [[ -a "/usr/share/fzf" ]]; then
 	# Linux
 	FZF_SHELL_PATH="/usr/share/fzf"
+	# FZF_BIN_PATH not necessary since it'll be in /usr[/local]/bin
+elif [[ -a "$HOME/.fzf" ]]; then
+	# Git install
+	FZF_SHELL_PATH="$HOME/.fzf/shell"
+	FZF_BIN_PATH="$HOME/.fzf/bin"
 else
 	# Could not locate fzf install, nothing to do here
 	return
