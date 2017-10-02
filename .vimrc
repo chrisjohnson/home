@@ -392,12 +392,35 @@ function! LightlineGutentags()
 	return tagstatus !=# '' ? 'Generating Tags' : ''
 endfunction
 function! LightlineMode()
-  return expand('%:t') ==# '__Tagbar__' ? 'Tagbar':
-        \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
-        \ &filetype ==# 'unite' ? 'Unite' :
-        \ &filetype ==# 'vimfiler' ? 'VimFiler' :
-        \ &filetype ==# 'vimshell' ? 'VimShell' :
-        \ lightline#mode()
+	return expand('%:t') ==# '__Tagbar__' ? 'Tagbar':
+		\ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
+		\ &filetype ==# 'unite' ? 'Unite' :
+		\ &filetype ==# 'vimfiler' ? 'VimFiler' :
+		\ &filetype ==# 'vimshell' ? 'VimShell' :
+		\ lightline#mode()
+endfunction
+" Make tab names unique if they conflict
+function! LightlineTabFilename(n)
+	let buflist = tabpagebuflist(a:n)
+	let winnr = tabpagewinnr(a:n)
+	let bufnum = buflist[winnr - 1]
+	let bufname = expand('#'.bufnum.':t')
+	let buffullname = expand('#'.bufnum.':p')
+	let buffullnames = []
+	let bufnames = []
+	for i in range(1, tabpagenr('$'))
+		if i != a:n
+			let num = tabpagebuflist(i)[tabpagewinnr(i) - 1]
+			call add(buffullnames, expand('#' . num . ':p'))
+			call add(bufnames, expand('#' . num . ':t'))
+		endif
+	endfor
+	let i = index(bufnames, bufname)
+	if strlen(bufname) && i >= 0 && buffullnames[i] != buffullname
+		return substitute(buffullname, '.*/\([^/]\+/\)', '\1', '')
+	else
+		return strlen(bufname) ? bufname : '[No Name]'
+	endif
 endfunction
 let g:lightline = {
 \ 'colorscheme': 'wombat',
@@ -406,6 +429,9 @@ let g:lightline = {
 \   'tag': 'LightlineTag',
 \   'gutentags': 'LightlineGutentags',
 \   'mode': 'LightlineMode',
+\ },
+\ 'tab_component_function': {
+\   'filename': 'LightlineTabFilename',
 \ },
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified', 'gitbranch', 'filename', 'tag', 'gutentags' ] ],
