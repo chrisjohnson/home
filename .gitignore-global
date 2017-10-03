@@ -1,5 +1,7 @@
 */doc/tags
 doc/tags
 .tags
+.tags.lock
+.tags.temp
 tags
 .zshrc
