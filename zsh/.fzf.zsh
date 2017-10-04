@@ -33,13 +33,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 _fzf_compgen_path() {
 	rg --hidden --files --follow "$1" 2>/dev/null
 }
-if [[ $(uname) == "Darwin" ]]; then
-	# dirname on OS X behaves funky, get gdirname via
-	# brew install coreutils
-	export dirname_command="gdirname"
-else
-	export dirname_command="dirname"
-fi
 _fzf_compgen_dir() {
-	rg --hidden --files --null "$1" 2>/dev/null | xargs -0 "$dirname_command" | awk '!h[$0]++'
+	rg --hidden --files . 2>/dev/null | awk -F'/[^/]*$' '{print $1}' | awk '!h[$0]++'
 }
