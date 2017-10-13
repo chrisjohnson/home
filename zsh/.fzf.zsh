@@ -36,5 +36,5 @@ _fzf_compgen_path() {
 	rg --hidden --files --follow "$1" 2>/dev/null
 }
 _fzf_compgen_dir() {
-	rg --hidden --files . 2>/dev/null | awk 'function dirname(fn) { if (fn == "") return ".";  if (fn !~ "[^/]") return "/"; sub("/*$", "", fn); if (fn !~ "/") return "."; sub("/[^/]*$", "", fn); if (fn == "") fn = "/"; return fn } {$0 = dirname($0)} !a[$0]++'
+	rg --hidden --files "$1" 2>/dev/null | only-dir | awk '!h[$0]++'
 }
