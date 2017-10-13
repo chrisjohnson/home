@@ -19,6 +19,8 @@ fi
 # $PATH
 # If fzf is not already found in $PATH, check to see if it's because $FZF_BIN_PATH is missing from $PATH, and add it if so
 type fzf &>/dev/null || { "$PATH" != *"$FZF_BIN_PATH"* && export PATH="$PATH:$FZF_BIN_PATH" ; }
+# Confirm that it's loaded
+type fzf &>/dev/null || { echo "Could not locate fzf" && return ; }
 
 # Auto-completion
 [[ $- == *i* ]] && source "$FZF_SHELL_PATH/completion.zsh" 2> /dev/null
