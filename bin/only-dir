@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'set'
+dirs = Set.new
+$stdin.each_line do |line|
+  dir = File.dirname(line)
+  anc = []
+  while dirs.add?(dir)
+    anc << dir
+    dir = File.dirname(dir)
+    break if dir == '.'
+  end
+  puts anc.reverse unless anc.empty?
+end
