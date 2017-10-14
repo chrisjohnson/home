@@ -33,8 +33,8 @@ type rg &>/dev/null || return
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 _fzf_compgen_path() {
-	rg --hidden --files --follow "$1" 2>/dev/null
+	rg --hidden --files "$1" 2>/dev/null | with-dir "$1"
 }
 _fzf_compgen_dir() {
-	rg --hidden --files "$1" 2>/dev/null | only-dir | awk '!h[$0]++'
+	rg --hidden --files "$1" 2>/dev/null | only-dir "$1"
 }
