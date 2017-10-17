@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+if [[ "$1" == "" ]]; then
+	size="1000"
+else
+	size="$1"
+fi
+
+du -sm * | awk '$1 > '$size' {$1 = ""; $0 = substr($0,2); printf "%s\0", $0}' | xargs -0 ls -rthd
