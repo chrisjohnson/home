@@ -44,12 +44,37 @@ let g:rooter_use_lcd = 1
 let g:rooter_resolve_links = 1
 " Set cwd to file's dir for non-project files
 let g:rooter_change_directory_for_non_project_files = 'current'
-" Quiet
+" Quiet rooter
 let g:rooter_silent_chdir = 1
 
 " In vim 8, this is effectively a no-op. In vim < 8, this will shim vim 8 package paths into rtp
 runtime pack/plugins/start/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
+" }}}
+
+" == Sessions == {{{
+" Helper method to quickly save a new session for the current project
+function! SaveMySession()
+	execute 'SaveSession' xolox#session#path_to_name(getcwd())
+endfunction
+command! SaveMySession :call SaveMySession()
+" Automatically save open sessions on close
+let g:session_autosave = 'yes'
+let g:session_autosave_periodic = 10
+" Automatically load default session if one exists
+let g:session_autoload = 'yes'
+" Set g:session_default_name to be project-specific so vim-session will load project-specific sessions by default
+function! SetRoot()
+	let root = FindRootDirectory()
+	if root != ''
+		let g:session_default_name = xolox#session#path_to_name(root)
+	endif
+endfunction
+augroup SetRootAuCommands
+	autocmd!
+	" Depends on rooter so getcwd() returns project root
+	autocmd VimEnter * call SetRoot()
+augroup END
 " }}}
 
 " == Keyboard Preferences == {{{
@@ -507,6 +532,7 @@ augroup FileTypeThings
 	au Filetype ruby set makeprg=vrspec
 	" Enable long-line highlighting
 	au Filetype ruby match OverLength /\%101v.*/
+	au Filetype python match OverLength /\%101v.*/
 	au Filetype gitcommit match OverLength /\%81v.*/
 
 	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
