@@ -245,6 +245,7 @@ nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>s :Rg<CR>
 nnoremap <silent> <leader>r :Rg<CR>
 nnoremap <silent> <leader>a :Windows<CR>
+nnoremap <silent> <leader>t :Windows<CR>
 nnoremap <c-p> :Windows<CR>
 nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
@@ -273,7 +274,7 @@ let g:tagbar_map_togglecaseinsensitive=''
 let g:tagbar_map_showproto=''
 "let g:tagbar_autoclose=1
 nnoremap <F8> :TagbarToggle<CR>
-nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>T :TagbarToggle<CR>
 " }}}
 
 " == Colors / UI == {{{
