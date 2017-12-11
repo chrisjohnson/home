@@ -390,8 +390,6 @@ map <leader>sP "rP
 " Create hotkeys to create splits
 nnoremap <C-h> <C-w>s
 nnoremap <C-u> <C-w>v
-" Open new tab
-map <leader>tn :tabnew<cr>
 " Control+t for new tab
 nnoremap <C-t> :tabnew<CR>
 " }}}
