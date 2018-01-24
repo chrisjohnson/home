@@ -544,5 +544,5 @@ function! AfterLocalVimrc()
 	silent! source ~/.vimrc_after_local
 endfunction
 " Register to run after plugins
-call add(g:afterstart_callbacks, function('AfterQuickfix'))
+call add(g:afterstart_callbacks, function('AfterLocalVimrc'))
 " }}}
