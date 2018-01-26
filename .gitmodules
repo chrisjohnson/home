@@ -115,3 +115,6 @@
 [submodule ".vim/pack/plugins/start/incsearch.vim"]
 	path = .vim/pack/plugins/start/incsearch.vim
 	url = https://github.com/haya14busa/incsearch.vim.git
+[submodule ".vim/pack/plugins/start/vim-cucumber"]
+	path = .vim/pack/plugins/start/vim-cucumber
+	url = git@github.com:chrisjohnson/vim-cucumber.git

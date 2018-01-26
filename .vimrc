@@ -512,6 +512,8 @@ let g:surround_custom_mapping.javascript = {
 \ 'f':  "function(){ \r }"
 \ }
 
+let g:cucumber_preview_vertical = 1
+
 augroup FileTypeThings
 	autocmd!
 	autocmd FileType python set omnifunc=pythoncomplete#Complete
