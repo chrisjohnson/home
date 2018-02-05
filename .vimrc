@@ -528,11 +528,13 @@ augroup FileTypeThings
 	" Use spaces instead of tabs for ruby/python
 	au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 softtabstop=4 expandtab
 	au Filetype ruby set shiftwidth=2 softtabstop=2 expandtab
+	au Filetype sql set shiftwidth=2 softtabstop=2 expandtab
 	" Use vrspec as the compiler for ruby (custom shell script ssh dispatcher for vagrant ssh bundle exec rspec)
 	au Filetype ruby compiler rspec
 	au Filetype ruby set makeprg=vrspec
 	" Enable long-line highlighting
 	au Filetype ruby match OverLength /\%101v.*/
+	au Filetype sql match OverLength /\%81v.*/
 	au Filetype python match OverLength /\%101v.*/
 	au Filetype gitcommit match OverLength /\%81v.*/
 
