@@ -59,7 +59,7 @@ function! SaveMySession()
 endfunction
 command! SaveMySession :call SaveMySession()
 function! OpenMySession()
-	execute 'OpenSession' xolox#session#path_to_name(getcwd())
+	execute 'OpenSession!' xolox#session#path_to_name(getcwd())
 endfunction
 command! OpenMySession :call OpenMySession()
 " Automatically save open sessions on close
