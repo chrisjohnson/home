@@ -197,7 +197,7 @@ set smartcase
 " Wrap searching around the EOF and BOF
 set wrapscan
 " Ignore various tmp and cruft files when searching
-set wildignore+=*/.git/*,*/tmp/*,*.swp
+"set wildignore+=*/.git/*,*/tmp/*,*.swp
 " ,x to de-highlight from the search
 map <leader>x :nohlsearch<cr>
 " Use incsearch.vim
