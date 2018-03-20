@@ -53,16 +53,22 @@ call pathogen#infect()
 " }}}
 
 " == Sessions == {{{
-" Helper method to quickly save a new session for the current project
+" Helper methods to save and open sessions named by the current project
 function! SaveMySession()
 	execute 'SaveSession' xolox#session#path_to_name(getcwd())
 endfunction
 command! SaveMySession :call SaveMySession()
+function! OpenMySession()
+	execute 'OpenSession' xolox#session#path_to_name(getcwd())
+endfunction
+command! OpenMySession :call OpenMySession()
 " Automatically save open sessions on close
 let g:session_autosave = 'yes'
 let g:session_autosave_periodic = 10
 " Automatically load default session if one exists
 let g:session_autoload = 'yes'
+" Disable session locks because they don't seem to be getting unlocked in many cases
+let g:session_lock_enabled = 'no'
 " Set g:session_default_name to be project-specific so vim-session will load project-specific sessions by default
 function! SetRoot()
 	let root = FindRootDirectory()
