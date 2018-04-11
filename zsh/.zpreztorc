@@ -8,6 +8,7 @@ zstyle ':prezto:load' pmodule \
   'editor' \
   'history' \
   'directory' \
+  'docker' \
   'spectrum' \
   'utility' \
   'completion' \
@@ -18,6 +19,9 @@ zstyle ':prezto:load' pmodule \
 
 # For steeef_modified
 fpath=(~/.home/zsh/prezto-functions/ $fpath)
+
+# And completions
+fpath=(~/.home/zsh/completion/ $fpath)
 
 # Set the prompt theme to load.
 # Auto set to 'off' on dumb terminals.
