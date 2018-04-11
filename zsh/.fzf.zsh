@@ -38,3 +38,6 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
 	rg --hidden --files "$1" 2>/dev/null | only-dir "$1"
 }
+
+# Add C-g C-* key bindings for git completions
+source ~/.home/zsh/.fzf.git.zsh
