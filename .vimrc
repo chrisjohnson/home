@@ -155,6 +155,10 @@ set shiftwidth=4
 set autoindent
 " Wrap lines
 set wrap
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
 " }}}
 
 " == Folding == {{{
