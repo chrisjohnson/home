@@ -118,3 +118,9 @@
 [submodule ".vim/pack/plugins/start/vim-cucumber"]
 	path = .vim/pack/plugins/start/vim-cucumber
 	url = git@github.com:chrisjohnson/vim-cucumber.git
+[submodule ".vim/pack/plugins/start/elm-vim"]
+	path = .vim/pack/plugins/start/elm-vim
+	url = https://github.com/ElmCast/elm-vim.git
+[submodule ".vim/pack/plugins/start/ale"]
+	path = .vim/pack/plugins/start/ale
+	url = https://github.com/w0rp/ale.git
