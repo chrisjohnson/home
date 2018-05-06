@@ -23,5 +23,6 @@ for rcfile in "${ZDOTDIR:-$HOME}"/.home/zsh/prezto/runcoms/^README.md(.N); do
 done
 
 type rg &>/dev/null || { echo 'rg not installed!' ; }
+type fd &>/dev/null || { echo 'fd not installed!' ; }
 type fzf &>/dev/null || { echo 'fzf not installed!' ; }
 type tmux &>/dev/null || { echo 'tmux not installed!' ; }
