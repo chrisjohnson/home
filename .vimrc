@@ -551,8 +551,6 @@ augroup FileTypeThings
 	au Filetype sql match OverLength /\%81v.*/
 	au Filetype python match OverLength /\%101v.*/
 	au Filetype gitcommit match OverLength /\%81v.*/
-
-	au BufNewFile,BufReadPost .z*,zsh*,zlog*	so $HOME/.vim/syntax/zsh.vim
 augroup END
 " }}}
 
