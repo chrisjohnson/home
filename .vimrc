@@ -349,15 +349,15 @@ augroup QuickFixAuCommands
 augroup END
 " vim-qf
 let g:qf_mapping_ack_style = 1
-nmap Q <Plug>qf_qf_toggle
-nmap qf <Plug>qf_qf_switch
+nmap Q <Plug>(qf_qf_toggle)
+nmap qf <Plug>(qf_qf_switch)
 
 function! AfterQuickfix()
 	" [q ]q to navigate qf entries
-	nmap ]q <Plug>qf_qf_next
-	nmap ]Q <Plug>qf_qf_next
-	nmap [q <Plug>qf_qf_previous
-	nmap [Q <Plug>qf_qf_previous
+	nmap ]q <Plug>(qf_qf_next)
+	nmap ]Q <Plug>(qf_qf_next)
+	nmap [q <Plug>(qf_qf_previous)
+	nmap [Q <Plug>(qf_qf_previous)
 	" t/T in quickfix to open in a new tab
 	augroup QuickFixAuCommandsAfter
 		autocmd!
