@@ -1,2 +1,0 @@
-#!/bin/bash
-cat | tee >(nc -q1 localhost 2224) >(nc -q1 localhost 2225)
