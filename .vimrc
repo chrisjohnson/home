@@ -456,6 +456,18 @@ function! LightlineTabFilename(n)
 		return strlen(bufname) ? bufname : '[No Name]'
 	endif
 endfunction
+function! LightlineLinterStatus() abort
+	let l:counts = ale#statusline#Count(bufnr(''))
+
+	let l:all_errors = l:counts.error + l:counts.style_error
+	let l:all_non_errors = l:counts.total - l:all_errors
+
+	return l:counts.total == 0 ? '' : printf(
+				\   '%dW %dE',
+				\   all_non_errors,
+				\   all_errors
+				\)
+endfunction
 let g:lightline = {
 \ 'colorscheme': 'wombat',
 \ 'component_function': {
@@ -463,12 +475,13 @@ let g:lightline = {
 \   'tag': 'LightlineTag',
 \   'gutentags': 'LightlineGutentags',
 \   'mode': 'LightlineMode',
+\   'linterstatus': 'LightlineLinterStatus',
 \ },
 \ 'tab_component_function': {
 \   'filename': 'LightlineTabFilename',
 \ },
 \ 'active': {
-\   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified', 'gitbranch', 'filename', 'tag', 'gutentags' ] ],
+\   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified', 'gitbranch', 'filename', 'tag', 'gutentags', 'linterstatus' ] ],
 \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
 \ },
 \ 'inactive': {
