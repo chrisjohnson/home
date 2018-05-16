@@ -15,6 +15,11 @@ for file in .tmux.conf .tmux .gitconfig .vim .vimrc .iterm-settings .ignore; do
 	fi
 done
 
+if [[ ! -a "$HOME/.config/nvim/init.vim" && ! -h "$HOME/$file" ]]; then
+	mkdir -p ~/.config/nvim/
+	ln -s ~/.home/nvim/init.vim ~/.config/nvim/init.vim
+fi
+
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.home/zsh/prezto/runcoms/^README.md(.N); do
 	if [ ! -s "${ZDOTDIR:-$HOME}/.${rcfile:t}" ]; then
