@@ -332,10 +332,10 @@ highlight MatchParen ctermbg=blue ctermfg=white
 " Max 40 open tabs
 set tabpagemax=40
 " Set title in tmux/screen
-if &term =~ "screen"
+if $TERM =~ "screen"
 	augroup TmuxRenameCommands
 		autocmd!
-		autocmd WinEnter,BufWinEnter,FocusGained * call system("tmux rename-window 'vim | " . expand("%:t") . "'")
+		autocmd WinEnter,BufWinEnter,FocusGained * call system("tmux rename-window '" . (&term =~ "nvim" ? "nvim" : "vim") . " | " . expand("%:t") . "'")
 		autocmd VimLeave * call system("tmux setw automatic-rename")
 	augroup END
 endif
