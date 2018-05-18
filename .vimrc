@@ -379,12 +379,12 @@ call add(g:afterstart_callbacks, function('AfterQuickfix'))
 " pbcopy/pbpaste
 "TODO: Write a wrapper that only calls reattach-to-user-namespace if necessary (or include a no-op reattach-to-user-namespace wrapper)
 "TODO: Write a check/wrapper for clipper
-nmap <F1> :set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
-imap <F1> <Esc>:set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
-nmap <F2> :.w !reattach-to-user-namespace pbcopy<CR><CR>
+"nmap <F1> :set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
+"imap <F1> <Esc>:set paste<CR>:r !reattach-to-user-namespace pbpaste<CR>:set nopaste<CR>
+"nmap <F2> :.w !reattach-to-user-namespace pbcopy<CR><CR>
 "vmap <F2> :w !pbcopy<CR><CR>
 " Make it work with the actual selection instead of always the entire line
-vmap <F2> :call system('reattach-to-user-namespace pbcopy', GetSelection())<CR>:echo ""<CR>
+"vmap <F2> :call system('reattach-to-user-namespace pbcopy', GetSelection())<CR>:echo ""<CR>
 
 " ,y Copy host clipboard with
 map <leader>y "+y
