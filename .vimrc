@@ -119,9 +119,7 @@ xmap XX <Plug>GitGutterTextObjectInnerVisual
 imap <c-n> <esc>
 vmap <c-n> <esc>
 if has("nvim")
-	" Map <esc> in terminal mode to return to normal mode
-	tnoremap <Esc> <C-\><C-n>
-	" And Control - n
+	" Map <C-n> in terminal mode to return to normal mode
 	tnoremap <C-n> <C-\><C-n>
 endif
 " And jj in insert mode
