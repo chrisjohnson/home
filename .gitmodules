@@ -4,9 +4,6 @@
 [submodule ".vim/bundle/cake.vim"]
 	path = .vim/pack/plugins/start/cake.vim
 	url = https://github.com/violetyk/cake.vim.git
-[submodule ".vim/bundle/gundo.vim"]
-	path = .vim/pack/plugins/start/gundo.vim
-	url = https://github.com/sjl/gundo.vim.git
 [submodule ".vim/bundle/vim-unimpaired"]
 	path = .vim/pack/plugins/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
