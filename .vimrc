@@ -129,8 +129,8 @@ inoremap jj <ESC>
 " }}}
 
 " == Key mappings == {{{
-" Gundo
-map <leader>g :GundoToggle<cr>
+" Mundo
+map <leader>u :MundoToggle<cr>
 " surround.vim
 map <leader>s yshw
 " ,w to write
@@ -260,6 +260,7 @@ nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>s :Rg<CR>
 nnoremap <silent> <leader>r :Rg<CR>
+nnoremap <silent> <leader>g :Rg<CR>
 nnoremap <silent> <leader>a :Windows<CR>
 nnoremap <silent> <leader>t :Windows<CR>
 nnoremap <c-p> :Windows<CR>
