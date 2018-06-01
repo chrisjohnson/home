@@ -121,3 +121,9 @@
 [submodule ".vim/pack/plugins/start/vim-mundo"]
 	path = .vim/pack/plugins/start/vim-mundo
 	url = https://github.com/simnalamburt/vim-mundo.git
+[submodule ".vim/pack/plugins/start/deoplete.nvim"]
+	path = .vim/pack/plugins/start/deoplete.nvim
+	url = https://github.com/Shougo/deoplete.nvim.git
+[submodule ".vim/pack/plugins/start/vim-monster"]
+	path = .vim/pack/plugins/start/vim-monster
+	url = https://github.com/osyo-manga/vim-monster.git

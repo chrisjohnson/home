@@ -570,6 +570,17 @@ augroup FileTypeThings
 	au Filetype python match OverLength /\%101v.*/
 	au Filetype gitcommit match OverLength /\%81v.*/
 augroup END
+
+if has("nvim")
+	" Use deoplete
+	let g:deoplete#enable_at_startup = 1
+	" With deoplete.nvim
+	let g:monster#completion#rcodetools#backend = "async_rct_complete"
+	" Or let g:monster#completion#solargraph#backend = "async_solargraph_suggest"
+	let g:deoplete#sources#omni#input_patterns = {
+	\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+	\}
+endif
 " }}}
 
 " == Local vimrc == {{{
