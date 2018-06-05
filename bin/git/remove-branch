@@ -1,0 +1,7 @@
+#!/bin/bash
+source $(which shell-colors)
+
+branch=$1
+
+echo -e "${bold}${yellow}:: git branch -D ${branch} && git push origin :${branch}${reset}"
+git branch -D ${branch} && git push origin :${branch}
