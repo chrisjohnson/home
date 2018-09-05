@@ -146,6 +146,11 @@ map ;q :quitall<cr>
 map ;wq :w<cr>:q<cr><cr>
 " Map w!! to sudo write
 cmap w!! w !sudo tee % > /dev/null
+" When <leader>/; is pressed without followup keys, show the mappings
+nnoremap <silent> <leader> :<c-u>WhichKey ','<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<CR>
+nnoremap <silent> ; :<c-u>WhichKey ';'<CR>
+vnoremap <silent> ; :<c-u>WhichKeyVisual ';'<CR>
 " }}}
 
 " == Code Formatting == {{{

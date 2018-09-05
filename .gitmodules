@@ -121,3 +121,6 @@
 [submodule ".vim/pack/plugins/start/vim-mundo"]
 	path = .vim/pack/plugins/start/vim-mundo
 	url = https://github.com/simnalamburt/vim-mundo.git
+[submodule ".vim/pack/plugins/start/vim-which-key"]
+	path = .vim/pack/plugins/start/vim-which-key
+	url = https://github.com/liuchengxu/vim-which-key.git
