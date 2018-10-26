@@ -3,7 +3,7 @@
 git pull || { echo 'Failed to pull, stopping here' && exit 1 ; }
 git submodule update --init --recursive
 
-for file in .zshrc .zpreztorc .fzf.zsh; do
+for file in .zshrc .zpreztorc; do
 	if [[ ! -a "$HOME/$file" && ! -h "$HOME/$file" ]]; then
 		ln -s ~/.home/zsh/$file ~/$file
 	fi
@@ -31,3 +31,4 @@ type rg &>/dev/null || { echo 'rg not installed!' ; }
 type fd &>/dev/null || { echo 'fd not installed!' ; }
 type fzf &>/dev/null || { echo 'fzf not installed!' ; }
 type tmux &>/dev/null || { echo 'tmux not installed!' ; }
+type pydf &>/dev/null || { echo 'pydf not installed!' ; }
