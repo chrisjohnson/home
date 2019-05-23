@@ -36,6 +36,7 @@ alias -g l="| less"
 alias nnn="NNN_SHOW_HIDDEN=1 nnn -S"
 alias df="pydf 2>/dev/null || df -h"
 alias k="kubectl"
+alias mux="tmuxinator"
 
 mvln(){
 	# Get an absolute path for the target
