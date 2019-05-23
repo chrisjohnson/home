@@ -124,3 +124,6 @@
 [submodule ".vim/pack/plugins/start/vim-which-key"]
 	path = .vim/pack/plugins/start/vim-which-key
 	url = https://github.com/liuchengxu/vim-which-key.git
+[submodule "zsh/tmuxinator"]
+	path = zsh/tmuxinator
+	url = https://github.com/tmuxinator/tmuxinator.git
