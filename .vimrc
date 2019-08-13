@@ -423,9 +423,12 @@ set laststatus=2
 function! LightlineFugitive()
 	if exists('*fugitive#head') && fugitive#extract_git_dir(expand('%')) !=# ''
 		silent! let branch = fugitive#head()
-		return branch !=# '' ? branch : ''
+		return branch !=# '' ? ("\u2387 " . branch) : ''
 	endif
 	return ''
+endfunction
+function! LightlineRelativePath()
+	return winwidth(0) > 110 ? expand('%:f') : expand('%:t')
 endfunction
 function! LightlineTag()
 	silent! let currenttag = tagbar#currenttag('%s','')
@@ -485,13 +488,14 @@ let g:lightline = {
 \   'tag': 'LightlineTag',
 \   'gutentags': 'LightlineGutentags',
 \   'mode': 'LightlineMode',
+\   'relativepath': 'LightlineRelativePath',
 \   'linterstatus': 'LightlineLinterStatus',
 \ },
 \ 'tab_component_function': {
 \   'filename': 'LightlineTabFilename',
 \ },
 \ 'active': {
-\   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified', 'gitbranch', 'filename', 'tag', 'gutentags', 'linterstatus' ] ],
+\   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'modified', 'gitbranch', 'relativepath', 'tag', 'gutentags', 'linterstatus' ] ],
 \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
 \ },
 \ 'inactive': {
