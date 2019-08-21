@@ -11,5 +11,5 @@ fi
 has-local-modifications || { echo -e "${bold}${red}Your branch ${bold}${red}${stout}$branch${reset}${bold}${red} has local modifications, please stash, commit, or abandon your changes before running this command${reset}" && exit 1 ; }
 
 echo -e "Rebasing ${bold}${red}${stout}$dest${reset} into your branch ${bold}${red}${stout}$branch${reset}"
-echo -e "${bold}${yellow}:: git rebase \"$dest\"${reset}"
-git rebase "$dest"
+echo -e "${bold}${yellow}:: git rebase -i \"$dest\"${reset}"
+git rebase -i "$dest"

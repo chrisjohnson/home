@@ -25,6 +25,5 @@ if [[ -z "$message" ]]; then
 	exit 1
 fi
 escaped="${message//\"/\\\"}"
-#escaped="${escaped//\'/\\\'}"
 echo -e "${bold}${yellow}:: git commit -m \"$escaped\"${reset}"
 git commit -m "$message"
