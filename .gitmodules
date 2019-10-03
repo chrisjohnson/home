@@ -127,3 +127,6 @@
 [submodule "zsh/tmuxinator"]
 	path = zsh/tmuxinator
 	url = https://github.com/tmuxinator/tmuxinator.git
+[submodule ".vim/pack/plugins/start/vim-terraform"]
+	path = .vim/pack/plugins/start/vim-terraform
+	url = https://github.com/hashivim/vim-terraform.git
