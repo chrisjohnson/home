@@ -1,0 +1,25 @@
+
+__tmux_fzf_get_session__() {
+    session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null |
+        fzf --exit-0 --preview='tmux-session-tree {} | bat --theme TwoDark --style plain')
+    echo "$session"
+}
+
+# Tmux session switcher (`tms foo` attaches to `foo` if exists, else creates
+# it)
+tms() {
+    [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+    if [[ -n "$1" ]]; then
+        if [[ "$1" == "-ask" ]]; then
+            read -r -p "New tmux session name: " session_name
+        else
+            session_name="$1"
+        fi
+        tmux $change -t "$session_name" 2>/dev/null || \
+            (tmux -f "$HOME/.tmux/tmux.conf" new-session -d -s "$session_name" && \
+            tmux $change -t "$session_name");
+        return
+    fi
+    session=$(eval __tmux_fzf_get_session__)
+    tmux $change -t "$session" || echo "No sessions found."
+}

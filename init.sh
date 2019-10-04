@@ -23,8 +23,8 @@ if [[ ! -a "$HOME/.tmux.conf" && ! -h "$HOME/.tmux.conf" ]]; then
 	ln -s ~/.home/tmux/oh-my-tmux/.tmux.conf ~/.tmux.conf
 fi
 
-if [[ ! -a "$HOME/.tmux.conf.local" && ! -h "$HOME/.tmux.conf.local" ]]; then
-	ln -s ~/.home/tmux/.tmux.conf.local ~/.tmux.conf.local
+if [[ ! -a "$HOME/.tmux.conf.local" && ! -h "$HOME/tmux/.tmux.conf.local" ]]; then
+	ln -s ~/.home/tmux/oh-my-tmux.conf.local ~/.tmux.conf.local
 fi
 
 if [[ ! -a "$HOME/.tmux" && ! -h "$HOME/.tmux" ]]; then
