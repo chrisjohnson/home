@@ -15,6 +15,10 @@ for file in .tmux.conf .tmux .gitconfig .vim .vimrc .iterm-settings .ignore; do
 	fi
 done
 
+if [[ ! -a "$HOME/.zshenv" && ! -h "$HOME/.zshenv" ]]; then
+	ln -s ~/.home/zsh/.zshenv ~/.zshenv
+fi
+
 if [[ ! -a "$HOME/.config/nvim/init.vim" && ! -h "$HOME/.config/nvim/init.vim" ]]; then
 	mkdir -p ~/.config/nvim/
 	ln -s ~/.home/nvim/init.vim ~/.config/nvim/init.vim
