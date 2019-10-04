@@ -9,7 +9,7 @@ for file in .zshrc .zpreztorc; do
 	fi
 done
 
-for file in .tmux.conf .tmux .gitconfig .vim .vimrc .iterm-settings .ignore; do
+for file in .gitconfig .vim .vimrc .iterm-settings .ignore; do
 	if [[ ! -a "$HOME/$file" && ! -h "$HOME/$file" ]]; then
 		ln -s ~/.home/$file ~/$file
 	fi
@@ -17,6 +17,18 @@ done
 
 if [[ ! -a "$HOME/.zshenv" && ! -h "$HOME/.zshenv" ]]; then
 	ln -s ~/.home/zsh/.zshenv ~/.zshenv
+fi
+
+if [[ ! -a "$HOME/.tmux.conf" && ! -h "$HOME/.tmux.conf" ]]; then
+	ln -s ~/.home/tmux/oh-my-tmux/.tmux.conf ~/.tmux.conf
+fi
+
+if [[ ! -a "$HOME/.tmux.conf.local" && ! -h "$HOME/.tmux.conf.local" ]]; then
+	ln -s ~/.home/tmux/.tmux.conf.local ~/.tmux.conf.local
+fi
+
+if [[ ! -a "$HOME/.tmux" && ! -h "$HOME/.tmux" ]]; then
+	ln -s ~/.home/tmux/.tmux ~/.tmux
 fi
 
 if [[ ! -a "$HOME/.config/nvim/init.vim" && ! -h "$HOME/.config/nvim/init.vim" ]]; then
