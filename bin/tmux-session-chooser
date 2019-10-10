@@ -5,5 +5,6 @@ fmt='#{session_id}:|#S|(#{session_attached} attached)'
 	| awk '!seen[$1]++' \
 	| column -t -s'|' \
 	| fzf -q '$' --reverse --prompt 'switch session: ' -1 \
+		--preview 'tmux-preview-session {}' \
 	| cut -d':' -f1 \
 	| xargs tmux switch-client -t

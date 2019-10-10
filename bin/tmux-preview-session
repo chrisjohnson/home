@@ -1,0 +1,11 @@
+#!/bin/bash
+
+target=$(echo "$1" | cut -d':' -f1)
+
+attached_session=$(tmux display-message -p "#{session_id}")
+if [[ "$target" == "$attached_session" ]]; then
+	target="${target}:{last}"
+fi
+
+tmux capture-pane -e -J -b "chooser-dump" -t "${target}"
+tmux show-buffer -b "chooser-dump"
