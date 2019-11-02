@@ -136,3 +136,6 @@
 [submodule "tmux/.tmux/plugins/tpm"]
 	path = tmux/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
+[submodule ".vim/pack/plugins/start/Jenkinsfile-vim-syntax"]
+	path = .vim/pack/plugins/start/Jenkinsfile-vim-syntax
+	url = https://github.com/martinda/Jenkinsfile-vim-syntax.git

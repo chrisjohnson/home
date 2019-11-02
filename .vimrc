@@ -567,12 +567,13 @@ augroup FileTypeThings
 	autocmd FileType ruby set omnifunc=rubycomplete#Complete
 	autocmd FileType c set omnifunc=ccomplete#Complete
 
-	" Use spaces instead of tabs for ruby/python
+	" Use spaces instead of tabs for these langs
 	au BufRead,BufNewFile *.py,*pyw set shiftwidth=4 softtabstop=4 expandtab
 	au Filetype ruby set shiftwidth=2 softtabstop=2 expandtab
 	au Filetype sql set shiftwidth=2 softtabstop=2 expandtab
 	au Filetype yaml set shiftwidth=2 softtabstop=2 expandtab
 	au Filetype cucumber set shiftwidth=2 softtabstop=2 expandtab
+	au Filetype Jenkinsfile set shiftwidth=2 softtabstop=2 expandtab
 	" Use vrspec as the compiler for ruby (custom shell script ssh dispatcher for vagrant ssh bundle exec rspec)
 	au Filetype ruby compiler rspec
 	au Filetype ruby set makeprg=vrspec
@@ -581,6 +582,7 @@ augroup FileTypeThings
 	au Filetype sql match OverLength /\%81v.*/
 	au Filetype python match OverLength /\%101v.*/
 	au Filetype gitcommit match OverLength /\%81v.*/
+	au Filetype Jenkinsfile match OverLength /\%101v.*/
 augroup END
 " }}}
 
