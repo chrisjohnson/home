@@ -46,7 +46,9 @@ done
 type rg &>/dev/null || { echo 'rg not installed!' ; }
 type fd &>/dev/null || { echo 'fd not installed!' ; }
 type fzf &>/dev/null || { echo 'fzf not installed!' ; }
+type mosh &>/dev/null || { echo 'mosh not installed!' ; }
 type tmux &>/dev/null || { echo 'tmux not installed!' ; }
 type tmuxinator &>/dev/null || { echo 'tmuxinator not installed!' ; }
 type pip &>/dev/null || { echo 'pip not installed!' ; }
+type stern &>/dev/null || { echo 'stern not installed!' ; }
 type pydf &>/dev/null || { echo 'pydf not installed!' ; }
