@@ -9,7 +9,7 @@ for file in .zshrc .zpreztorc; do
 	fi
 done
 
-for file in .gitconfig .vim .vimrc .iterm-settings .ignore; do
+for file in .gitconfig .vim .vimrc .ignore; do
 	if [[ ! -a "$HOME/$file" && ! -h "$HOME/$file" ]]; then
 		ln -s ~/.home/$file ~/$file
 	fi
@@ -47,4 +47,6 @@ type rg &>/dev/null || { echo 'rg not installed!' ; }
 type fd &>/dev/null || { echo 'fd not installed!' ; }
 type fzf &>/dev/null || { echo 'fzf not installed!' ; }
 type tmux &>/dev/null || { echo 'tmux not installed!' ; }
+type tmuxinator &>/dev/null || { echo 'tmuxinator not installed!' ; }
+type pip &>/dev/null || { echo 'pip not installed!' ; }
 type pydf &>/dev/null || { echo 'pydf not installed!' ; }
