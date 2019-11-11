@@ -27,10 +27,6 @@ if [[ ! -a "$HOME/.tmux.conf.local" && ! -h "$HOME/tmux/.tmux.conf.local" ]]; th
 	ln -s ~/.home/tmux/oh-my-tmux.conf.local ~/.tmux.conf.local
 fi
 
-if [[ ! -a "$HOME/.tmux" && ! -h "$HOME/.tmux" ]]; then
-	ln -s ~/.home/tmux/.tmux ~/.tmux
-fi
-
 if [[ ! -a "$HOME/.config/nvim/init.vim" && ! -h "$HOME/.config/nvim/init.vim" ]]; then
 	mkdir -p ~/.config/nvim/
 	ln -s ~/.home/nvim/init.vim ~/.config/nvim/init.vim
@@ -51,4 +47,5 @@ type tmux &>/dev/null || { echo 'tmux not installed!' ; }
 type tmuxinator &>/dev/null || { echo 'tmuxinator not installed!' ; }
 type pip &>/dev/null || { echo 'pip not installed!' ; }
 type stern &>/dev/null || { echo 'stern not installed!' ; }
+type reattach-to-user-namespace &>/dev/null || { echo 'reattach-to-user-namespace not installed!' ; }
 type pydf &>/dev/null || { echo 'pydf not installed!' ; }
