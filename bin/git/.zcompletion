@@ -1,10 +1,20 @@
-compdef _git add=git-add
-compdef _git branch=git-checkout
-compdef _git cherry-pick=git-cherry-pick
-compdef _git cherry-pick-into=git-cherry-pick
-compdef _git merge=git-merge
-compdef _git merge-into=git-merge
-compdef _git pull=git-pull
-compdef _git push=git-push
-compdef _git rebase=git-rebase
-compdef _git rebase-into=git-rebase
+_my_git() {
+  words=(git "${words[@]}")
+  (( CURRENT++ ))
+  _normal
+}
+_my_git_checkout() {
+  words=(git checkout "${words[@]:1}")
+  (( CURRENT++ ))
+  _normal
+}
+
+compdef _my_git add
+compdef _my_git_checkout branch
+compdef _my_git cherry-pick
+compdef _my_git cherry-pick-into
+compdef _my_git merge
+compdef _my_git pull
+compdef _my_git push
+compdef _my_git rebase
+compdef _my_git rebase-into
