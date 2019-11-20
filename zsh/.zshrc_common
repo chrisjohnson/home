@@ -18,6 +18,10 @@ source $HOME/.home/zsh/tmuxinator/completion/tmuxinator.zsh
 # TODO: Maybe brew install order matters here?
 source "$HOME/.home/bin/git/.zcompletion"
 
+# Source asdf
+[ -f $(brew --prefix asdf)/asdf.sh ] && source $(brew --prefix asdf)/asdf.sh
+[ -f $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash ] && source $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
+
 # C-b to erase current prompt, run a command, then return the current prompt as it was
 bindkey '^B' push-line
 
