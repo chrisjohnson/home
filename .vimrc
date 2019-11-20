@@ -574,6 +574,7 @@ augroup FileTypeThings
 	au Filetype yaml set shiftwidth=2 softtabstop=2 expandtab
 	au Filetype cucumber set shiftwidth=2 softtabstop=2 expandtab
 	au Filetype Jenkinsfile set shiftwidth=2 softtabstop=2 expandtab
+	au Filetype groovy set shiftwidth=2 softtabstop=2 expandtab
 	" Use vrspec as the compiler for ruby (custom shell script ssh dispatcher for vagrant ssh bundle exec rspec)
 	au Filetype ruby compiler rspec
 	au Filetype ruby set makeprg=vrspec
