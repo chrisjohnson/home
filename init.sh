@@ -40,6 +40,7 @@ for rcfile in "${ZDOTDIR:-$HOME}"/.home/zsh/prezto/runcoms/^(README.md|zshenv)(.
 done
 
 type rg &>/dev/null || { echo 'rg not installed!' ; }
+type ctags &>/dev/null || { echo 'ctags not installed!' ; }
 type fd &>/dev/null || { echo 'fd not installed!' ; }
 type fzf &>/dev/null || { echo 'fzf not installed!' ; }
 type mosh &>/dev/null || { echo 'mosh not installed!' ; }
