@@ -37,7 +37,6 @@ alias rgrep="grep -r"
 alias vimconflicts='vim -p +/"<<<<<<<" $( git diff --name-only --diff-filter=U | uniq | xargs )'
 alias -g g="| grep"
 alias -g l="| less"
-alias nnn="NNN_SHOW_HIDDEN=1 nnn -S"
 alias df="pydf 2>/dev/null || df -h"
 alias k="kubectl"
 alias mux="tmuxinator"
