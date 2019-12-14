@@ -139,3 +139,6 @@
 [submodule ".vim/pack/plugins/start/Jenkinsfile-vim-syntax"]
 	path = .vim/pack/plugins/start/Jenkinsfile-vim-syntax
 	url = https://github.com/martinda/Jenkinsfile-vim-syntax.git
+[submodule ".vim/pack/plugins/start/vim-go"]
+	path = .vim/pack/plugins/start/vim-go
+	url = git@github.com:fatih/vim-go.git
