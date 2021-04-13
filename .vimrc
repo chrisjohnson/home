@@ -555,6 +555,7 @@ let g:ale_linters = {
 \}
 let g:ale_lint_on_text_changed = 'never'
 let g:terraform_fmt_on_save=1
+let g:go_def_mapping_enabled=0
 
 augroup FileTypeThings
 	autocmd!
@@ -574,6 +575,9 @@ augroup FileTypeThings
 	au Filetype yaml set shiftwidth=2 softtabstop=2 expandtab
 	au Filetype cucumber set shiftwidth=2 softtabstop=2 expandtab
 	au Filetype Jenkinsfile set shiftwidth=2 softtabstop=2 expandtab
+	au Filetype groovy set shiftwidth=2 softtabstop=2 expandtab
+	" Force the right configs for these langs
+	au Filetype go set shiftwidth=4 softtabstop=4 noexpandtab
 	au Filetype groovy set shiftwidth=2 softtabstop=2 expandtab
 	" Use vrspec as the compiler for ruby (custom shell script ssh dispatcher for vagrant ssh bundle exec rspec)
 	au Filetype ruby compiler rspec
