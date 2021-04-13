@@ -1,0 +1,13 @@
+#!/bin/bash
+source $(which shell-colors)
+
+branch=$(current-branch)
+
+dest=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+
+if [[ $branch == $dest ]]; then
+	echo -e "${bold}${red}You are already on ${stout}$branch${reset}${bold}${red}, dont run this command here (it has no effect)${reset}"
+	exit 1
+fi
+
+branch "$dest"
