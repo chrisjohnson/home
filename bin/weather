@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [[ ! -f /tmp/weather || $(find /tmp/weather -type f -mtime +1h) ]]; then
-	curl wttr.in?format=1 > /tmp/weather 2>/dev/null
+	curl wttr.in/Amanda,%20Ohio?format=1 > /tmp/weather 2>/dev/null
 fi
 
 cat /tmp/weather

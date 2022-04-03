@@ -588,6 +588,8 @@ augroup FileTypeThings
 	au Filetype python match OverLength /\%101v.*/
 	au Filetype gitcommit match OverLength /\%81v.*/
 	au Filetype Jenkinsfile match OverLength /\%101v.*/
+	" .hcl = terraform
+	au BufNewFile,BufRead *.hcl set syntax=terraform
 augroup END
 " }}}
 

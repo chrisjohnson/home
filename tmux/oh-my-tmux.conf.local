@@ -1,6 +1,11 @@
 # My specific configuration of the base oh-my-tmux
 # https://github.com/gpakosz/.tmux
 
+set -g mouse on
+
+# Map C-a s to session switcher
+bind-key s run "tmux new-window 'bash -ci tmux-session-chooser'"
+
 # -- windows & pane creation ---------------------------------------------------
 
 # new window retains current path, possible values are:
