@@ -14,6 +14,10 @@ type kubectl &>/dev/null && source <(kubectl completion zsh)
 # Source tmuxinator
 source $HOME/.home/zsh/tmuxinator/completion/tmuxinator.zsh
 
+# Enable sourcing bash completions
+autoload bashcompinit
+bashcompinit
+
 # Note: git's git-completion.zsh file conflicts with zsh's _git file, you may have to rm/mv `/usr/local/share/zsh/site-functions/_git -> ../../../Cellar/git/2.14.1/share/zsh/site-functions/_git`
 # TODO: Maybe brew install order matters here?
 source "$HOME/.home/bin/git/.zcompletion"
@@ -21,6 +25,14 @@ source "$HOME/.home/bin/git/.zcompletion"
 # Source asdf
 [ -f $(brew --prefix asdf)/asdf.sh ] && source $(brew --prefix asdf)/asdf.sh
 [ -f $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash ] && source $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
+
+# Source kubeswitch
+[ -f $(brew --prefix switch)/switch.sh ] && source $(brew --prefix switch)/switch.sh
+source $HOME/.home/zsh/kubeswitch/_switch.bash
+
+# Source kube-ps1
+[ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && source $(brew --prefix kube-ps1)/share/kube-ps1.sh
+#[ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && PROMPT="${PROMPT}--$(kube_ps1)"
 
 # C-b to erase current prompt, run a command, then return the current prompt as it was
 bindkey '^B' push-line
@@ -40,6 +52,7 @@ alias -g l="| less"
 alias df="pydf 2>/dev/null || df -h"
 alias k="kubectl"
 alias mux="tmuxinator"
+alias kubectx="switch"
 
 mvln(){
 	# Get an absolute path for the target
