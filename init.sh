@@ -48,5 +48,6 @@ type tmux &>/dev/null || { echo 'tmux not installed!' ; }
 type tmuxinator &>/dev/null || { echo 'tmuxinator not installed!' ; }
 type pip &>/dev/null || { echo 'pip not installed!' ; }
 type stern &>/dev/null || { echo 'stern not installed!' ; }
+type switch &>/dev/null || { echo 'switch not installed!' ; }
 type reattach-to-user-namespace &>/dev/null || { echo 'reattach-to-user-namespace not installed!' ; }
 type pydf &>/dev/null || { echo 'pydf not installed!' ; }

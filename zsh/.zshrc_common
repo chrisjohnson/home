@@ -28,7 +28,7 @@ source "$HOME/.home/bin/git/.zcompletion"
 
 # Source kubeswitch
 [ -f $(brew --prefix switch)/switch.sh ] && source $(brew --prefix switch)/switch.sh
-source $HOME/.home/zsh/kubeswitch/_switch.bash
+[ -f $(brew --prefix switch)/switch.sh ] && source $HOME/.home/zsh/kubeswitch/_switch.bash
 
 # Source kube-ps1
 [ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && source $(brew --prefix kube-ps1)/share/kube-ps1.sh
