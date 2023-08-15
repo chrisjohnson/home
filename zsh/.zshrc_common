@@ -50,9 +50,17 @@ alias vimconflicts='vim -p +/"<<<<<<<" $( git diff --name-only --diff-filter=U |
 alias -g g="| grep"
 alias -g l="| less"
 alias df="pydf 2>/dev/null || df -h"
+alias tf="terraform"
 alias k="kubectl"
 alias mux="tmuxinator"
 alias kubectx="switch"
+ffmpeg_concat() {
+  cat <<-'EOF'
+Run this command (edit accordingly):
+
+PATTERN=GH*162.MP4 DIR=/Volumes/GoPro/DCIM/100GOPRO; ffmpeg -f concat -safe 0 -i <(for f in $DIR/$~PATTERN; do echo "file '$f'"; done) -c copy ~/Downloads/foo.mp4
+EOF
+}
 
 mvln(){
 	# Get an absolute path for the target
@@ -71,6 +79,7 @@ mvln(){
 
 	mv "$s" "$t" && ln -s "$t" "$s"
 }
+
 
 # Load any local zshrc overrides
 if [ -s ~/.zshrc_local ]; then
