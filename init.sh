@@ -45,10 +45,11 @@ ctags --version | grep -qi exuberant || { echo 'exuberant-ctags not installed! b
 type fd &>/dev/null || { echo 'fd not installed!' ; }
 type fzf &>/dev/null || { echo 'fzf not installed!' ; }
 type mosh &>/dev/null || { echo 'mosh not installed!' ; }
+brew --prefix kube-ps1 &>/dev/null || { echo 'kube-ps1 not installed!' ; }
 type tmux &>/dev/null || { echo 'tmux not installed!' ; }
 type tmuxinator &>/dev/null || { echo 'tmuxinator not installed!' ; }
 type pip &>/dev/null || { echo 'pip not installed!' ; }
 type stern &>/dev/null || { echo 'stern not installed!' ; }
-type switch &>/dev/null || { echo 'switch not installed!' ; }
+brew --prefix switch &>/dev/null || { echo 'switch not installed!' ; }
 type reattach-to-user-namespace &>/dev/null || { echo 'reattach-to-user-namespace not installed!' ; }
 type pydf &>/dev/null || { echo 'pydf not installed!' ; }
