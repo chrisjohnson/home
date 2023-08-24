@@ -41,6 +41,7 @@ done
 
 type rg &>/dev/null || { echo 'rg not installed!' ; }
 type ctags &>/dev/null || { echo 'ctags not installed!' ; }
+ctags --version | grep -qi exuberant || { echo 'exuberant-ctags not installed! brew install ctags' ; }
 type fd &>/dev/null || { echo 'fd not installed!' ; }
 type fzf &>/dev/null || { echo 'fzf not installed!' ; }
 type mosh &>/dev/null || { echo 'mosh not installed!' ; }
