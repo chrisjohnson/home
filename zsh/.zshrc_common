@@ -11,6 +11,9 @@ fi
 # Source kubectl
 type kubectl &>/dev/null && source <(kubectl completion zsh)
 
+# Source fubectl
+[ -f $HOME/.home/zsh/fubectl/fubectl.source ] && source $HOME/.home/zsh/fubectl/fubectl.source
+
 # Source tmuxinator
 source $HOME/.home/zsh/tmuxinator/completion/tmuxinator.zsh
 
