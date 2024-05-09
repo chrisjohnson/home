@@ -109,6 +109,28 @@ mvln(){
 	mv "$s" "$t" && ln -s "$t" "$s"
 }
 
+lens() {
+	if [ ! -d $HOME/.kube-lens ]; then
+		mkdir $HOME/.kube-lens
+		wget -O $HOME/.kube-lens/index.html https://raw.githubusercontent.com/mac2000/notlens/main/index.html
+	fi
+
+	if ! pgrep -f 'kubectl proxy' >/dev/null; then
+		kubectl proxy --www=$HOME/.kube-lens/ --www-prefix=/lens/ &
+		proxy_pid=$!
+		sleep 1
+		trap "kill -9 ${proxy_pid}" EXIT
+		trap "kill -9 ${proxy_pid}" SIGINT
+	fi
+
+	open http://localhost:8001/lens/index.html
+
+	if [ "$proxy_pid" != "" ]; then
+		wait $proxy_pid
+	fi
+}
+
+
 
 # Load any local zshrc overrides
 if [ -s ~/.zshrc_local ]; then
