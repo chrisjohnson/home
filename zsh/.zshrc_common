@@ -57,8 +57,38 @@ ffmpeg_concat() {
   cat <<-'EOF'
 Run this command (edit accordingly):
 
-PATTERN=GH*162.MP4 DIR=/Volumes/GoPro/DCIM/100GOPRO; ffmpeg -f concat -safe 0 -i <(for f in $DIR/$~PATTERN; do echo "file '$f'"; done) -c copy ~/Downloads/foo.mp4
+PATTERN=GH*162.MP4 DIR=/Users/cjohnson/SDCard; ffmpeg -f concat -safe 0 -i <(for f in $DIR/$~PATTERN; do echo "file '$f'"; done) -c copy ~/Downloads/foo.mp4
 EOF
+}
+ffmpeg_concat_all() {
+	DIR=/Users/cjohnson/SDCard
+	cd $DIR
+	VIDEOS=("${(@f)$(ls *MP4 | awk '{ print substr($0,5,4) }' | sort -u)}")
+	for video ("$VIDEOS[@]"); do
+		echo
+		echo "Found ${DIR}/GH0X${video}.MP4"
+		echo
+		read -k1 "tmp?Copy? [n/y/a] "
+		if [[ "$tmp" == "a" ]]; then
+			break
+		elif [[ "$tmp" == "n" ]]; then
+			continue
+		fi
+
+		echo
+		echo
+
+		PATTERN="GH*${video}.MP4"
+		DIR=/Users/cjohnson/SDCard
+		ffmpeg -f concat -safe 0 -i <(for f in $DIR/$~PATTERN; do echo "file '$f'"; done) -c copy "${HOME}/Downloads/GH0X${video}.mp4"
+
+		echo
+		echo
+		echo "Done"
+		echo
+		echo
+		echo
+	done
 }
 
 mvln(){
