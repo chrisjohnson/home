@@ -39,6 +39,32 @@ for rcfile in "${ZDOTDIR:-$HOME}"/.home/zsh/prezto/runcoms/^(README.md|zshenv)(.
 	fi
 done
 
+if type asdf &>/dev/null; then
+	if ! type rg &>/dev/null; then
+		asdf plugin-add ripgrep
+		asdf install ripgrep latest
+		asdf global ripgrep latest
+	fi
+
+	if ! type fd &>/dev/null; then
+		asdf plugin-add fd
+		asdf install fd latest
+		asdf global fd latest
+	fi
+
+	if ! type fzf &>/dev/null; then
+		asdf plugin-add fzf
+		asdf install fzf latest
+		asdf global fzf latest
+	fi
+
+	if ! type stern &>/dev/null; then
+		asdf plugin-add stern
+		asdf install stern latest
+		asdf global stern latest
+	fi
+fi
+
 type rg &>/dev/null || { echo 'rg not installed!' ; }
 type ctags &>/dev/null || { echo 'ctags not installed!' ; }
 ctags --version | grep -qi exuberant || { echo 'exuberant-ctags not installed! brew install ctags' ; }
