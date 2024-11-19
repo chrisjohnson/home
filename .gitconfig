@@ -15,5 +15,7 @@
 	pushInsteadOf = https://github.com/
 	pushInsteadOf = http://github.com/
 	pushInsteadOf = gh:
+	insteadOf = https://github.com/
+	insteadOf = http://github.com/
 [include]
 	path = ~/.gitconfig-local
