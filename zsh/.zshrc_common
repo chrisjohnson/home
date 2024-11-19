@@ -25,16 +25,19 @@ bashcompinit
 # TODO: Maybe brew install order matters here?
 source "$HOME/.home/bin/git/.zcompletion"
 
-# Source asdf
-type brew &>/dev/null && { [ -f $(brew --prefix asdf)/libexec/asdf.sh ] && source $(brew --prefix asdf)/libexec/asdf.sh ; [ -f $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash ] && source $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash }
+# Mac-only things
+if type brew &>/dev/null; then
+  # Source asdf
+  [ -f $(brew --prefix asdf)/libexec/asdf.sh ] && source $(brew --prefix asdf)/libexec/asdf.sh ; [ -f $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash ] && source $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
 
-# Source kubeswitch
-[ -f $(brew --prefix switch)/switch.sh ] && source $(brew --prefix switch)/switch.sh
-[ -f $(brew --prefix switch)/switch.sh ] && source $HOME/.home/zsh/kubeswitch/_switch.bash
+  # Source kubeswitch
+  [ -f $(brew --prefix switch)/switch.sh ] && source $(brew --prefix switch)/switch.sh
+  [ -f $(brew --prefix switch)/switch.sh ] && source $HOME/.home/zsh/kubeswitch/_switch.bash
 
-# Source kube-ps1
-[ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && source $(brew --prefix kube-ps1)/share/kube-ps1.sh
-#[ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && PROMPT="${PROMPT}--$(kube_ps1)"
+  # Source kube-ps1
+  [ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && source $(brew --prefix kube-ps1)/share/kube-ps1.sh
+  #[ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && PROMPT="${PROMPT}--$(kube_ps1)"
+fi
 
 # C-b to erase current prompt, run a command, then return the current prompt as it was
 bindkey '^B' push-line
