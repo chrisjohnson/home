@@ -132,7 +132,7 @@ function ffmpeg-combine-gopro-scratch() {
 
 		# Define pattern for this video set
 		PATTERN="GH*${video}.MP4"
-		ffmpeg -f concat -safe 0 -i <(for f in $FFMPEG_CONCAT_DIR/$~PATTERN; do echo "file '$f'"; done) -c copy "${FFMPEG_CONCAT_TARGET}/GH0X${video}.mp4"
+		ffmpeg -f concat -safe 0 -i <(for f in $FFMPEG_CONCAT_DIR/$~PATTERN; do echo "file '$f'"; done) -map 0 -c:v copy -c:a copy -c:d copy -c:s copy -ignore_unknown "${FFMPEG_CONCAT_TARGET}/GH0X${video}.mp4"
 
 		# Find the list of matches and capture the first one
 		X=($FFMPEG_CONCAT_DIR/$~PATTERN)
