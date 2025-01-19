@@ -65,35 +65,58 @@ alias tf="terraform"
 alias k="kubectl"
 alias mux="tmuxinator"
 alias kubectx="switch"
-ffmpeg_concat() {
-  cat <<-'EOF'
-Run this command (edit accordingly):
 
-PATTERN=${PATTERN:-GH*162.MP4}
-DIR=${DIR:-/Users/cjohnson/SDCard}
-ffmpeg -f concat -safe 0 -i <(for f in $DIR/$~PATTERN; do echo "file '$f'"; done) -c copy ~/Downloads/foo.mp4
-EOF
+function rsync-gopro-uncombined-to-scratch() {
+	source1="/Volumes/GoPro/DCIM/100GOPRO"
+	source2="/Volumes/GoPro/DCIM/101GOPRO"
+	source3="/Volumes/GoPro/DCIM/102GOPRO"
+	dest="/Volumes/T9/Scratch/gopro-uncombined"
+
+	if [ ! -z "$( ls -A $dest )" ]; then
+		echo "Target ${dest} is not empty"
+		return 1
+	fi
+
+	rsync_args="-zvrtP"
+	echo :: /usr/bin/rsync "${rsync_args}" "${source1}/*JPG" "${source1}/*MP4" "${source2}/*JPG" "${source2}/*MP4" "${source3}/*JPG" "${source3}/*MP4" "$dest"
+
+	# (N) tells zsh to remove the arg if the glob matches nothing
+	/usr/bin/rsync "${rsync_args}" "$source1"/*JPG(N) "$source1"/*MP4(N) "$source2"/*JPG(N) "$source2"/*MP4(N) "$source3"/*JPG(N) "$source3"/*MP4(N) "$dest"
 }
-ffmpeg_concat_all() {
-	FFMPEG_CONCAT_DIR=${FFMPEG_CONCAT_DIR:-/Users/cjohnson/SDCard}
+
+function ffmpeg-combine-gopro-scratch() {
+	FFMPEG_CONCAT_DIR=${FFMPEG_CONCAT_DIR:-/Volumes/T9/Scratch/gopro-uncombined}
+	FFMPEG_CONCAT_TARGET=${FFMPEG_CONCAT_TARGET:-/Volumes/T9/Scratch/gopro-combined}
+	FFMPEG_IGNORE_NONEMPTY_TARGET=${FFMPEG_IGNORE_NONEMPTY_TARGET:-false}
+
+	if [ ! -z "$( ls -A $FFMPEG_CONCAT_TARGET )" ] && [ "${FFMPEG_IGNORE_NONEMPTY_TARGET}" == "false" ]; then
+		echo "Target ${FFMPEG_CONCAT_TARGET} is not empty"
+		return 1
+	fi
+
 	cd $FFMPEG_CONCAT_DIR
 	VIDEOS=("${(@f)$(ls *MP4 | awk '{ print substr($0,5,4) }' | sort -u)}")
+	COPY_ALL="n"
 	for video ("$VIDEOS[@]"); do
 		echo
 		echo "Found ${FFMPEG_CONCAT_DIR}/GH0X${video}.MP4"
 		echo
-		read -k1 "tmp?Copy? [n/y/a] "
-		if [[ "$tmp" == "a" ]]; then
-			break
-		elif [[ "$tmp" == "n" ]]; then
-			continue
+		if [[ "$COPY_ALL" != "y" ]]; then
+			read -k1 "tmp?Copy? [n/y/a/q] "
+			if [[ "$tmp" == "a" ]]; then
+				COPY_ALL="y"
+			elif [[ "$tmp" == "q" ]]; then
+				break
+			elif [[ "$tmp" == "n" ]]; then
+				continue
+			fi
 		fi
 
 		echo
 		echo
 
 		PATTERN="GH*${video}.MP4"
-		ffmpeg -f concat -safe 0 -i <(for f in $FFMPEG_CONCAT_DIR/$~PATTERN; do echo "file '$f'"; done) -c copy "${HOME}/Downloads/GH0X${video}.mp4"
+		ffmpeg -f concat -safe 0 -i <(for f in $FFMPEG_CONCAT_DIR/$~PATTERN; do echo "file '$f'"; done) -c copy "${FFMPEG_CONCAT_TARGET}/GH0X${video}.mp4"
 
 		echo
 		echo
@@ -102,6 +125,44 @@ ffmpeg_concat_all() {
 		echo
 		echo
 	done
+}
+
+function rsync-mavic-3-pro-to-nas() {
+	RSYNC_SOURCE="/Volumes/Mavic 3 Pro/DCIM/DJI_001" rsync-to-nas
+}
+
+function rsync-gopro-combined-to-nas() {
+	RSYNC_SOURCE="/Volumes/T9/Scratch/gopro-combined" rsync-to-nas
+}
+
+function rsync-to-nas() {
+	FORCE=${FORCE:-false}
+
+	if [[ "$RSYNC_SOURCE" == "" ]]; then
+		echo "Missing RSYNC_SOURCE"
+		return 1
+	fi
+
+	if [ ! -d "$RSYNC_SOURCE/" ]; then
+		echo "${RSYNC_SOURCE} not mounted"
+		return 1
+	fi
+
+	date_dest=$(date '+%Y/%m')
+	dest_host="dmsuperman@nas.local"
+	dest_path="/volume1/homes/dmsuperman/Photos/PhotoLibrary/${date_dest}/"
+	dest="${dest_host}:${dest_path}"
+
+	echo :: ssh "${dest_host}" mkdir -p "${dest_path}"
+
+	ssh "${dest_host}" mkdir -p "${dest_path}"
+
+	[[ "$FORCE" == "true" ]] && rsync_args="-zvrutP" || rsync_args="-zvrtP"
+
+	echo :: /usr/bin/rsync "${rsync_args}" "${RSYNC_SOURCE}/*JPG" "${RSYNC_SOURCE}/*MP4" "$dest"
+
+	# (N) tells zsh to remove the arg if the glob matches nothing
+	/usr/bin/rsync "${rsync_args}" "$RSYNC_SOURCE"/*JPG(N) "$RSYNC_SOURCE"/*MP4(N) "$dest"
 }
 
 mvln(){
