@@ -91,7 +91,7 @@ function ffmpeg-combine-gopro-scratch() {
 	FFMPEG_CONCAT_TARGET=${FFMPEG_CONCAT_TARGET:-/Volumes/T9/Scratch/gopro-combined}
 	FFMPEG_IGNORE_NONEMPTY_TARGET=${FFMPEG_IGNORE_NONEMPTY_TARGET:-false}
 
-	if [ ! -z "$( ls -A $FFMPEG_CONCAT_TARGET )" ] && [ "${FFMPEG_IGNORE_NONEMPTY_TARGET}" == "false" ]; then
+	if [ ! -z "$( ls -A $FFMPEG_CONCAT_TARGET )" ] && [[ "${FFMPEG_IGNORE_NONEMPTY_TARGET}" == "false" ]]; then
 		echo "Target ${FFMPEG_CONCAT_TARGET} is not empty"
 		return 1
 	fi
@@ -117,8 +117,15 @@ function ffmpeg-combine-gopro-scratch() {
 		echo
 		echo
 
+		# Define pattern for this video set
 		PATTERN="GH*${video}.MP4"
 		ffmpeg -f concat -safe 0 -i <(for f in $FFMPEG_CONCAT_DIR/$~PATTERN; do echo "file '$f'"; done) -c copy "${FFMPEG_CONCAT_TARGET}/GH0X${video}.mp4"
+
+		# Find the list of matches and capture the first one
+		X=($FFMPEG_CONCAT_DIR/$~PATTERN)
+		FIRST_VIDEO="${X[1]}"
+		# Use its mtime as the mtime on the produced file
+		touch -m -r "$FIRST_VIDEO" "${FFMPEG_CONCAT_TARGET}/GH0X${video}.mp4"
 
 		echo
 		echo
