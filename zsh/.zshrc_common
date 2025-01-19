@@ -39,6 +39,10 @@ if type brew &>/dev/null; then
   # Source kube-ps1
   [ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && source $(brew --prefix kube-ps1)/share/kube-ps1.sh
   #[ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && PROMPT="${PROMPT}--$(kube_ps1)"
+
+  # Add anaconda (conda) to PATH (two different potential locations)
+  export PATH=/usr/local/anaconda3/bin:$PATH
+  export PATH="/opt/homebrew/anaconda3/bin:$PATH"
 fi
 
 # C-b to erase current prompt, run a command, then return the current prompt as it was
