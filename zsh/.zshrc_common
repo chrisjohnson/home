@@ -36,7 +36,7 @@ if type brew &>/dev/null; then
   [ -f $(brew --prefix asdf)/libexec/asdf.sh ] && source $(brew --prefix asdf)/libexec/asdf.sh ; [ -f $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash ] && source $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
 
   # Source kubeswitch
-  if brew --prefix switch 2>/dev/null; then
+  if brew --prefix switch &>/dev/null; then
     [ -f $(brew --prefix switch)/switch.sh ] && source $(brew --prefix switch)/switch.sh
     [ -f $(brew --prefix switch)/switch.sh ] && source $HOME/.home/zsh/kubeswitch/_switch.bash
   fi
