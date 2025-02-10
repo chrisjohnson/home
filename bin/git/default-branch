@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Detect cases where we don't yet point to the default branch yet
+if ! git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null; then
+	REMOTE_DEFAULT_BRANCH=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+	git remote set-head origin "$REMOTE_DEFAULT_BRANCH"
+fi
+
 dest=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
 
 branch "$dest"
