@@ -1,4 +1,4 @@
-PATH="$HOME/bin:$HOME/.home/bin:$HOME/.home/bin/git:$PATH"
+export PATH="$HOME/bin:$HOME/.home/bin:$HOME/.home/bin/git:$PATH"
 
 # Source z
 if [[ -s "/usr/local/etc/profile.d/z.sh" ]]; then
@@ -30,10 +30,27 @@ if [ -x /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Quick version comparison function
+verlte() {
+    [  "$1" = "`echo -e "$1\n$2" | sort -V | head -n1`" ]
+}
+verlt() {
+    [ "$1" = "$2" ] && return 1 || verlte $1 $2
+}
+
 if type brew &>/dev/null; then
 
-  # Source asdf
-  [ -f $(brew --prefix asdf)/libexec/asdf.sh ] && source $(brew --prefix asdf)/libexec/asdf.sh ; [ -f $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash ] && source $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
+  if type asdf &>/dev/null; then
+    # 0.15 and older were shell functions that got sourced in, 0.16 and newer is a binary
+    if verlt $(asdf --version | grep -oE '\d+\.\d+\.\d+') 0.16.0 &>/dev/null; then
+      # Source asdf functions
+      [ -f $(brew --prefix asdf)/libexec/asdf.sh ] && source $(brew --prefix asdf)/libexec/asdf.sh ; [ -f $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash ] && source $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
+    else
+      # Add asdf shim dir to $PATH
+      export ASDF_DATA_DIR="${HOME}/.asdf"
+      export PATH="${ASDF_DATA_DIR}/shims:${PATH}"
+    fi
+  fi
 
   # Source kubeswitch
   if brew --prefix switch &>/dev/null; then
