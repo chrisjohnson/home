@@ -116,7 +116,9 @@ function ffmpeg-combine-timelapse() {
 		return 1
 	fi
 
-	noglob ffmpeg -framerate 30 -pattern_type glob -i "${FFMPEG_CONCAT_DIR}/G001*.JPG" -c:v libx264 -r 30 "${FFMPEG_CONCAT_TARGET}/G001XXX.mp4"
+	# TODO: Does -pix_fmt yuv420p actually give the desired results/resolution?
+	# TODO: Seems like I might want yuv444p or even yuv444p10le to maximize details saved
+	noglob ffmpeg -framerate 30 -pattern_type glob -i "${FFMPEG_CONCAT_DIR}/G001*.JPG" -pix_fmt yuv420p -c:v libx264 -r 30 "${FFMPEG_CONCAT_TARGET}/G001XXX.mp4"
 }
 
 function ffmpeg-combine-gopro-scratch() {
@@ -137,13 +139,18 @@ function ffmpeg-combine-gopro-scratch() {
 		echo "Found ${FFMPEG_CONCAT_DIR}/GH0X${video}.MP4"
 		echo
 		if [[ "$COPY_ALL" != "y" ]]; then
-			read -k1 "tmp?Copy? [n/y/a/q] "
-			if [[ "$tmp" == "a" ]]; then
+			read -k1 "tmp?Combine? [n/y/a/q] "
+			if [[ "$tmp" == "y" ]]; then
+				# proceed
+			elif [[ "$tmp" == "a" ]]; then
 				COPY_ALL="y"
 			elif [[ "$tmp" == "q" ]]; then
 				break
 			elif [[ "$tmp" == "n" ]]; then
 				continue
+			else
+				echo "Invalid input"
+				return 1
 			fi
 		fi
 
@@ -167,6 +174,83 @@ function ffmpeg-combine-gopro-scratch() {
 		echo
 		echo
 	done
+}
+
+function ffmpeg-proxy-media() {
+	if [[ "$FFMPEG_SOURCE" == "" ]]; then
+		echo "Missing FFMPEG_SOURCE"
+		return 1
+	fi
+
+	if [ ! -s "$FFMPEG_SOURCE" ]; then
+		echo "${FFMPEG_SOURCE} doesn't exist or is empty"
+		return 1
+	fi
+
+	FFMPEG_DEST_DIR=$(dirname "$(realpath "${FFMPEG_SOURCE}")")
+	FFMPEG_FILENAME=$(basename "$FFMPEG_SOURCE" | sed 's/\.[^.]*$//')
+	FFMPEG_TARGET="${FFMPEG_DEST_DIR}/Proxy/${FFMPEG_FILENAME}.mov"
+
+	if [[ "$FFMPEG_DEST_DIR" != */Volumes/T9* ]]; then
+		echo "${FFMPEG_DEST_DIR} isn't within /Volumes/T9, this command probably shouldn't be run for this file path"
+		return 1
+	fi
+
+	mkdir -p "$FFMPEG_DEST_DIR/Proxy"
+
+	ffmpeg -y -i "$FFMPEG_SOURCE" -c:a copy -vcodec libx264 -vf "format=yuv420p,scale=-1:1080" -b:v 6M -maxrate 6M -bufsize 3M -stats "$FFMPEG_TARGET"
+}
+
+function watch-ffmpeg-proxy-media() {
+	if ! type fswatch 2>/dev/null; then
+		echo "Missing fswatch"
+		return 1
+	fi
+
+	echo "Not implemented yet!"
+	return 1
+}
+
+function ffmpeg-proxy-all-media() {
+	FFMPEG_SOURCE=${FFMPEG_SOURCE:-/Volumes/T9/DaVinci Resolve/MediaStorage/Video}
+
+	if [ ! -s "$FFMPEG_SOURCE" ]; then
+		echo "${FFMPEG_SOURCE} doesn't exist or is empty"
+		return 1
+	fi
+
+	GENERATE_ALL="n"
+	while IFS= read -rd '' -u3 FILE; do
+		FFMPEG_DEST_DIR=$(dirname "$(realpath "${FILE}")")
+		FFMPEG_FILENAME=$(basename "$FILE" | sed 's/\.[^.]*$//')
+		FFMPEG_TARGET="${FFMPEG_DEST_DIR}/Proxy/${FFMPEG_FILENAME}.mov"
+		TARGET_FILESIZE=$(du -k "$FFMPEG_TARGET" | cut -f 1)
+
+		if [[ ! -f "$FFMPEG_TARGET" || "$TARGET_FILESIZE" -le 1000 ]]; then
+			echo "Found ${FILE} but no matching ${FFMPEG_TARGET}, generating proxy media"
+			echo
+			if [[ "$GENERATE_ALL" != "y" ]]; then
+				read -k1 "tmp?Generate? [n/y/a/q] "
+				if [[ "$tmp" == "y" ]]; then
+					# proceed
+				elif [[ "$tmp" == "a" ]]; then
+					GENERATE_ALL="y"
+				elif [[ "$tmp" == "q" ]]; then
+					break
+				elif [[ "$tmp" == "n" ]]; then
+					continue
+				else
+					echo "Invalid input"
+					return 1
+				fi
+			fi
+
+			declare -p FILE
+			FFMPEG_SOURCE="$FILE" ffmpeg-proxy-media
+		else
+			echo "Found ${FILE} with matching ${FFMPEG_TARGET}, skipping"
+		fi
+	done 3< <(find "$FFMPEG_SOURCE" \( -iname '*.mp4' -o -iname '*.avi' -o -iname '*.mkv' \) -a -not -path '*/.*' -print0)
 }
 
 function rsync-mavic-3-pro-to-nas() {
