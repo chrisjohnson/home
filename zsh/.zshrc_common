@@ -253,6 +253,52 @@ function ffmpeg-proxy-all-media() {
 	done 3< <(find "$FFMPEG_SOURCE" \( -iname '*.mp4' -o -iname '*.avi' -o -iname '*.mkv' \) -a -not -path '*/.*' -print0)
 }
 
+function ffmpeg-fix-3dprinter-timelapses() {
+	FFMPEG_CONCAT_DIR=${FFMPEG_CONCAT_DIR:-/Users/chrisjohnson/Downloads}
+	FFMPEG_CONCAT_TARGET=${FFMPEG_CONCAT_TARGET:-/Users/chrisjohnson/Downloads}
+
+	cd $FFMPEG_CONCAT_DIR
+	VIDEOS=("${(@f)$(ls video_*avi)}")
+	COPY_ALL="n"
+	for video ("$VIDEOS[@]"); do
+		echo
+		echo "Found ${FFMPEG_CONCAT_DIR}/${video}"
+		echo
+		if [[ "$COPY_ALL" != "y" ]]; then
+			read -k1 "tmp?Fix? [n/y/a/q] "
+			if [[ "$tmp" == "y" ]]; then
+				# proceed
+			elif [[ "$tmp" == "a" ]]; then
+				COPY_ALL="y"
+			elif [[ "$tmp" == "q" ]]; then
+				break
+			elif [[ "$tmp" == "n" ]]; then
+				continue
+			else
+				echo "Invalid input"
+				return 1
+			fi
+		fi
+
+		echo
+		echo
+
+		# Fix the video by changing its container format
+		TARGET_VIDEO=$(echo "$video" | sed 's/.avi$/.mp4/g')
+		ffmpeg -i "${FFMPEG_CONCAT_DIR}/${video}" -map 0 -c copy -an "${FFMPEG_CONCAT_TARGET}/${TARGET_VIDEO}"
+
+		# Use its mtime as the mtime on the produced file
+		touch -m -r "$video" "${FFMPEG_CONCAT_TARGET}/${TARGET_VIDEO}"
+
+		echo
+		echo
+		echo "Done"
+		echo
+		echo
+		echo
+	done
+}
+
 function rsync-mavic-3-pro-to-nas() {
 	RSYNC_SOURCE="/Volumes/Mavic 3 Pro/DCIM/DJI_001" rsync-to-nas
 }
