@@ -32,6 +32,10 @@ if [[ ! -a "$HOME/.config/nvim/init.vim" && ! -h "$HOME/.config/nvim/init.vim" ]
 	ln -s ~/.home/nvim/init.vim ~/.config/nvim/init.vim
 fi
 
+if [[ ! -a "$HOME/Library/Application\ Support/com.mitchellh.ghostty/config" && ! -h "$HOME/Library/Application\ Support/com.mitchellh.ghostty/config" ]]; then
+	ln -s ~/.home/ghostty/config ~/Library/Application\ Support/com.mitchellh.ghostty/config
+fi
+
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.home/zsh/prezto/runcoms/^(README.md|zshenv)(.N); do
 	if [ ! -s "${ZDOTDIR:-$HOME}/.${rcfile:t}" ]; then
