@@ -198,7 +198,7 @@ function ffmpeg-proxy-media() {
 
 	mkdir -p "$FFMPEG_DEST_DIR/Proxy"
 
-	ffmpeg -y -i "$FFMPEG_SOURCE" -c:a copy -vcodec libx264 -vf "format=yuv420p,scale=-1:1080" -b:v 6M -maxrate 6M -bufsize 3M -stats "$FFMPEG_TARGET"
+	ffmpeg -y -i "$FFMPEG_SOURCE" -c:a copy -vcodec libx264 -vf "format=yuv420p,scale=ceil(iw/2):ceil(ih/2)" -b:v 6M -maxrate 6M -bufsize 3M -stats "$FFMPEG_TARGET"
 }
 
 function watch-ffmpeg-proxy-media() {
@@ -250,7 +250,7 @@ function ffmpeg-proxy-all-media() {
 		else
 			echo "Found ${FILE} with matching ${FFMPEG_TARGET}, skipping"
 		fi
-	done 3< <(find "$FFMPEG_SOURCE" \( -iname '*.mp4' -o -iname '*.avi' -o -iname '*.mkv' \) -a -not -path '*/.*' -print0)
+	done 3< <(find "$FFMPEG_SOURCE" \( -iname '*.mp4' -o -iname '*.avi' -o -iname '*.mkv' -o -iname '*.mov' \) -a -not -path '*/.*' -a -not -path '*/Proxy/*' -print0)
 }
 
 function ffmpeg-fix-3dprinter-timelapses() {
