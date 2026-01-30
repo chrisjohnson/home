@@ -68,6 +68,9 @@ if type brew &>/dev/null; then
 
   # Add krew to PATH
   export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+  # Add GOBIN to PATH
+  export PATH="$(go env GOBIN):$PATH"
 fi
 
 # C-b to erase current prompt, run a command, then return the current prompt as it was
