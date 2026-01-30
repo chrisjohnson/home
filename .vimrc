@@ -39,7 +39,7 @@ filetype on
 filetype plugin on
 filetype indent on
 " Set cwd per window/tab
-let g:rooter_use_lcd = 1
+let g:rooter_cd_cmd = "lcd"
 " Follow symlinks
 let g:rooter_resolve_links = 1
 " Set cwd to file's dir for non-project files
