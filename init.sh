@@ -33,6 +33,7 @@ if [[ ! -a "$HOME/.config/nvim/init.vim" && ! -h "$HOME/.config/nvim/init.vim" ]
 fi
 
 if [[ ! -a "$HOME/Library/Application\ Support/com.mitchellh.ghostty/config" && ! -h "$HOME/Library/Application\ Support/com.mitchellh.ghostty/config" ]]; then
+	mkdir -p ~/Library/Application\ Support/com.mitchellh.ghostty
 	ln -s ~/.home/ghostty/config ~/Library/Application\ Support/com.mitchellh.ghostty/config
 fi
 
@@ -45,25 +46,25 @@ done
 
 if type asdf &>/dev/null; then
 	if ! type rg &>/dev/null; then
-		asdf plugin-add ripgrep
+		asdf plugin add ripgrep
 		asdf install ripgrep latest
 		asdf global ripgrep latest
 	fi
 
 	if ! type fd &>/dev/null; then
-		asdf plugin-add fd
+		asdf plugin add fd
 		asdf install fd latest
 		asdf global fd latest
 	fi
 
 	if ! type fzf &>/dev/null; then
-		asdf plugin-add fzf
+		asdf plugin add fzf
 		asdf install fzf latest
 		asdf global fzf latest
 	fi
 
 	if ! type stern &>/dev/null; then
-		asdf plugin-add stern
+		asdf plugin add stern
 		asdf install stern latest
 		asdf global stern latest
 	fi
