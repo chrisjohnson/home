@@ -32,7 +32,7 @@ if [[ ! -a "$HOME/.config/nvim/init.vim" && ! -h "$HOME/.config/nvim/init.vim" ]
 	ln -s ~/.home/nvim/init.vim ~/.config/nvim/init.vim
 fi
 
-if [[ ! -a "$HOME/Library/Application\ Support/com.mitchellh.ghostty/config" && ! -h "$HOME/Library/Application\ Support/com.mitchellh.ghostty/config" ]]; then
+if [[ ! -a "$HOME/Library/Application Support/com.mitchellh.ghostty/config" && ! -h "$HOME/Library/Application Support/com.mitchellh.ghostty/config" ]]; then
 	mkdir -p ~/Library/Application\ Support/com.mitchellh.ghostty
 	ln -s ~/.home/ghostty/config ~/Library/Application\ Support/com.mitchellh.ghostty/config
 fi
@@ -45,28 +45,41 @@ for rcfile in "${ZDOTDIR:-$HOME}"/.home/zsh/prezto/runcoms/^(README.md|zshenv)(.
 done
 
 if type asdf &>/dev/null; then
+	if ! type tmux &>/dev/null; then
+		asdf plugin add tmux
+		brew install libevent ncurses pkg-config utf8proc
+		asdf install tmux latest
+		asdf set -u tmux latest
+	fi
+
+	if ! type go &>/dev/null; then
+		asdf plugin add golang https://github.com/asdf-community/asdf-golang.git
+		asdf install golang latest
+		asdf set -u golang latest
+	fi
+
 	if ! type rg &>/dev/null; then
 		asdf plugin add ripgrep
 		asdf install ripgrep latest
-		asdf global ripgrep latest
+		asdf set -u ripgrep latest
 	fi
 
 	if ! type fd &>/dev/null; then
 		asdf plugin add fd
 		asdf install fd latest
-		asdf global fd latest
+		asdf set -u fd latest
 	fi
 
 	if ! type fzf &>/dev/null; then
 		asdf plugin add fzf
 		asdf install fzf latest
-		asdf global fzf latest
+		asdf set -u fzf latest
 	fi
 
 	if ! type stern &>/dev/null; then
 		asdf plugin add stern
 		asdf install stern latest
-		asdf global stern latest
+		asdf set -u stern latest
 	fi
 fi
 
