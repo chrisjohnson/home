@@ -56,6 +56,9 @@ if type brew &>/dev/null; then
   if brew --prefix switch &>/dev/null; then
     [ -f $(brew --prefix switch)/switch.sh ] && source $(brew --prefix switch)/switch.sh
     [ -f $(brew --prefix switch)/switch.sh ] && source $HOME/.home/zsh/kubeswitch/_switch.bash
+  elif type switcher &>/dev/null; then
+    source <(switcher init zsh)
+    source <(switch completion zsh)
   fi
 
   # Source kube-ps1
