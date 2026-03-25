@@ -30,6 +30,12 @@ if type asdf &>/dev/null; then
 		asdf install kubeswitch latest
 		asdf set -u kubeswitch latest
 	fi
+
+	if ! type k3d &>/dev/null; then
+		asdf plugin add k3d
+		asdf install k3d latest
+		asdf set -u k3d latest
+	fi
 else
 	echo "Missing asdf needed to install other dependencies!"
 fi
