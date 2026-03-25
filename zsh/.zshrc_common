@@ -58,7 +58,12 @@ if type brew &>/dev/null; then
     [ -f $(brew --prefix switch)/switch.sh ] && source $HOME/.home/zsh/kubeswitch/_switch.bash
   elif type switcher &>/dev/null; then
     source <(switcher init zsh)
-    source <(switch completion zsh)
+
+    # Built-in completion only completes args, not contexts
+    #source <(switch completion zsh)
+
+    # Home-grown completion completes contexts
+    source $HOME/.home/zsh/kubeswitch/_switch.bash
   fi
 
   # Source kube-ps1
