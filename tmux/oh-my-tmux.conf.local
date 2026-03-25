@@ -410,6 +410,9 @@ bind m run "cut -c3- '#{TMUX_CONF}' | sh -s _toggle_mouse" \; display 'mouse #{?
 # move status line to top
 #set -g status-position top
 
+# prefix-prefix to return to previous window
+bind C-a last-window
+
 
 # -- tpm -----------------------------------------------------------------------
 
