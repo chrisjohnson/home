@@ -101,6 +101,7 @@ alias tf="terraform"
 alias k="kubectl"
 alias mux="tmuxinator"
 alias kubectx="switch"
+alias switchreload="kubectl config view --flatten >! ~/.kube/config"
 
 function rsync-gopro-uncombined-to-scratch() {
 	source1="/Volumes/GoPro/DCIM/100GOPRO"

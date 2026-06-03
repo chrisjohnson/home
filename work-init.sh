@@ -7,6 +7,12 @@ if type asdf &>/dev/null; then
 		asdf set -u kubelogin latest
 	fi
 
+	if ! type k9s &>/dev/null; then
+		asdf plugin add k9s
+		asdf install k9s latest
+		asdf set -u k9s latest
+	fi
+
 	if ! type az &>/dev/null; then
 		asdf plugin add azure-cli
 		asdf install azure-cli latest
@@ -35,6 +41,24 @@ if type asdf &>/dev/null; then
 		asdf plugin add k3d
 		asdf install k3d latest
 		asdf set -u k3d latest
+	fi
+
+	if ! type istioctl &>/dev/null; then
+		asdf plugin add istioctl
+		asdf install istioctl latest
+		asdf set -u istioctl latest
+	fi
+
+	if ! type yq &>/dev/null; then
+		asdf plugin add yq
+		asdf install yq latest
+		asdf set -u yq latest
+	fi
+
+	if ! type tilt &>/dev/null; then
+		asdf plugin add tilt
+		asdf install tilt latest
+		asdf set -u tilt latest
 	fi
 else
 	echo "Missing asdf needed to install other dependencies!"
