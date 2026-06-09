@@ -5,3 +5,5 @@ doc/tags
 .tags.temp
 tags
 .zshrc
+
+**/.claude/settings.local.json

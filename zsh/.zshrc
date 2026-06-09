@@ -1,3 +1,6 @@
+# Profile zsh
+#zmodload zsh/zprof
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.home/zsh/prezto/init.zsh" ]]; then
 	source "${ZDOTDIR:-$HOME}/.home/zsh/prezto/init.zsh"

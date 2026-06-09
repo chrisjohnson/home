@@ -9,7 +9,14 @@ fi
 [ -f $HOME/.home/zsh/.fzf.zsh ] && source $HOME/.home/zsh/.fzf.zsh
 
 # Source kubectl
-type kubectl &>/dev/null && source <(kubectl completion zsh)
+if (( $+commands[kubectl] )); then
+  _kc="${HOME}/.cache/zsh/kubectl_completion"
+  if [[ ! -f "$_kc" || "$_kc" -ot "$(whence -p kubectl)" ]]; then
+    mkdir -p "${HOME}/.cache/zsh"
+    kubectl completion zsh > "$_kc"
+  fi
+  source "$_kc"
+fi
 
 # Source fubectl
 [ -f $HOME/.home/zsh/fubectl/fubectl.source ] && source $HOME/.home/zsh/fubectl/fubectl.source
@@ -53,21 +60,18 @@ if type brew &>/dev/null; then
   fi
 
   # Source kubeswitch
-  if brew --prefix switch &>/dev/null; then
-    [ -f $(brew --prefix switch)/switch.sh ] && source $(brew --prefix switch)/switch.sh
-    [ -f $(brew --prefix switch)/switch.sh ] && source $HOME/.home/zsh/kubeswitch/_switch.bash
-  elif type switcher &>/dev/null; then
-    source <(switcher init zsh)
-
-    # Built-in completion only completes args, not contexts
-    #source <(switch completion zsh)
-
-    # Home-grown completion completes contexts
-    source $HOME/.home/zsh/kubeswitch/_switch.bash
+  if (( $+commands[switcher] )); then
+    _sc="${HOME}/.cache/zsh/switcher_init"
+    if [[ ! -f "$_sc" || "$_sc" -ot "$(whence -p switcher)" ]]; then
+      mkdir -p "${HOME}/.cache/zsh"
+      switcher init zsh > "$_sc"
+    fi
+    source "$_sc"
+    [ -f "$HOME/.home/zsh/kubeswitch/_switch.bash" ] && source "$HOME/.home/zsh/kubeswitch/_switch.bash"
   fi
 
   # Source kube-ps1
-  [ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && source $(brew --prefix kube-ps1)/share/kube-ps1.sh
+  [ -f "${HOMEBREW_PREFIX}/opt/kube-ps1/share/kube-ps1.sh" ] && source "${HOMEBREW_PREFIX}/opt/kube-ps1/share/kube-ps1.sh"
   #[ -f $(brew --prefix kube-ps1)/share/kube-ps1.sh ] && PROMPT="${PROMPT}--$(kube_ps1)"
 
   # Add anaconda (conda) to PATH (two different potential locations)
@@ -78,7 +82,7 @@ if type brew &>/dev/null; then
   export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
   # Add GOBIN to PATH
-  export PATH="$(go env GOBIN):$PATH"
+  export PATH="${GOPATH:-${HOME}/go}/bin:$PATH"
 fi
 
 # C-b to erase current prompt, run a command, then return the current prompt as it was
@@ -391,6 +395,7 @@ lens() {
 	fi
 }
 
+kubeoff
 
 
 # Load any local zshrc overrides
