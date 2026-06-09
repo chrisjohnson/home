@@ -18,3 +18,4 @@
 *.vimrc_local
 *tmux/.tmux/plugins/*
 *tmux/.tmux/resurrect
+.claude/worktrees

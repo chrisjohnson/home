@@ -13,7 +13,7 @@ if (( $+commands[kubectl] )); then
   _kc="${HOME}/.cache/zsh/kubectl_completion"
   if [[ ! -f "$_kc" || "$_kc" -ot "$(whence -p kubectl)" ]]; then
     mkdir -p "${HOME}/.cache/zsh"
-    kubectl completion zsh > "$_kc"
+    kubectl completion zsh >| "$_kc"
   fi
   source "$_kc"
 fi
