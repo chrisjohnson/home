@@ -1,0 +1,19 @@
+onboarding = false
+[ui.toast]
+delivery = "terminal"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+agent_panel_sort = "spaces"
+
+[theme]
+name = "gruvbox"
+auto_switch = false
+
+[experimental]
+pane_history = true
+
+[keys]
+prefix = "ctrl+a"
+split_vertical = "prefix+_"
+last_tab = "prefix+a"

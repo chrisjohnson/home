@@ -27,6 +27,11 @@ if [[ ! -a "$HOME/.tmux.conf.local" && ! -h "$HOME/tmux/.tmux.conf.local" ]]; th
 	ln -s ~/.home/tmux/oh-my-tmux.conf.local ~/.tmux.conf.local
 fi
 
+if [[ ! -a "$HOME/.config/herdr/config.toml" && ! -h "$HOME/.config/herdr/config.toml" ]]; then
+	mkdir -p ~/.config/herdr
+	ln -s ~/.home/herdr/config.toml ~/.config/herdr/config.toml
+fi
+
 if [[ ! -a "$HOME/.config/nvim/init.vim" && ! -h "$HOME/.config/nvim/init.vim" ]]; then
 	mkdir -p ~/.config/nvim/
 	ln -s ~/.home/nvim/init.vim ~/.config/nvim/init.vim
