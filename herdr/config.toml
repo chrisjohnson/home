@@ -16,4 +16,4 @@ pane_history = true
 [keys]
 prefix = "ctrl+a"
 split_vertical = "prefix+_"
-last_tab = "prefix+a"
+last_pane = "alt+a"
