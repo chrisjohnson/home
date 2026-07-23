@@ -64,7 +64,7 @@ if type brew &>/dev/null; then
     _sc="${HOME}/.cache/zsh/switcher_init"
     if [[ ! -f "$_sc" || "$_sc" -ot "$(whence -p switcher)" ]]; then
       mkdir -p "${HOME}/.cache/zsh"
-      switcher init zsh > "$_sc"
+      switcher init zsh >! "$_sc"
     fi
     source "$_sc"
     [ -f "$HOME/.home/zsh/kubeswitch/_switch.bash" ] && source "$HOME/.home/zsh/kubeswitch/_switch.bash"
