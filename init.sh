@@ -23,7 +23,7 @@ if [[ ! -a "$HOME/.tmux.conf" && ! -h "$HOME/.tmux.conf" ]]; then
 	ln -s ~/.home/tmux/oh-my-tmux/.tmux.conf ~/.tmux.conf
 fi
 
-if [[ ! -a "$HOME/.tmux.conf.local" && ! -h "$HOME/tmux/.tmux.conf.local" ]]; then
+if [[ ! -a "$HOME/.tmux.conf.local" && ! -h "$HOME/.tmux.conf.local" ]]; then
 	ln -s ~/.home/tmux/oh-my-tmux.conf.local ~/.tmux.conf.local
 fi
 
@@ -97,8 +97,12 @@ if type asdf &>/dev/null; then
 
 
 	# Safely handle herdr plugin management
+	unset _HERDR_SHIM_CACHE  # Clear shell-specific binary pointers if any exist
+
+	# 3. Double-check absolute path execution readiness
 	if type herdr &>/dev/null; then
-		# Install Rust and cargo so herdr can compile plugins successfully
+
+		# Rust dependency check: herdr needs cargo active in this session to build plugins
 		if ! type cargo &>/dev/null; then
 			asdf plugin add rust
 			asdf install rust latest
@@ -106,28 +110,37 @@ if type asdf &>/dev/null; then
 			asdf reshim rust
 		fi
 
-		# Capture JSON output to a variable to prevent jq from waiting on stdin
-		local plugins_json
+		# 4. Fetch installed plugins safely
+		# Removed the 'local' keyword to allow execution directly in script body
+		typeset plugins_json
 		plugins_json=$(herdr plugin list --json 2>/dev/null)
 
-		if [[ -n "$plugins_json" ]]; then
-			if ! echo "$plugins_json" | jq -e '.result.plugins[]? | select(.plugin_id == "attention.jump")' &>/dev/null; then
-				herdr plugin add milkyskies/herdr-attention
-			fi
+		# 5. Define targeted plugins
+		# Layout format: "plugin_id|plugin_repo"
+		typeset -a herdr_targets=(
+			"attention.jump|milkyskies/herdr-attention"
+			"dantehemerson.last-tab|dantehemerson/herdr-last-tab"
+			"herdr-focus-notify|yankewei/herdr-focus-notify"
+		)
 
-			if ! echo "$plugins_json" | jq -e '.result.plugins[]? | select(.plugin_id == "dantehemerson.last-tab")' &>/dev/null; then
-				herdr plugin add dantehemerson/herdr-last-tab
-			fi
+		# 6. Idempotent installation loop
+		for target in "${herdr_targets[@]}"; do
+			# Parse string by delimiter '|'
+			typeset id="${target%%|*}"
+			typeset repo="${target##*|}"
 
-			if ! echo "$plugins_json" | jq -e '.result.plugins[]? | select(.plugin_id == "herdr-focus-notify")' &>/dev/null; then
-				herdr plugin add yankewei/herdr-focus-notify
+			if [[ -n "$plugins_json" ]]; then
+				# If JSON is valid, inspect for matching plugin ID
+				if ! echo "$plugins_json" | jq -e ".result.plugins[]? | select(.plugin_id == \"$id\")" &>/dev/null; then
+					echo "Installing herdr plugin: $id"
+					herdr plugin install "$repo" --yes
+				fi
+			else
+				# Fallback condition if JSON output is structurally empty/unreachable
+				echo "JSON query fallback: Attempting to map $id..."
+				herdr plugin install "$repo" --yes 2>/dev/null || true
 			fi
-		else
-			# Fallback if herdr JSON is blank/fails: try installing them directly
-			herdr plugin add milkyskies/herdr-attention 2>/dev/null || true
-			herdr plugin add dantehemerson/herdr-last-tab 2>/dev/null || true
-			herdr plugin add yankewei/herdr-focus-notify 2>/dev/null || true
-		fi
+		done
 	fi
 fi
 
