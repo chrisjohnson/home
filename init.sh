@@ -98,6 +98,14 @@ if type asdf &>/dev/null; then
 
 	# Safely handle herdr plugin management
 	if type herdr &>/dev/null; then
+		# Install Rust and cargo so herdr can compile plugins successfully
+		if ! type cargo &>/dev/null; then
+			asdf plugin add rust
+			asdf install rust latest
+			asdf set -u rust latest
+			asdf reshim rust
+		fi
+
 		# Capture JSON output to a variable to prevent jq from waiting on stdin
 		local plugins_json
 		plugins_json=$(herdr plugin list --json 2>/dev/null)
