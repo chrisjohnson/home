@@ -86,6 +86,41 @@ if type asdf &>/dev/null; then
 		asdf install stern latest
 		asdf set -u stern latest
 	fi
+
+	if ! type herdr &>/dev/null; then
+		asdf plugin add herdr https://github.com/chrisjohnson/asdf-herdr.git
+		asdf install herdr latest
+		asdf set -u herdr latest
+		# Reshim immediately so the herdr binary is visible in this subshell
+		asdf reshim herdr
+	fi
+
+
+	# Safely handle herdr plugin management
+	if type herdr &>/dev/null; then
+		# Capture JSON output to a variable to prevent jq from waiting on stdin
+		local plugins_json
+		plugins_json=$(herdr plugin list --json 2>/dev/null)
+
+		if [[ -n "$plugins_json" ]]; then
+			if ! echo "$plugins_json" | jq -e '.result.plugins[]? | select(.plugin_id == "attention.jump")' &>/dev/null; then
+				herdr plugin add milkyskies/herdr-attention
+			fi
+
+			if ! echo "$plugins_json" | jq -e '.result.plugins[]? | select(.plugin_id == "dantehemerson.last-tab")' &>/dev/null; then
+				herdr plugin add dantehemerson/herdr-last-tab
+			fi
+
+			if ! echo "$plugins_json" | jq -e '.result.plugins[]? | select(.plugin_id == "herdr-focus-notify")' &>/dev/null; then
+				herdr plugin add yankewei/herdr-focus-notify
+			fi
+		else
+			# Fallback if herdr JSON is blank/fails: try installing them directly
+			herdr plugin add milkyskies/herdr-attention 2>/dev/null || true
+			herdr plugin add dantehemerson/herdr-last-tab 2>/dev/null || true
+			herdr plugin add yankewei/herdr-focus-notify 2>/dev/null || true
+		fi
+	fi
 fi
 
 type rg &>/dev/null || { echo 'rg not installed!' ; }
