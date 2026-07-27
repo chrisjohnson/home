@@ -121,6 +121,7 @@ if type asdf &>/dev/null; then
 			"attention.jump|milkyskies/herdr-attention"
 			"dantehemerson.last-tab|dantehemerson/herdr-last-tab"
 			"herdr-focus-notify|yankewei/herdr-focus-notify"
+			"dev-shimada.herdr-auto-tab-name|dev-shimada/herdr-auto-tab-name"
 		)
 
 		# 6. Idempotent installation loop
