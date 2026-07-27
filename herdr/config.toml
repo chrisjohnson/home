@@ -17,3 +17,4 @@ pane_history = true
 prefix = "ctrl+a"
 split_vertical = "prefix+_"
 last_pane = "alt+a"
+switch_tab = ["alt+1..9"]
