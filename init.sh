@@ -143,6 +143,8 @@ if type asdf &>/dev/null; then
 			fi
 		done
 	fi
+else
+	echo "asdf not installed! brew install asdf and re-run init.sh"
 fi
 
 type rg &>/dev/null || { echo 'rg not installed!' ; }
