@@ -6,8 +6,13 @@
 4. Open Ghostty:
 
 ```
-# Install homebrew, git
+# Install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Load homebrew
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+
+# Install git
 brew install git
 
 # Setup ssh key
@@ -17,8 +22,8 @@ ssh-keygen -t rsa
 
 # Clone home.git
 git clone git@github.com:chrisjohnson/home.git ~/.home
-cd ~/.home
 
-# Run the setup
+# Initialize
+cd ~/.home
 ./init.sh
 ```
