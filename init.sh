@@ -52,7 +52,7 @@ done
 if type asdf &>/dev/null; then
 	if ! type tmux &>/dev/null; then
 		asdf plugin add tmux
-		brew install libevent ncurses pkg-config utf8proc
+		brew install libevent ncurses pkg-config utf8proc jemalloc
 		asdf install tmux latest
 		asdf set -u tmux latest
 	fi
@@ -85,6 +85,12 @@ if type asdf &>/dev/null; then
 		asdf plugin add stern
 		asdf install stern latest
 		asdf set -u stern latest
+	fi
+
+	if ! type gh &>/dev/null; then
+		asdf plugin add github-cli
+		asdf install github-cli latest
+		asdf set -u github-cli latest
 	fi
 
 	if ! type herdr &>/dev/null; then
@@ -147,6 +153,12 @@ else
 	echo "asdf not installed! brew install asdf and re-run init.sh"
 fi
 
+if type brew &>/dev/null; then
+	if ! ctags --version 2>/dev/null | grep -qi exuberant; then
+		brew install ctags
+	fi
+fi
+
 type rg &>/dev/null || { echo 'rg not installed!' ; }
 type ctags &>/dev/null || { echo 'ctags not installed!' ; }
 ctags --version | grep -qi exuberant || { echo 'exuberant-ctags not installed! brew install ctags' ; }
@@ -158,6 +170,7 @@ type tmux &>/dev/null || { echo 'tmux not installed!' ; }
 type tmuxinator &>/dev/null || { echo 'tmuxinator not installed!' ; }
 type pip &>/dev/null || { echo 'pip not installed!' ; }
 type stern &>/dev/null || { echo 'stern not installed!' ; }
+type gh &>/dev/null || { echo 'gh not installed!' ; }
 brew --prefix switch &>/dev/null || { echo 'switch not installed!' ; }
 type reattach-to-user-namespace &>/dev/null || { echo 'reattach-to-user-namespace not installed!' ; }
 type pydf &>/dev/null || { echo 'pydf not installed!' ; }
